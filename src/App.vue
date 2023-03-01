@@ -1,12 +1,12 @@
 <template>
   <header class="banner__block">
-    <h1>Луг</h1>
+    <h1 class="text-3xl font-bold underline color-blue-300">Луг</h1>
   </header>
   <main>
     <div class="card__wrap" v-if="numberInput.length > 5">
       <article class="card__client" v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
         <div class="info_wrap">
-          <h2>{{ clientInfo.name }}</h2>
+          <h2 >{{ clientInfo.name }}</h2>
           <h1>{{ clientInfo.number }}</h1>
           <h3>{{ clientInfo.points }} {{ renderAmountPoint(clientInfo.points) }}</h3>
         </div>
@@ -82,8 +82,7 @@ export default {
   },
   computed: {
     filterClientNumber(){
-    
-      // return this.clientStorage.filter(card => card.number.slice(0, this.numberInput) == this.numberInput)
+      
       return this.clientStorage.filter(card => String(card.number).slice(0, this.numberInput.length) == this.numberInput)
     }
   },
@@ -92,11 +91,3 @@ export default {
   }
 }
 </script>
-
-<style>
-:root {
-  --main__accent__color: #305346,
-    --main__bg: #FBDCD7,
-    --main__text_color: #686767,
-}
-</style>
