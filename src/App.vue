@@ -1,19 +1,22 @@
 <template>
-  <header class="banner__block">
-    <h1 class="text-3xl font-bold underline color-blue-300">Луг</h1>
+<div class="max-w-[400px] mx-auto h-screen bg-[#F8C8C0]">
+  <header class="bg-[#305346]">
+    <h1 class="text-6xl text-center text-white pt-5 pb-5">Луг</h1>
   </header>
   <main>
-    <div class="card__wrap" v-if="numberInput.length > 5">
-      <article class="card__client" v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
-        <div class="info_wrap">
+    <div class="last:mb-0">
+      <article class="bg-[#FBDCD7] mb-5"
+      v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
+        <div>
           <h2 >{{ clientInfo.name }}</h2>
           <h1>{{ clientInfo.number }}</h1>
           <h3>{{ clientInfo.points }} {{ renderAmountPoint(clientInfo.points) }}</h3>
         </div>
       </article>
     </div>
-    <input maxlength="12" type="text" placeholder="Введите номер гостя" v-model="numberInput">
+    <input class="focus:outline-none mx-auto" maxlength="12" type="text" placeholder="Введите номер гостя" v-model="numberInput">
   </main>
+</div>
 </template>
 
 <script>
@@ -82,7 +85,6 @@ export default {
   },
   computed: {
     filterClientNumber(){
-      
       return this.clientStorage.filter(card => String(card.number).slice(0, this.numberInput.length) == this.numberInput)
     }
   },
