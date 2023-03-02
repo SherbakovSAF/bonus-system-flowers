@@ -4,7 +4,8 @@
     <h1 class="text-6xl text-center text-white pt-5 pb-5">Луг</h1>
   </header>
   <main>
-    <div class="last:mb-0">
+    <div class="last:mb-0"
+    v-if="numberInput.length >= 5">
       <article class="bg-[#FBDCD7] mb-5"
       v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
         <div>
@@ -30,7 +31,7 @@ export default {
         {
           number: 812354567890,
           name: "Антон",
-          points: 1212323,
+          points: 1212325,
           purchaseHistory: [
             {
               date: "23.21.2222",
