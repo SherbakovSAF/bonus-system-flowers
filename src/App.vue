@@ -4,7 +4,7 @@
     <h1>Луг</h1>
   </header>
   <main>
-    <div v-if="numberInput.length >= 5">
+    <!-- <div v-if="numberInput.length >= 5">
       <article 
       v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
         <div>
@@ -17,6 +17,61 @@
     <form>
       <div>
         <input maxlength="12" type="text" placeholder="Введите номер гостя" v-model="numberInput">
+      </div>
+    </form> -->
+    <div>
+      <article>
+        <div>
+          <div class="person__main__block">
+            <h2>Сергей</h2>
+            <h2>812345</h2>
+          </div>
+          <div >
+            <h1>1200 бонусов</h1>
+            <h1>100к сумма выкупа </h1>
+          </div>
+        </div>
+      </article>
+      <section>
+        <label>
+          <input type="radio" name="bonusAction"><h3>Новая покупка</h3>
+        </label>
+        <label>
+          <input type="radio" name="bonusAction"><h3>История покупок</h3>
+        </label>
+      </section>
+      <form>
+        <div>
+          <input maxlength="12" type="text" placeholder="Введите сумму покупки">
+        </div>
+      </form>
+      <section>
+        <label>
+          <input type="radio" name="bonusAction"><h3>Начислить</h3>
+        </label>
+        <label>
+          <input type="radio" name="bonusAction"><h3>Списать</h3>
+        </label>
+      </section>
+      
+    </div>
+    <form>
+      <div>
+        <input maxlength="12" type="text" placeholder="Сколько бонусов списать">
+      </div>
+    </form>
+    <form>
+      <div>
+        <input maxlength="12" type="text" placeholder="Что приобрели?(Необязательно)">
+      </div>
+    </form>
+    <form>
+      <div>
+        <select>
+          <option>Кто продал</option>
+          <option>Надя</option>
+          <option>Вика</option>
+        </select>
       </div>
     </form>
   </main>
@@ -69,7 +124,14 @@ export default {
           purchaseHistory: [
           ]
         },
-      ]
+      ],
+      addNewPurchase: {
+        sum: null,
+        typeBonus: "WRITEOFF",
+        numberBonus: null,
+        shopList: "",
+        salesman: "",
+      }
     }
   },
   methods: {
@@ -180,6 +242,7 @@ article::after{
   z-index: 1;
 }
 
+/* 
 article div {
   color: var(--main-color-text);
   padding: 28px 30px;
@@ -212,6 +275,7 @@ article div h3::after{
   margin-left: 6px;
 }
 
+*/
 form {
   display:flex;
   justify-content: center;
