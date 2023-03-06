@@ -32,48 +32,56 @@
           </div>
         </div>
       </article>
+    </div>
+    <div class="choisePersonActive">
       <section>
         <label>
-          <input type="radio" name="bonusAction"><h3>Новая покупка</h3>
+          <input type="radio" name="purchaseType" value="newWPurchaseSelect" v-model="purchaseType"><h3>Новая покупка</h3>
         </label>
         <label>
-          <input type="radio" name="bonusAction"><h3>История покупок</h3>
+          <input type="radio" name="purchaseType" value="historyPurchaseSelect" v-model="purchaseType"><h3>История покупок</h3>
         </label>
       </section>
+    </div>
+    <div class="newPurchaseBlock" v-if="purchaseType == 'newWPurchaseSelect'">
       <form>
         <div>
-          <input maxlength="12" type="text" placeholder="Введите сумму покупки">
+          <input maxlength="12" type="text" placeholder="Введите сумму покупки" v-model="addNewPurchase.sum">
         </div>
       </form>
       <section>
         <label>
-          <input type="radio" name="bonusAction"><h3>Начислить</h3>
+          <input v-model="addNewPurchase.typeBonus" 
+                  type="radio" name="bonusAction" value="ACCRUE">
+          <h3>Начислить</h3>
         </label>
         <label>
-          <input type="radio" name="bonusAction"><h3>Списать</h3>
+          <input v-model="addNewPurchase.typeBonus" 
+          type="radio" name="bonusAction"  value="WRITE-OFF">
+          <h3>Списать</h3>
         </label>
       </section>
-      
+      <div class="newPurchaseBlock"></div>
+      <form v-if="addNewPurchase.typeBonus == 'WRITE-OFF'">
+        <div>
+          <input maxlength="12" type="text" placeholder="Сколько бонусов списать" v-model="addNewPurchase.numberBonus">
+        </div>
+      </form>
+      <form>
+        <div>
+          <input maxlength="12" type="text" placeholder="Что приобрели?(Необязательно)" v-model="addNewPurchase.shopList">
+        </div>
+      </form>
+      <form>
+        <div>
+          <select >
+            <option>Кто продал</option>
+            <option>Надя</option>
+            <option>Вика</option>
+          </select>
+        </div>
+      </form>
     </div>
-    <form>
-      <div>
-        <input maxlength="12" type="text" placeholder="Сколько бонусов списать">
-      </div>
-    </form>
-    <form>
-      <div>
-        <input maxlength="12" type="text" placeholder="Что приобрели?(Необязательно)">
-      </div>
-    </form>
-    <form>
-      <div>
-        <select>
-          <option>Кто продал</option>
-          <option>Надя</option>
-          <option>Вика</option>
-        </select>
-      </div>
-    </form>
   </main>
 </div>
 </template>
@@ -125,9 +133,10 @@ export default {
           ]
         },
       ],
+      purchaseType: "newWPurchaseSelect",
       addNewPurchase: {
         sum: null,
-        typeBonus: "WRITEOFF",
+        typeBonus: 'ACCRUE',
         numberBonus: null,
         shopList: "",
         salesman: "",
