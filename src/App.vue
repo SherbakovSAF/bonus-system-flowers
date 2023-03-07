@@ -1,10 +1,13 @@
 <template>
-<div class="main__wrap">
-  <header class="banner">
-    <h1>Луг</h1>
-  </header>
-  <main>
-    <!-- <div v-if="numberInput.length >= 5">
+  <div class="font-montserrat max-w-6xl mx-auto over overflow-hidden h-screen">
+    <header class="bg-[#305346] h-28 flex items-center justify-center relative before:content-jointSettings">
+      <img src="./assets/media/venok.png" alt="Изображение венка" class="h-28 w-16 mr-8"
+        style="transform: scale(-1,1) rotate(33.4deg)">
+      <h1 class="text-6xl text-white">Луг</h1>
+      <img src="./assets/media/venok.png" alt="Изображение венка" class="h-28 w-16 rotate-[33.4deg] ml-8">
+    </header>
+    <main class="h-screen max-sm:bg-[#F8C8C0]">
+      <!-- <div v-if="numberInput.length >= 5">
       <article 
       v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
         <div>
@@ -19,71 +22,80 @@
         <input maxlength="12" type="text" placeholder="Введите номер гостя" v-model="numberInput">
       </div>
     </form> -->
-    <div>
-      <article>
-        <div>
-          <div class="person__main__block">
-            <h2>Сергей</h2>
-            <h2>812345</h2>
+      <div class="py-6">
+        <article class="bg-[#FBDCD7] max-w-[50%] rounded-r-full flex justify-between items-center shadow-lg">
+          <div class="text-[#686767] px-8 py-7">
+            <div class="person__main__block">
+              <h2 class="text-xl">Сергей</h2>
+              <h2 class="text-2xl">812345</h2>
+            </div>
+            <div>
+              <h1><span class="text-3xl">1200</span> <span class="text-xl">бонусов</span></h1>
+              <h1 class="flex items-center"><span class="text-3xl">100к</span> <span class="text-xl">сумма выкупа</span><img
+                  src="./assets/media/pig.svg" alt="СвинкаБонус" class="ml-2"></h1>
+            </div>
           </div>
-          <div >
-            <h1>1200 бонусов</h1>
-            <h1>100к сумма выкупа </h1>
+          <img src="./assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]">
+        </article>
+      </div>
+      <div class="flex justify-around py-6">
+        <label class="bg-transparent py-2 px-20 border-2 border-[#305346] rounded-full flex">
+          <input type="radio" name="purchaseType" value="newWPurchaseSelect" v-model="purchaseType">
+          <h3 class="text-[#305346] text-xl font-medium">Новая покупка</h3>
+        </label>
+        <label class="bg-transparent py-2 px-20 border-2 border-[#305346] rounded-full flex">
+          <input type="radio" name="purchaseType" value="historyPurchaseSelect" v-model="purchaseType">
+          <h3 class="text-[#305346] text-xl font-medium">История покупок</h3>
+        </label>
+      </div>
+      <div class="newPurchaseBlock" v-if="purchaseType == 'newWPurchaseSelect'">
+        <form class="py-3">
+          <div class="flex relative">
+            <img src="./assets/media/bouquetInput.svg" alt="" class="absolute">
+            <input maxlength="12" type="text" placeholder="Введите сумму покупки"
+              class="bg-white py-3 px-4 rounded-full w-1/3 outline-0 font-medium text-[#686767]"
+              v-model="addNewPurchase.sum">
           </div>
+        </form>
+        <div class="flex justify-around py-3">
+          <label class="flex">
+            <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="ACCRUE">
+            <h3 class="text-lg text-[#305346]">Начислить</h3>
+          </label>
+          <label class="flex">
+            <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="WRITE-OFF">
+            <h3 class="text-lg text-[#305346]">Списать</h3>
+          </label>
         </div>
-      </article>
-    </div>
-    <div class="choisePersonActive">
-      <section>
-        <label>
-          <input type="radio" name="purchaseType" value="newWPurchaseSelect" v-model="purchaseType"><h3>Новая покупка</h3>
-        </label>
-        <label>
-          <input type="radio" name="purchaseType" value="historyPurchaseSelect" v-model="purchaseType"><h3>История покупок</h3>
-        </label>
-      </section>
-    </div>
-    <div class="newPurchaseBlock" v-if="purchaseType == 'newWPurchaseSelect'">
-      <form>
-        <div>
-          <input maxlength="12" type="text" placeholder="Введите сумму покупки" v-model="addNewPurchase.sum">
-        </div>
-      </form>
-      <section>
-        <label>
-          <input v-model="addNewPurchase.typeBonus" 
-                  type="radio" name="bonusAction" value="ACCRUE">
-          <h3>Начислить</h3>
-        </label>
-        <label>
-          <input v-model="addNewPurchase.typeBonus" 
-          type="radio" name="bonusAction"  value="WRITE-OFF">
-          <h3>Списать</h3>
-        </label>
-      </section>
-      <div class="newPurchaseBlock"></div>
-      <form v-if="addNewPurchase.typeBonus == 'WRITE-OFF'">
-        <div>
-          <input maxlength="12" type="text" placeholder="Сколько бонусов списать" v-model="addNewPurchase.numberBonus">
-        </div>
-      </form>
-      <form>
-        <div>
-          <input maxlength="12" type="text" placeholder="Что приобрели?(Необязательно)" v-model="addNewPurchase.shopList">
-        </div>
-      </form>
-      <form>
-        <div>
-          <select >
-            <option>Кто продал</option>
-            <option>Надя</option>
-            <option>Вика</option>
-          </select>
-        </div>
-      </form>
-    </div>
-  </main>
-</div>
+        <form class="py-4" v-if="addNewPurchase.typeBonus == 'WRITE-OFF'">
+          <div class="flex relative">
+            <img src="./assets/media/bouquetInput.svg" alt="" class="absolute">
+            <input maxlength="12" type="text" placeholder="Сколько бонусов списать"
+              class="bg-white py-3 px-4 rounded-full w-1/3 outline-0 font-medium text-[#686767]"
+              v-model="addNewPurchase.numberBonus">
+          </div>
+        </form>
+        <form class="py-4">
+          <div class="flex relative">
+            <img src="./assets/media/bouquetInput.svg" alt="" class="absolute">
+            <input maxlength="12" type="text" placeholder="Что приобрели?(Необязательно)"
+              class="bg-white py-3 px-4 rounded-full w-1/3 outline-0 font-medium text-[#686767]"
+              v-model="addNewPurchase.shopList">
+          </div>
+        </form>
+        <form class="py-4">
+          <div>
+            <img src="./assets/media/bouquetInput.svg" alt="" class="absolute">
+            <select class="bg-white py-3 px-4 rounded-full w-1/3 outline-0 font-medium text-[#686767]">
+              <option class="text-[#686767] text-lg" disabled selected>Кто продал</option>
+              <option class="text-[#686767] text-lg">Надя</option>
+              <option class="text-[#686767] text-lg">Вика</option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
 </template>
 <script>
 
@@ -158,162 +170,12 @@ export default {
     },
   },
   computed: {
-    filterClientNumber(){
+    filterClientNumber() {
       return this.clientStorage.filter(card => String(card.number).slice(0, this.numberInput.length) == this.numberInput)
     }
   },
-  watch:{
-  
+  watch: {
+
   }
 }
 </script>
-<style>
-:root{
-  --color-main: #305346;
-  --main-bg: #F8C8C0;
-  --second-bg: #FBDCD7;
-  --main-color-text: #686767;
-}
-
-.main__wrap {
-  font-family: 'Montserrat';
-  max-width: 400px;
-  margin: 0 auto;
-  
-  background-color: var(--main-bg);
-  overflow: hidden;
-  height: 100vh;
-}
-.banner {
-  background-color: var(--color-main);
-  height: 104px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.banner::after, .banner::before{
-  content: "";
-  position: absolute;
-  display: block;
-  background-image: url(./assets/media/venok.png);
-  height: 114.37px;
-  width: 59.77px;
-  background-size: cover;
-  background-position: center;
-  top: -16px;
-
-}
-
-.banner::after{
-  left: calc(100% - 30px);
-  transform: translateX(-100%) rotate(33.4deg);
-  
-}
-
-.banner::before{
-  left: 30px;
-  transform: scale(-1,1) rotate(33.4deg);
-}
-
-.banner h1 {
-  color: white;
-  font-size: 64px;
-}
-
-article{
-  background-color: var(--second-bg);
-  margin-bottom: 61px;
-  max-width: 370px;
-  border-radius: 0px 98.5px 98.5px 0px;
-  position: relative;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-
-}
-
-article:last-child{
-  margin: 0;
-}
-article::after{
-  content: "";
-  display: block;
-  background-image: url(./assets/media/flower.png);
-  height: 127px;
-  width: 90px;       
-  background-size: cover;
-  background-position: center;
-  position: absolute;
-
-  top: 0;
-  left: 100%;
-  transform: translate(calc(-100% - 16px),20px);
-  z-index: 1;
-}
-
-/* 
-article div {
-  color: var(--main-color-text);
-  padding: 28px 30px;
-  margin-top: 30px;
-}
-
-article div h2 {
-  font-size: 24px;
-}
-
-article div h1 {
-  font-weight: 500;
-  font-size: 32px;
-}
-
-article div h3 {
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-}
-
-article div h3::after{
-  content: "";
-  display: block;
-  background-image: url(./assets/media/pig.svg);
-  height: 16px;
-  width: 16px;
-  background-size: cover;
-  background-position: center;
-  margin-left: 6px;
-}
-
-*/
-form {
-  display:flex;
-  justify-content: center;
-  padding: 30px 0px;
-}
-main form div{
-  display: flex;
-  justify-content: center;
-  position: relative;
-}
-
-main form div input{
-  padding: 10px 51px;
-  border-radius: 30px; 
-  outline: none;
-  font-weight: 500;
-  color: var(--main-color-text);
-}
-
-main form div::before{
-  content: "";
-  display: block;
-  background-image: url(./assets/media/bouquetInput.svg);
-  height: 22px;
-  width: 22px;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%); 
-  left: 16px;
-}
-
-</style>
