@@ -1,15 +1,30 @@
 <template>
-     <div v-if="numberInput.length >= 5">
-          <article v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
-               <div>
-                    <h2>{{ clientInfo.name }}</h2>
-                    <h1>{{ clientInfo.number }}</h1>
-                    <h3>{{ clientInfo.points }} {{ renderAmountPoint(clientInfo.points) }}</h3>
+     <div>     
+          <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6"
+          v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
+               <a href="#" class="flex justify-between items-center ">
+               <div class="text-[#686767] px-8 py-7">
+                    <div class="person__main__block">
+                         <h2 class="text-xl">{{ clientInfo.name }}</h2>
+                         <h2 class="text-2xl">{{ clientInfo.number }}</h2>
+                    </div>
+                    <hr class="w-full h-1 bg-[#305346]">
+                    <div>
+                         <h1><span class="text-3xl">{{ clientInfo.points }}</span> <span class="text-xl">{{
+                              renderAmountPoint(clientInfo.points) }}</span></h1>
+                         <h1 class="flex items-center">
+                              <span class="text-3xl">{{ clientInfo.totalAmount }}</span>
+                              <span class="text-xl">сумма выкупа</span>
+                              <img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2">
+                         </h1>
+                    </div>
                </div>
+               <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]">
+          </a>
           </article>
      </div>
      <form class="flex justify-center mt-5">
-          <div class="w-1/2">
+          <div class="w-1/2 max-md:w-[90%]">
                <img src="../assets/media/bouquetInput.svg" alt="" class="absolute">
                <input class="bg-white py-3 px-4 rounded-full w-full outline-0 font-medium text-[#686767]" maxlength="12"
                     type="text" placeholder="Введите номер гостя" v-model="numberInput">
@@ -28,6 +43,7 @@ export default {
                          number: 812354567890,
                          name: "Антон",
                          points: 1212325,
+                         totalAmount: 200,
                          purchaseHistory: [
                               {
                                    date: "23.21.2222",
@@ -84,6 +100,7 @@ export default {
      },
      computed: {
           filterClientNumber() {
+               // Фильтрация номера клиента по введёному номеру в инпут. Номер клиента обрезается по количеству введёных символов в ипут, чтобы происход поиск, 
                return this.clientStorage.filter(card => String(card.number).slice(0, this.numberInput.length) == this.numberInput)
           }
 
