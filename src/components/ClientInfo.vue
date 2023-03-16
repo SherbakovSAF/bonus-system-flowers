@@ -7,6 +7,7 @@
             <h2 class="text-xl">Сергей</h2>
             <h2 class="text-2xl">812345</h2>
           </div>
+          <hr class="w-full h-1 bg-[#305346]">
           <div>
             <h1><span class="text-3xl">1200</span> <span class="text-xl">бонусов</span></h1>
             <h1 class="flex items-center"><span class="text-3xl">100к</span> <span class="text-xl">сумма выкупа</span><img
