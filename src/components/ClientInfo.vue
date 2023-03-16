@@ -18,13 +18,15 @@
       </article>
     </div>
     <div class="flex justify-around py-6">
-      <label class="bg-transparent py-2 px-20 border-2 border-[#305346] rounded-full flex">
-        <input type="radio" name="purchaseType" value="newWPurchaseSelect" v-model="purchaseType">
-        <h3 class="text-[#305346] text-xl font-medium">Новая покупка</h3>
+      <label class="py-2 px-20 flex relative cursor-pointer">
+        <input type="radio" name="purchaseType" value="newWPurchaseSelect" class="peer/purchaseType hidden" v-model="purchaseType">
+        <h3 class="text-[#305346] text-xl font-semibold peer-checked/purchaseType:text-white">Новая покупка</h3>
+        <div class="absolute w-full h-full top-0 left-0 rounded-full z-[-1] border-4 border-[#305346] peer-checked/purchaseType:bg-[#305346]"></div>
       </label>
-      <label class="bg-transparent py-2 px-20 border-2 border-[#305346] rounded-full flex">
-        <input type="radio" name="purchaseType" value="historyPurchaseSelect" v-model="purchaseType">
-        <h3 class="text-[#305346] text-xl font-medium">История покупок</h3>
+      <label class="py-2 px-20 flex relative cursor-pointer">
+        <input type="radio" name="purchaseType" value="historyPurchaseSelect" class="peer/purchaseType hidden" v-model="purchaseType">
+        <h3 class="text-[#305346] text-xl font-semibold peer-checked/purchaseType:text-white">История покупок</h3>
+        <div class="absolute w-full h-full top-0 left-0 rounded-full z-[-1] border-4 border-[#305346] peer-checked/purchaseType:bg-[#305346]"></div>
       </label>
     </div>
     <new-purchase v-if="purchaseType == 'newWPurchaseSelect'"/>

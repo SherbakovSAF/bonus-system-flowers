@@ -4,16 +4,18 @@
                <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl" maxlength="14" type="tel"
-                         placeholder="Введите номер гостя" v-model="addNewPurchase.sum">
+                         placeholder="Введите сумму покупки" v-model="addNewPurchase.sum">
                </div>
           </form>
-          <div class="flex justify-around py-3">
-               <label class="flex">
-                    <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="ACCRUE">
+          <div class="flex justify-around">
+               <label class="flex py-3 cursor-pointer">
+                    <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="ACCRUE" class="peer/bonusAction hidden">
+                    <div class="w-6 h-6 rounded-full box-border border-[#305346] border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-[#305346]"></div>
                     <h3 class="text-lg text-[#305346]">Начислить</h3>
                </label>
-               <label class="flex">
-                    <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="WRITE-OFF">
+               <label class="flex py-3 cursor-pointer">
+                    <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="WRITE-OFF" class="peer/bonusAction hidden">
+                    <div class="w-6 h-6 rounded-full box-border border-[#305346] border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-[#305346]"></div>
                     <h3 class="text-lg text-[#305346]">Списать</h3>
                </label>
           </div>
@@ -21,27 +23,28 @@
                <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl" maxlength="14" type="tel"
-                         placeholder="Введите номер гостя" v-model="addNewPurchase.numberBonus">
+                         placeholder="Сколько бонусов списать?" v-model="addNewPurchase.numberBonus">
                </div>
           </form>
           <form class="py-4">
                <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl" maxlength="14" type="tel"
-                         placeholder="Введите номер гостя" v-model="addNewPurchase.shopList">
+                         placeholder="Что приобрели?(Необязательно)" v-model="addNewPurchase.shopList">
                </div>
           </form>
           <form class="py-4">
                <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <select class="outline-0 w-full font-medium text-[#686767] text-1xl">
-                         <option class="text-[#686767] text-lg" disabled selected>Кто продал</option>
+                         <option class="text-[#686767] text-lg opacity-10" disabled selected>Кто продал</option>
                          <option class="text-[#686767] text-lg">Надя</option>
                          <option class="text-[#686767] text-lg">Вика</option>
                     </select>
                </div>
           </form>
      </div>
+     
 </template>
 
 <script>

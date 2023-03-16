@@ -46,7 +46,7 @@
      <form class="flex justify-center mt-5">
           <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
                <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3" >
-               <input class="outline-0 w-full rounded-[inherit] font-medium text-[#686767] text-2xl" maxlength="14" type="tel"
+               <input class="outline-0 w-full  font-medium text-[#686767] text-2xl" maxlength="14" type="tel"
                     placeholder="Введите номер гостя" v-model="numberInput">
           </div>
      </form>
@@ -122,7 +122,6 @@ export default {
      },
      computed: {
           filterClientNumber() {
-               
                const firstValueTransValue = this.numberInput.slice(0,1)
                
                const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) =>{
@@ -133,9 +132,11 @@ export default {
                if(firstValueTransValue == "+"){
                     // Обрезается +7
                     return templateSliceNumber(this.numberInput.length - 1, 2)
-               } else {
+               } else if(firstValueTransValue == "8"){
                     // Обрезается 8
                     return templateSliceNumber(this.numberInput.length, 1)
+               } else {
+                    return templateSliceNumber(this.numberInput.length + 1, 0)
                }
                // console.log(this.clientStorage.filter(n => Object.values(n).some(m => m.includes(this.numberInput)))) 
                // console.log(this.clientStorage.filter(n => Object.values(n.number).some(m => m.includes(this.numberInput)))) 
