@@ -126,12 +126,15 @@ export default {
                const firstValueTransValue = this.numberInput.slice(0,1)
                
                const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) =>{
+                    // Выносим шаблон
                     return this.clientStorage.filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
                }
 
                if(firstValueTransValue == "+"){
+                    // Обрезается +7
                     return templateSliceNumber(this.numberInput.length - 1, 2)
                } else {
+                    // Обрезается 8
                     return templateSliceNumber(this.numberInput.length, 1)
                }
                // console.log(this.clientStorage.filter(n => Object.values(n).some(m => m.includes(this.numberInput)))) 

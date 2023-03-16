@@ -6,36 +6,44 @@
       <h1 class="text-6xl text-white">Луг</h1>
       <img src="./assets/media/venok.png" alt="Изображение венка" class="h-28 w-16 rotate-[33.4deg] ml-8">
     </header>
-    <search-client />
+    <!-- <search-client /> -->
+    <client-info :client-info="temporaryObjectForPropsChecked"/>
   </div>
 </template>
 
 <script>
-import SearchClient from './components/SearchClient.vue'
+// import SearchClient from './components/SearchClient.vue'
+import ClientInfo from './components/ClientInfo.vue'
 
 
 export default {
   name: 'App',
   components: {
-    SearchClient,
+    // SearchClient,
+    ClientInfo,
   },
   data() {
     return {
-    numberInput: "",
-      purchaseType: "newWPurchaseSelect",
-      addNewPurchase: {
-        sum: null,
-        typeBonus: 'ACCRUE',
-        numberBonus: null,
-        shopList: "",
-        salesman: "",
-      }
+      temporaryObjectForPropsChecked: {
+                         number: "812354567890",
+                         name: "Антон",
+                         points: 1212325,
+                         totalAmount: 200,
+                         purchaseHistory: [
+                              {
+                                   date: "23.21.2222",
+                                   sum: 123,
+                                   typeOperationPoint: "SUB", // or "PLUS"
+                                   listPurchase: "Тюльпаны",
+                              },
+                         ]
+                    },
     }
   },
 }
 </script>
 <style>
-html{
+html {
   background-color: #F8C8C0;
 }
 </style>
