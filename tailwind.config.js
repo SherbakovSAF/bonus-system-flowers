@@ -15,7 +15,8 @@ module.exports = {
       'main-color-text': '#686767',
     },
     fontFamily: {
-      montserrat: ['Montserrat', 'serif']
+      montserrat: ['Montserrat', 'serif'],
+      playfaur: ['PlayfaurDisplaySC', 'serif']
     },
     extend: {
     },
