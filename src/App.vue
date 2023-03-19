@@ -7,20 +7,23 @@
       <img src="./assets/media/venok.png" alt="Изображение венка" class="h-28 w-16 rotate-[33.4deg] ml-8">
     </header>
     <!-- <search-client /> -->
-    <client-info :client-info="temporaryObjectForPropsChecked"/>
+    <!-- <client-info :client-info="temporaryObjectForPropsChecked"/> -->
+    <reg-new-client-info />
   </div>
 </template>
 
 <script>
 // import SearchClient from './components/SearchClient.vue'
-import ClientInfo from './components/ClientInfo.vue'
+// import ClientInfo from './components/ClientInfo.vue'
+import RegNewClientInfo from './components/RegNewClientInfo.vue';
 
 
 export default {
   name: 'App',
   components: {
     // SearchClient,
-    ClientInfo,
+    // ClientInfo,
+    RegNewClientInfo
   },
   data() {
     return {

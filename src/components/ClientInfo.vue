@@ -30,7 +30,17 @@
       </label>
     </div>
     <new-purchase v-if="purchaseType == 'newWPurchaseSelect'"/>
-    <history-purchase-client v-if="purchaseType == 'historyPurchaseSelect'"/>
+    <history-purchase-client v-if="purchaseType == 'historyPurchaseSelect'" :clientPurchaseHistory="[
+      {
+      id: 0,
+      date: '23.21.2222',
+      sum: 123,
+      subBonus: 100,
+      plusBonus: 20,
+      typeOperationPoint: 'PLUS',
+      listPurchase: 'Тюльпаны, Огурцы',
+ }
+ ]"/>
   </main>
 </template>
 
