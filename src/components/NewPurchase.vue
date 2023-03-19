@@ -44,7 +44,7 @@
                </div>
           </form>
      </div>
-     
+     <button type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto">Отправить</button>
 </template>
 
 <script>
