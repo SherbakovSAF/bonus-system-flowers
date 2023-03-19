@@ -1,15 +1,18 @@
 <template>
      <div>
           <div>
-               <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6"
+               <article 
+                    class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
+                         max-lg:w-2/3 max-sm:w-full"
                     v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
-                    <a href="#" class="flex justify-between items-center ">
+                    <a href="#" 
+                         class="flex justify-between items-center
+                              max-[500px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
                                    <h2 class="text-xl">{{ clientInfo.name }}</h2>
                                    <h2 class="text-2xl">{{ clientInfo.number }}</h2>
                               </div>
-
                               <div>
                                    <h1>
                                         <span class="text-3xl">{{ clientInfo.points }}</span>
@@ -22,13 +25,19 @@
                                    </h1>
                               </div>
                          </div>
-                         <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]">
+                         <img src="../assets/media/flower.png" alt="" 
+                              class="justify-end mr-6 h-[150px]
+                                   max-[500px]:absolute left-full -translate-x-full">
                     </a>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">
-               <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6">
-                    <a href="#" class="flex justify-between items-center ">
+               <article 
+                    class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
+                         max-md:w-2/3 max-sm:w-full">
+                    <a href="#" 
+                         class="flex justify-between items-center
+                         max-[430px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
                                    <h2 class="text-xl">Клиент не найден</h2>
@@ -37,16 +46,25 @@
                                    </h1>
                               </div>
                          </div>
-                         <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]">
+                         <img src="../assets/media/flower.png" alt="" 
+                              class="justify-end mr-6 h-[150px]
+                                   max-[430px]:absolute left-full -translate-x-full">
                     </a>
                </article>
           </div>
      </div>
 
-     <form class="flex justify-center mt-5">
-          <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
+     <form class="flex justify-center mt-5 ">
+          <div 
+               class="w-1/3 bg-white rounded-full flex py-3 px-4
+                    max-lg:w-1/2
+                    max-sm:w-[90%]">
                <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3" >
-               <input class="outline-0 w-full  font-medium text-[#686767] text-2xl" maxlength="14" type="tel"
+               <input 
+                    class="outline-0 w-full font-medium text-[#686767] text-2xl
+                    max-lg:text-xl
+                         " 
+                    maxlength="14" type="tel"
                     placeholder="Введите номер гостя" v-model="numberInput">
           </div>
      </form>

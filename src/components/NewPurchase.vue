@@ -1,9 +1,14 @@
 <template>
      <div>
           <form class="py-3">
-               <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
+               <div 
+                    class="w-1/3 bg-white rounded-full flex py-3 px-4
+                         max-lg:m-auto max-lg:w-2/3
+                         ">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl" maxlength="14" type="tel"
+                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl
+                         max-sm:text-sm" 
+                         maxlength="14" type="tel"
                          placeholder="Введите сумму покупки" v-model="addNewPurchase.sum">
                </div>
           </form>
@@ -20,21 +25,34 @@
                </label>
           </div>
           <form class="py-4" v-if="addNewPurchase.typeBonus == 'WRITE-OFF'">
-               <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
+               <div 
+                    class="w-1/3 bg-white rounded-full flex py-3 px-4
+                    max-lg:m-auto max-lg:w-2/3
+                    ">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl" maxlength="14" type="tel"
+                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl
+                         max-sm:text-sm"
+                         maxlength="14" type="tel"
                          placeholder="Сколько бонусов списать?" v-model="addNewPurchase.numberBonus">
                </div>
           </form>
           <form class="py-4">
-               <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
+               <div 
+                    class="w-1/3 bg-white rounded-full flex py-3 px-4
+                    max-lg:m-auto max-lg:w-2/3
+                    ">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl" maxlength="14" type="tel"
-                         placeholder="Что приобрели?(Необязательно)" v-model="addNewPurchase.shopList">
+                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl
+                         max-sm:text-sm"
+                         maxlength="14" type="tel"
+                         placeholder="Сколько бонусов списать?" v-model="addNewPurchase.shopList">
                </div>
           </form>
           <form class="py-4">
-               <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4">
+               <div 
+                    class="w-1/3 bg-white rounded-full flex py-3 px-4
+                    max-lg:m-auto max-lg:w-2/3
+                    ">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <select class="outline-0 w-full font-medium text-[#686767] text-1xl">
                          <option class="text-[#686767] text-lg opacity-10" disabled selected>Кто продал</option>
@@ -44,7 +62,9 @@
                </div>
           </form>
      </div>
-     <button type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto">Отправить</button>
+     <button type="submit" 
+          class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+               max-sm:w-2/3">Отправить</button>
 </template>
 
 <script>

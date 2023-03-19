@@ -1,8 +1,9 @@
 <template>
 <div>
-     <article class="bg-[#FBDCD7] w-1/2 rounded-l-full shadow-lg mt-6 ml-auto">
-          <a href="#" class="flex justify-between items-center ">
-               <img src="../assets/media/flower.png" alt="" class="justify-end ml-6 ">
+     <article class="bg-[#FBDCD7] w-1/2 rounded-l-full shadow-lg mt-6 ml-auto
+          max-lg:w-2/3 max-sm:w-full">
+          <a href="#" class="flex justify-between items-center">
+               <img src="../assets/media/flower.png" alt="" class="justify-end ml-6">
                <div class="w-2/3 text-main-color-text py-3"
                v-for="historyPurchase in clientPurchaseHistory"
                :key="historyPurchase.id">
@@ -25,7 +26,8 @@
                </div>
           </a>
      </article>
-     <button type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto">Показать ещё</button>
+     <button type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+     max-sm:w-2/3">Показать ещё</button>
 </div>
 </template>
 
