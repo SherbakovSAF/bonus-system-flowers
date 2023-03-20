@@ -6,24 +6,25 @@
       <h1 class="text-6xl text-white">Цветы</h1>
       <img src="./assets/media/venok.png" alt="Изображение венка" class="h-28 w-16 rotate-[33.4deg] ml-8">
     </header>
-    <search-client />
-    <client-info :client-info="temporaryObjectForPropsChecked"/>
-    <reg-new-client-info />
+    <!-- <search-client /> -->
+    <router-view />
   </div>
+  
+  
 </template>
 
 <script>
-import SearchClient from './components/SearchClient.vue'
-import ClientInfo from './components/ClientInfo.vue'
-import RegNewClientInfo from './components/RegNewClientInfo.vue';
+// import SearchClient from './components/SearchClient.vue'
+// import ClientInfo from './components/ClientInfo.vue'
+// import RegNewClientInfo from './components/RegNewClientInfo.vue';
 
 
 export default {
   name: 'App',
   components: {
-    SearchClient,
-    ClientInfo,
-    RegNewClientInfo
+    // SearchClient,
+    // ClientInfo,
+    // RegNewClientInfo
   },
   data() {
     return {
