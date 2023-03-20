@@ -1,13 +1,10 @@
 <template>
      <div>
           <div>
-               <article 
-                    class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
-                         max-lg:w-2/3 max-sm:w-full"
-                    v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
-                    <a href="#" 
-                         class="flex justify-between items-center
-                              max-[500px]:relative">
+               <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
+                              max-lg:w-2/3 max-sm:w-full" v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
+                    <a href="#/clientInfo" @click="selected(clientInfo)" class="flex justify-between items-center
+                                   max-[500px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
                                    <h2 class="text-xl">{{ clientInfo.name }}</h2>
@@ -25,19 +22,16 @@
                                    </h1>
                               </div>
                          </div>
-                         <img src="../assets/media/flower.png" alt="" 
-                              class="justify-end mr-6 h-[150px]
-                                   max-[500px]:absolute left-full -translate-x-full">
+                         <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
+                                        max-[500px]:absolute left-full -translate-x-full">
                     </a>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">
-               <article 
-                    class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
-                         max-md:w-2/3 max-sm:w-full">
-                    <a href="#" 
-                         class="flex justify-between items-center
-                         max-[430px]:relative">
+               <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
+                              max-md:w-2/3 max-sm:w-full">
+                    <a href="#" class="flex justify-between items-center
+                              max-[430px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
                                    <h2 class="text-xl">Клиент не найден</h2>
@@ -46,26 +40,21 @@
                                    </h1>
                               </div>
                          </div>
-                         <img src="../assets/media/flower.png" alt="" 
-                              class="justify-end mr-6 h-[150px]
-                                   max-[430px]:absolute left-full -translate-x-full">
+                         <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
+                                        max-[430px]:absolute left-full -translate-x-full">
                     </a>
                </article>
           </div>
      </div>
 
      <form class="flex justify-center mt-5 ">
-          <div 
-               class="w-1/3 bg-white rounded-full flex py-3 px-4
-                    max-lg:w-1/2
-                    max-sm:w-[90%]">
-               <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3" >
-               <input 
-                    class="outline-0 w-full font-medium text-[#686767] text-2xl
-                    max-lg:text-xl
-                         " 
-                    maxlength="14" type="tel"
-                    placeholder="Введите номер гостя" v-model="numberInput">
+          <div class="w-1/3 bg-white rounded-full flex py-3 px-4
+                         max-lg:w-1/2
+                         max-sm:w-[90%]">
+               <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
+               <input class="outline-0 w-full font-medium text-[#686767] text-2xl
+                         max-lg:text-xl
+                              " maxlength="14" type="tel" placeholder="Введите номер гостя" v-model="numberInput">
           </div>
      </form>
 </template>
@@ -77,50 +66,9 @@ export default {
           return {
                numberInput: "",
                clientStorage: [
-                    {
-                         number: "812354567890",
-                         name: "Антон",
-                         points: 1212325,
-                         totalAmount: 200,
-                         purchaseHistory: [
-                              {
-                                   date: "23.21.2222",
-                                   sum: 123,
-                                   typeOperationPoint: "SUB", // or "PLUS"
-                                   listPurchase: "Тюльпаны",
-                              },
-                         ]
-                    },
-                    {
-                         number: "81234567890",
-                         name: "Сергей",
-                         points: 121,
-                         totalAmount: 200,
-                         purchaseHistory: [
-                              {
-                                   date: "23.21.2222",
-                                   sum: 123,
-                                   typeOperationPoint: "SUB", // or "PLUS"
-                                   listPurchase: "Тюльпаны",
-                              },
-                              {
-                                   date: "13.21.2222",
-                                   sum: 12543,
-                                   typeOperationPoint: "SUB", // or "PLUS"
-                                   listPurchase: "Тюльпаны",
-                              },
-                         ]
-                    },
-                    {
-                         number: "8123454567890",
-                         name: "Игорь",
-                         points: 123334,
-                         totalAmount: 200,
-                         purchaseHistory: [
-                         ]
-                    },
+                    
                ],
-
+               selectedClientInfo: null
           }
 
      },
@@ -137,20 +85,24 @@ export default {
                     return "бонусов"
                }
           },
+          selected(clientInfo) {
+               this.selectedClientInfo = clientInfo
+               console.log(this.selectedClientInfo)
+          }
      },
      computed: {
           filterClientNumber() {
-               const firstValueTransValue = this.numberInput.slice(0,1)
-               
-               const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) =>{
+               const firstValueTransValue = this.numberInput.slice(0, 1)
+
+               const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
                     // Выносим шаблон
                     return this.clientStorage.filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
                }
 
-               if(firstValueTransValue == "+"){
+               if (firstValueTransValue == "+") {
                     // Обрезается +7
                     return templateSliceNumber(this.numberInput.length - 1, 2)
-               } else if(firstValueTransValue == "8"){
+               } else if (firstValueTransValue == "8") {
                     // Обрезается 8
                     return templateSliceNumber(this.numberInput.length, 1)
                } else {
@@ -158,7 +110,7 @@ export default {
                }
                // console.log(this.clientStorage.filter(n => Object.values(n).some(m => m.includes(this.numberInput)))) 
                // console.log(this.clientStorage.filter(n => Object.values(n.number).some(m => m.includes(this.numberInput)))) 
-          // return this.clientStorage.filter(n => Object.values(String(n.number)).some(m=> m.includes(String(this.numberInput))))
+               // return this.clientStorage.filter(n => Object.values(String(n.number)).some(m=> m.includes(String(this.numberInput))))
                // Фильтрация номера клиента по введёному номеру в инпут. Номер клиента обрезается по количеству введёных символов в ипут, чтобы происход поиск, 
                // return this.clientStorage.filter(card => String(card.number).slice(0, this.numberInput.length) == this.numberInput)
           }
