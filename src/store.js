@@ -5,51 +5,71 @@ export default createStore({
        return {
           clientStorage: [
                {
-                    number: "812354567890",
+                    number: "89882321312312",
                     name: "Антон",
                     points: 1212325,
                     totalAmount: 200,
                     purchaseHistory: [
                          {
                               date: "23.21.2222",
-                              sum: 123,
+                              sumPurchase: 123,
                               typeOperationPoint: "SUB", // or "PLUS"
+                              subBonus: 20,
+                              plusBonus: 0,
                               listPurchase: "Тюльпаны",
                          },
                     ]
                },
                {
-                    number: "81234567890",
+                    number: "891812343554",
                     name: "Сергей",
-                    points: 121,
+                    points: 1212325,
+                    totalAmount: 200,
+                    purchaseHistory: [
+                    ]
+               },
+               {
+                    number: "+7928125312",
+                    name: "Игорь",
+                    points: 1212325,
                     totalAmount: 200,
                     purchaseHistory: [
                          {
                               date: "23.21.2222",
-                              sum: 123,
+                              sumPurchase: 123,
                               typeOperationPoint: "SUB", // or "PLUS"
+                              subBonus: 20,
+                              plusBonus: 0,
                               listPurchase: "Тюльпаны",
                          },
                          {
-                              date: "13.21.2222",
-                              sum: 12543,
+                              date: "23.21.2222",
+                              sumPurchase: 123,
+                              typeOperationPoint: "PLUS", // or "PLUS"
+                              subBonus: 20,
+                              plusBonus: 0,
+                              listPurchase: "Тюльпаны",
+                         },
+                         {
+                              date: "23.21.2222",
+                              sumPurchase: 123,
                               typeOperationPoint: "SUB", // or "PLUS"
+                              subBonus: 20,
+                              plusBonus: 0,
                               listPurchase: "Тюльпаны",
                          },
                     ]
                },
-               {
-                    number: "8123454567890",
-                    name: "Игорь",
-                    points: 123334,
-                    totalAmount: 200,
-                    purchaseHistory: [
-                    ]
-               },
           ],
+          selectedClient: {
+
+          }
        }
      },
      mutations: {
-       
+          selectClient(state, selectClient) {
+               state.selectedClient = selectClient
+               console.log(selectClient)
+          }
      }
 })

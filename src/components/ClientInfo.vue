@@ -6,13 +6,13 @@
           max-lg:w-2/3 max-sm:w-full">
         <div class="text-main-color-text px-8 py-7">
           <div class="person__main__block">
-            <h2 class="text-xl">{{ clientInfo.name }}</h2>
-            <h2 class="text-2xl">{{ clientInfo.number }}</h2>
+            <h2 class="text-xl">{{ this.$store.state.selectedClient.name }}</h2>
+            <h2 class="text-2xl">{{ this.$store.state.selectedClient.number }}</h2>
           </div>
           <hr class="w-full h-1 bg-main-green">
           <div>
-            <h1><span class="text-3xl">{{ clientInfo.points }}</span> <span class="text-xl">бонусов</span></h1>
-            <h1 class="flex items-center"><span class="text-3xl">{{ clientInfo.totalAmount }}</span> <span
+            <h1><span class="text-3xl">{{ this.$store.state.selectedClient.points }}</span> <span class="text-xl">бонусов</span></h1>
+            <h1 class="flex items-center"><span class="text-3xl">{{ this.$store.state.selectedClient.totalAmount }}</span> <span
                 class="text-xl">сумма выкупа</span><img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2"></h1>
           </div>
         </div>
@@ -41,17 +41,7 @@
       </label>
     </div>
     <new-purchase v-if="purchaseType == 'newWPurchaseSelect'"/>
-    <history-purchase-client v-if="purchaseType == 'historyPurchaseSelect'" :clientPurchaseHistory="[
-      {
-      id: 0,
-      date: '23.21.2222',
-      sum: 123,
-      subBonus: 100,
-      plusBonus: 20,
-      typeOperationPoint: 'PLUS',
-      listPurchase: 'Тюльпаны, Огурцы',
- }
- ]"/>
+    <history-purchase-client v-if="purchaseType == 'historyPurchaseSelect'" :clientPurchaseHistory="this.$store.state.selectedClient.purchaseHistory"/>
   </main>
 </template>
 
@@ -64,17 +54,6 @@ export default {
   components: {
     NewPurchase,
     HistoryPurchaseClient
-  },
-  props: {
-    clientInfo: {
-      type: Object,
-      required: true,
-      default: () => {
-        return {
-          number: "Ошибка приложения",
-        }
-      }
-    }
   },
   data() {
     return {

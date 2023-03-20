@@ -1,9 +1,9 @@
 <template>
      <div>
-          <div>
+          <div v-if="numberInput.length > 5">
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-lg:w-2/3 max-sm:w-full" v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
-                    <a href="#/clientInfo" @click="selected(clientInfo)" class="flex justify-between items-center
+                    <a href="#/clientInfo" @click="selectClient(clientInfo)" class="flex justify-between items-center
                                    max-[500px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
@@ -30,7 +30,7 @@
           <div v-if="filterClientNumber.length === 0">
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-md:w-2/3 max-sm:w-full">
-                    <a href="#" class="flex justify-between items-center
+                    <a href="#/regNewClient" class="flex justify-between items-center
                               max-[430px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
@@ -52,8 +52,7 @@
                          max-lg:w-1/2
                          max-sm:w-[90%]">
                <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-               <input class="outline-0 w-full font-medium text-[#686767] text-2xl
-                         max-lg:text-xl
+               <input class="outline-0 w-full font-medium text-[#686767] text-xl
                               " maxlength="14" type="tel" placeholder="Введите номер гостя" v-model="numberInput">
           </div>
      </form>
@@ -65,10 +64,6 @@ export default {
      data() {
           return {
                numberInput: "",
-               clientStorage: [
-                    
-               ],
-               selectedClientInfo: null
           }
 
      },
@@ -85,9 +80,8 @@ export default {
                     return "бонусов"
                }
           },
-          selected(clientInfo) {
-               this.selectedClientInfo = clientInfo
-               console.log(this.selectedClientInfo)
+          selectClient(clientInfo){
+               this.$store.commit('selectClient', clientInfo)
           }
      },
      computed: {
@@ -96,7 +90,7 @@ export default {
 
                const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
                     // Выносим шаблон
-                    return this.clientStorage.filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
+                    return this.$store.state.clientStorage.filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
                }
 
                if (firstValueTransValue == "+") {
@@ -108,11 +102,6 @@ export default {
                } else {
                     return templateSliceNumber(this.numberInput.length + 1, 0)
                }
-               // console.log(this.clientStorage.filter(n => Object.values(n).some(m => m.includes(this.numberInput)))) 
-               // console.log(this.clientStorage.filter(n => Object.values(n.number).some(m => m.includes(this.numberInput)))) 
-               // return this.clientStorage.filter(n => Object.values(String(n.number)).some(m=> m.includes(String(this.numberInput))))
-               // Фильтрация номера клиента по введёному номеру в инпут. Номер клиента обрезается по количеству введёных символов в ипут, чтобы происход поиск, 
-               // return this.clientStorage.filter(card => String(card.number).slice(0, this.numberInput.length) == this.numberInput)
           }
      }
 }

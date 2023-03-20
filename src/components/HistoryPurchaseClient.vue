@@ -1,19 +1,19 @@
 <template>
 <div>
      <article class="bg-[#FBDCD7] w-1/2 rounded-l-full shadow-lg mt-6 ml-auto
-          max-lg:w-2/3 max-sm:w-full">
+          max-lg:w-2/3 max-sm:w-full"
+          v-for="historyPurchase in this.$store.state.selectedClient.purchaseHistory"
+          :key="historyPurchase.id">
           <a href="#" class="flex justify-between items-center">
                <img src="../assets/media/flower.png" alt="" class="justify-end ml-6">
-               <div class="w-2/3 text-main-color-text py-3"
-               v-for="historyPurchase in clientPurchaseHistory"
-               :key="historyPurchase.id">
+               <div class="w-2/3 text-main-color-text py-3">
                     <div>
                          <h2 class="text-sm">Дата</h2>
                          <h1 class="text-lg font-medium">{{ historyPurchase.date }}</h1>
                     </div>
                     <div>
                          <h2 class="text-sm">Сумма покупки</h2>
-                         <h1 class="text-lg font-medium"><span>{{ historyPurchase.sum }}</span>₽</h1>
+                         <h1 class="text-lg font-medium"><span>{{ historyPurchase.sumPurchase }}</span>₽</h1>
                     </div>
                     <div>
                          <h2 class="text-sm">{{ historyPurchase.typeOperationPoint == "SUB" ? 'Списано' : 'Начислено'}}</h2>
@@ -34,28 +34,5 @@
 <script>
 export default {
      name: "HistoryPurchaseClient",
-     props: {
-          clientPurchaseHistory: {
-               type: Array,
-               required: true,
-               default: () => {
-                    return [
-                         {
-                              id: 0,
-                              date: "23.21.2222",
-                              sum: 123,
-                              typeOperationPoint: "SUB", // or "PLUS"
-                              listPurchase: "Тюльпаны",
-                         }
-                    ]
-               }
-          }
-     },
-
-     data(){
-          return{
-               
-          }
-     }
 }
 </script>
