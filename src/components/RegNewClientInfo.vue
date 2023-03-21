@@ -29,6 +29,7 @@
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
                     max-sm:text-sm" maxlength="14" type="tel"
                          placeholder="Введите номер нового клиента"
+                         autofocus
                          v-model="numberNewClient">
                </div>
           </form>
@@ -39,20 +40,15 @@
 <script>
 export default{
      name: "RegNewClientInfo",
-     props: {
-          numberClient: {
-               type: String,
-               required: false,
-               default: function(){
-                    return ""
-               },
-          }
-     },
      data(){
           return {
-               numberNewClient: this.numberClient,
+               numberNewClient: null,
                nameNewClient: "",
           }
      },
+     mounted(){
+          this.numberNewClient = this.$store.state.newClientNumber
+          this.$store.commit("clearNewClientNumber")
+     }
 }
 </script>

@@ -99,7 +99,7 @@ export default {
                          numberForStore = "8" + this.numberInput
                          break;
                }
-               this.$store.commit('saveEnterNumber', numberForStore)
+               this.$store.commit('saveEnterNumber', numberForStore.replace(/[a-zа-яё]/gi, ''))
           }
      },
      computed: {
