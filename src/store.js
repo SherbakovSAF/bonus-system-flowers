@@ -71,11 +71,13 @@ export default createStore({
           },
           saveEnterNumber(state, newClientNumberForSearchClient) {
                state.newClientNumber = newClientNumberForSearchClient
-               console.log(state.newClientNumber)
           },
           clearNewClientNumber(state){
                state.newClientNumber = ''
-               console.log(state.newClientNumber)
+          },
+          addNewClient(state, newClientInfo){
+               state.clientStorage.unshift(newClientInfo)
+               console.log(state.clientStorage)
           }
      }
 })

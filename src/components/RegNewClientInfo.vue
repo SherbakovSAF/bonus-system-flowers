@@ -34,7 +34,7 @@
                </div>
           </form>
      </div>
-     <button type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+     <button @click="addNewClient" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
      max-sm:w-2/3">Отправить</button>
 </template>
 <script>
@@ -44,6 +44,23 @@ export default{
           return {
                numberNewClient: null,
                nameNewClient: "",
+          }
+     },
+     methods:{
+          addNewClient(){
+               const newClientInfo = {
+                    number: this.numberNewClient,
+                    name: this.nameNewClient,
+                    points: 0,
+                    totalAmount: 0,
+                    purchaseHistory: [
+                    ]
+               }
+               if(this.$store.state.clientStorage.find(e => e.number == this.numberNewClient) != undefined){
+                    // Сделать отображение сообщения, что данный номер существует
+                    return
+               }
+               this.$store.commit("addNewClient", newClientInfo)
           }
      },
      mounted(){
