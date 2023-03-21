@@ -29,7 +29,7 @@ export default createStore({
                     ]
                },
                {
-                    number: "+7928125312",
+                    number: "8928125312",
                     name: "Игорь",
                     points: 1212325,
                     totalAmount: 200,
@@ -61,15 +61,17 @@ export default createStore({
                     ]
                },
           ],
-          selectedClient: {
-
-          }
+          selectedClient: {},
+          newClientNumber: ""
        }
      },
      mutations: {
           selectClient(state, selectClient) {
                state.selectedClient = selectClient
-               console.log(selectClient)
+          },
+          saveEnterNumber(state, newClientNumberForSearchClient) {
+               state.newClientNumber = newClientNumberForSearchClient
+               console.log(state.newClientNumber)
           }
      }
 })

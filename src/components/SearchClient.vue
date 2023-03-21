@@ -1,6 +1,6 @@
 <template>
      <div>
-          <div v-if="numberInput.length > 5">
+          <div>
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-lg:w-2/3 max-sm:w-full" v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
                     <a href="#/clientInfo" @click="selectClient(clientInfo)" class="flex justify-between items-center
@@ -30,8 +30,10 @@
           <div v-if="filterClientNumber.length === 0">
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-md:w-2/3 max-sm:w-full">
-                    <a href="#/regNewClient" class="flex justify-between items-center
-                              max-[430px]:relative">
+                    <a href="#/regNewClient"
+                         @click="saveEnterNumber" 
+                         class="flex justify-between items-center
+                         max-[430px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
                                    <h2 class="text-xl">Клиент не найден</h2>
@@ -82,17 +84,31 @@ export default {
           },
           selectClient(clientInfo){
                this.$store.commit('selectClient', clientInfo)
+          },
+          saveEnterNumber(){
+               let numberForStore
+
+               switch (this.numberInput[0]) {
+                    case "8":
+                         numberForStore = this.numberInput
+                         break;
+                    case "+":
+                         numberForStore = "8" + this.numberInput.slice(2,this.numberInput.length)
+                         break;
+                    default:
+                         numberForStore = "8" + this.numberInput
+                         break;
+               }
+               this.$store.commit('saveEnterNumber', numberForStore)
           }
      },
      computed: {
           filterClientNumber() {
                const firstValueTransValue = this.numberInput.slice(0, 1)
-
                const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
                     // Выносим шаблон
                     return this.$store.state.clientStorage.filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
                }
-
                if (firstValueTransValue == "+") {
                     // Обрезается +7
                     return templateSliceNumber(this.numberInput.length - 1, 2)
