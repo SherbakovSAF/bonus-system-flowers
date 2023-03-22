@@ -15,11 +15,16 @@
             <h1 class="flex items-center"><span class="text-3xl">{{ this.$store.state.selectedClient.totalAmount }}</span> <span
                 class="text-xl">сумма выкупа</span><img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2"></h1>
           </div>
+          <router-link to="editClientInfo">
+            <button class="font-semibold w-1/2 mt-2 rounded-full border-2">Ред.</button>
+          </router-link>
         </div>
         <img src="../assets/media/flower.png" alt="" 
             class="justify-end mr-6 h-[150px]
               max-[500px]:absolute left-full -translate-x-full">
+      
       </article>
+      
     </div>
 
     <div class="flex justify-around py-6">

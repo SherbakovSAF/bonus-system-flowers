@@ -3,7 +3,7 @@
           <div>
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-lg:w-2/3 max-sm:w-full" v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
-                    <a href="#/clientInfo" @click="selectClient(clientInfo)" class="flex justify-between items-center
+                    <router-link to="clientInfo" @click="selectClient(clientInfo)" class="flex justify-between items-center
                                    max-[500px]:relative">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
@@ -24,13 +24,13 @@
                          </div>
                          <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
                                         max-[500px]:absolute left-full -translate-x-full">
-                    </a>
+                    </router-link>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-md:w-2/3 max-sm:w-full">
-                    <a href="#/regNewClient"
+                    <router-link to="regNewClient"
                          @click="saveEnterNumber" 
                          class="flex justify-between items-center
                          max-[430px]:relative">
@@ -44,7 +44,7 @@
                          </div>
                          <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
                                         max-[430px]:absolute left-full -translate-x-full">
-                    </a>
+                    </router-link>
                </article>
           </div>
      </div>

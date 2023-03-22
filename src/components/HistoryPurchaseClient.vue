@@ -4,7 +4,7 @@
           max-lg:w-2/3 max-sm:w-full"
           v-for="historyPurchase in this.$store.state.selectedClient.purchaseHistory"
           :key="historyPurchase.id">
-          <a href="#" class="flex justify-between items-center">
+          <router-link to="#" class="flex justify-between items-center">
                <img src="../assets/media/flower.png" alt="" class="justify-end ml-6">
                <div class="w-2/3 text-main-color-text py-3">
                     <div>
@@ -24,7 +24,7 @@
                          <h1 class="text-lg font-medium">{{ historyPurchase.listPurchase}}</h1>
                     </div>
                </div>
-          </a>
+          </router-link>
      </article>
      <button type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
      max-sm:w-2/3">Показать ещё</button>
