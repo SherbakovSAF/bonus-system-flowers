@@ -22,9 +22,7 @@
         <img src="../assets/media/flower.png" alt="" 
             class="justify-end mr-6 h-[150px]
               max-[500px]:absolute left-full -translate-x-full">
-      
       </article>
-      
     </div>
 
     <div class="flex justify-around py-6">

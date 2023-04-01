@@ -1,7 +1,7 @@
 <template>
-<div>
-     Привет. Я дочь
-</div>
+     <div>
+          
+     </div>
 </template>
 
 <script>

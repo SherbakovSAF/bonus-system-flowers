@@ -7,13 +7,9 @@ import EditClientInfo from "./components/EditClientInfo.vue"
 
 const routes = [
     { path: "/", component: SearchClient },
-    { path: "/clientInfo", 
-     component: ClientInfo, 
-     children: [{
-          path: 'editClientInfo',
-          component: EditClientInfo
-     }] },
+    { path: "/clientInfo", component: ClientInfo },
     { path: "/regNewClient", component: RegNewClientInfo },
+    { path: '/editClientInfo', component: EditClientInfo },
 ];
 
 export default createRouter({

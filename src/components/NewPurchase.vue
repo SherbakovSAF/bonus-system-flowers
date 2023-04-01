@@ -45,7 +45,7 @@
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
                          max-sm:text-sm"
                          maxlength="14" type="tel"
-                         placeholder="Сколько бонусов списать?" v-model="addNewPurchase.shopList">
+                         placeholder="Что купил клиент? (необязательно)" v-model="addNewPurchase.shopList">
                </div>
           </form>
           <form class="py-4">
