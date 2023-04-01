@@ -6,8 +6,8 @@
                          max-lg:m-auto max-lg:w-2/3
                          ">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl
-                         max-sm:text-sm" 
+                    <input 
+                         class="outline-0 w-full font-medium text-[#686767] text-1xl max-sm:text-sm" 
                          maxlength="14" type="tel"
                          placeholder="Введите сумму покупки" v-model="addNewPurchase.sum">
                </div>
@@ -54,15 +54,18 @@
                     max-lg:m-auto max-lg:w-2/3
                     ">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <select class="outline-0 w-full font-medium text-[#686767] text-1xl">
-                         <option class="text-[#686767] text-lg opacity-10" disabled selected>Кто продал</option>
+                    <select class="outline-0 w-full font-medium text-[#686767] text-1xl"
+                    v-model="addNewPurchase.salesman">
+                         <option class="text-[#686767] text-lg opacity-10" disabled value="">Кто продал</option>
                          <option class="text-[#686767] text-lg">Надя</option>
                          <option class="text-[#686767] text-lg">Вика</option>
                     </select>
                </div>
           </form>
      </div>
-     <button type="submit" 
+     <button
+          @click="addingNewPurchase" 
+          type="submit" 
           class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
                max-sm:w-2/3">Отправить</button>
 </template>
@@ -80,6 +83,22 @@ export default {
                     salesman: "",
                }
           }
-     }
+     },
+     methods: {
+          validForm(){
+               // Проверка на обязательные поля В ЛЮБОМ СЛУЧАЕ
+               if (this.addNewPurchase.salesman == "" || +this.addNewPurchase.sum <= 0) alert("Ввведена неккоретная сумма или не выбран продавец")
+               // Проверка на обязательные поля В СЛУЧАЕ СПИСАНИЯ
+               if(this.addNewPurchase.typeBonus == "WRITE-OFF" && +this.addNewPurchase.numberBonus <= 0) alert("Введите сумму для списания")
+          },
+          addingNewPurchase(){
+               this.validForm()
+               // const newPurchase = this.addNewPurchase
+
+          }
+     },
+     created(){
+          console.log(this.$store.state.selectedClient)
+     },
 }
 </script>
