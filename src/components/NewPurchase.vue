@@ -119,7 +119,7 @@ export default {
                               salesman: this.addNewPurchase.salesman
                          }
                
-               if(newPurchaseTemplate.typeOperationPoint == "SUB" && this.$store.state.selectedClient.points <= newPurchaseTemplate.subBonus){
+               if(newPurchaseTemplate.typeOperationPoint == "SUB" && this.$store.state.selectedClient.points < newPurchaseTemplate.subBonus){
                     alert("Количество списываемых бонусов превышает количество бонусов клиента")
                     this.addNewPurchase.subBonus = ""
                     return

@@ -49,17 +49,11 @@ export default createStore({
                state.clientStorage[indexArrToAddPurchase].purchaseHistory.push(newPurchase)
 
                state.clientStorage[indexArrToAddPurchase].totalAmount += +newPurchase.sumPurchase
-               switch(newPurchase.typeOperationPoint){
-                    case "SUB":
-                         state.clientStorage[indexArrToAddPurchase].points -= +newPurchase.subBonus
-                         break
-                    case "PLUS":
-                         state.clientStorage[indexArrToAddPurchase].points += +newPurchase.plusBonus
-                         break
-                    default:
-                         state.clientStorage[indexArrToAddPurchase].points 
-               }
+               state.clientStorage[indexArrToAddPurchase].points += +newPurchase.plusBonus
 
+               if(newPurchase.typeOperationPoint == "SUB"){
+                    state.clientStorage[indexArrToAddPurchase].points -= +newPurchase.subBonus
+               }
           }
      }
 })
