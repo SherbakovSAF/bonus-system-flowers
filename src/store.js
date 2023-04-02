@@ -7,58 +7,23 @@ export default createStore({
                {
                     number: "89882321312312",
                     name: "Антон",
-                    points: 1212325,
-                    totalAmount: 200,
-                    purchaseHistory: [
-                         {
-                              date: "23.21.2222",
-                              sumPurchase: 123,
-                              typeOperationPoint: "SUB", // or "PLUS"
-                              subBonus: 20,
-                              plusBonus: 0,
-                              listPurchase: "Тюльпаны",
-                         },
-                    ]
+                    points: 0,
+                    totalAmount: 0,
+                    purchaseHistory: []
                },
                {
                     number: "891812343554",
                     name: "Сергей",
-                    points: 1212325,
-                    totalAmount: 200,
-                    purchaseHistory: [
-                    ]
+                    points: 0,
+                    totalAmount: 0,
+                    purchaseHistory: []
                },
                {
                     number: "8928125312",
                     name: "Игорь",
-                    points: 1212325,
-                    totalAmount: 200,
-                    purchaseHistory: [
-                         {
-                              date: "23.21.2222",
-                              sumPurchase: 123,
-                              typeOperationPoint: "SUB", // or "PLUS"
-                              subBonus: 20,
-                              plusBonus: 0,
-                              listPurchase: "Тюльпаны",
-                         },
-                         {
-                              date: "23.21.2222",
-                              sumPurchase: 123,
-                              typeOperationPoint: "PLUS", // or "PLUS"
-                              subBonus: 20,
-                              plusBonus: 0,
-                              listPurchase: "Тюльпаны",
-                         },
-                         {
-                              date: "23.21.2222",
-                              sumPurchase: 123,
-                              typeOperationPoint: "SUB", // or "PLUS"
-                              subBonus: 20,
-                              plusBonus: 0,
-                              listPurchase: "Тюльпаны",
-                         },
-                    ]
+                    points: 0,
+                    totalAmount: 0,
+                    purchaseHistory: []
                },
           ],
           selectedClient: {},

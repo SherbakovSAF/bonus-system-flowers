@@ -118,7 +118,13 @@ export default {
                               listPurchase: !this.addNewPurchase.listPurchase ? "-" : this.addNewPurchase.listPurchase,
                               salesman: this.addNewPurchase.salesman
                          }
-
+               
+               if(newPurchaseTemplate.typeOperationPoint == "SUB" && this.$store.state.selectedClient.points <= newPurchaseTemplate.subBonus){
+                    alert("Количество списываемых бонусов превышает количество бонусов клиента")
+                    this.addNewPurchase.subBonus = ""
+                    return
+               }
+               
                this.$store.commit("addNewPurchaseClient", newPurchaseTemplate)
                this.$router.push({path: "/"})
           }

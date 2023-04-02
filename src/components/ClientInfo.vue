@@ -62,6 +62,10 @@ export default {
     return {
       purchaseType: "newWPurchaseSelect",
     }
+  },
+  computed: {
+    
   }
+  
 }
 </script>
