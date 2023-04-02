@@ -63,7 +63,7 @@
                </div>
           </form>
      </div>
-     <button
+          <button
           @click="addingNewPurchase" 
           type="submit" 
           class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
@@ -120,7 +120,7 @@ export default {
                          }
 
                this.$store.commit("addNewPurchaseClient", newPurchaseTemplate)
-               this.$route.push("/")
+               this.$router.push({path: "/"})
           }
      },
      // created(){

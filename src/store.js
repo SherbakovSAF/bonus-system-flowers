@@ -83,6 +83,7 @@ export default createStore({
                const indexArrToAddPurchase = state.clientStorage.findIndex(e=> e.number === state.selectedClient.number)
                state.clientStorage[indexArrToAddPurchase].purchaseHistory.push(newPurchase)
 
+               state.clientStorage[indexArrToAddPurchase].totalAmount += +newPurchase.sumPurchase
                switch(newPurchase.typeOperationPoint){
                     case "SUB":
                          state.clientStorage[indexArrToAddPurchase].points -= +newPurchase.subBonus
