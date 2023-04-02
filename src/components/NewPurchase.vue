@@ -34,7 +34,9 @@
                          max-sm:text-sm"
                          maxlength="14" type="tel"
                          placeholder="Сколько бонусов списать?" v-model="addNewPurchase.subBonus">
+                    
                </div>
+               <h2>{{ formatingHintForSeller }}</h2>
           </form>
           <form class="py-4">
                <div 
@@ -64,6 +66,7 @@
           </form>
      </div>
           <button
+          :disabled="addNewPurchase.typeOperationPoint == 'SUB' && addNewPurchase.subBonus < 0"
           @click="addingNewPurchase" 
           type="submit" 
           class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
@@ -83,6 +86,29 @@ export default {
                     listPurchase: "",
                     salesman: ""
                }
+          }
+     },
+     computed: {
+          formatingHintForSeller(){
+               if(this.addNewPurchase.sumPurchase <= 0){
+                    return "Введите сумму покупки клиента"
+               }
+
+               if(this.addNewPurchase.subBonus < 0){
+                    return "Количество бонусов должно быть больше 0"
+               }
+
+               if (this.$store.state.selectedClient.points < this.addNewPurchase.subBonus){
+                    return "У клиента нет столько бонусов"
+               }
+
+               if(this.addNewPurchase.sumPurchase > 0 && !isNaN(this.addNewPurchase.sumPurchase - this.addNewPurchase.subBonus)){
+                    return `Клиент должен заплатить Вам ${this.addNewPurchase.sumPurchase - this.addNewPurchase.subBonus}₽`
+               }
+                    
+               return "Введите корректное значение"
+
+                    
           }
      },
      methods: {
