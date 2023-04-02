@@ -23,6 +23,10 @@
                          <h2 class="text-sm">Купили</h2>
                          <h1 class="text-lg font-medium">{{ historyPurchase.listPurchase}}</h1>
                     </div>
+                    <div>
+                         <h2 class="text-sm">Продавец</h2>
+                         <h1 class="text-lg font-medium">{{ historyPurchase.salesman}}</h1>
+                    </div>
                </div>
           </router-link>
      </article>

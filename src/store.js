@@ -78,6 +78,22 @@ export default createStore({
           addNewClient(state, newClientInfo){
                state.clientStorage.unshift(newClientInfo)
                console.log(state.clientStorage)
+          },
+          addNewPurchaseClient(state, newPurchase){
+               const indexArrToAddPurchase = state.clientStorage.findIndex(e=> e.number === state.selectedClient.number)
+               state.clientStorage[indexArrToAddPurchase].purchaseHistory.push(newPurchase)
+
+               switch(newPurchase.typeOperationPoint){
+                    case "SUB":
+                         state.clientStorage[indexArrToAddPurchase].points -= +newPurchase.subBonus
+                         break
+                    case "PLUS":
+                         state.clientStorage[indexArrToAddPurchase].points += +newPurchase.plusBonus
+                         break
+                    default:
+                         state.clientStorage[indexArrToAddPurchase].points 
+               }
+
           }
      }
 })

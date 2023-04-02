@@ -9,22 +9,22 @@
                     <input 
                          class="outline-0 w-full font-medium text-[#686767] text-1xl max-sm:text-sm" 
                          maxlength="14" type="tel"
-                         placeholder="Введите сумму покупки" v-model="addNewPurchase.sum">
+                         placeholder="Введите сумму покупки" v-model="addNewPurchase.sumPurchase">
                </div>
           </form>
           <div class="flex justify-around">
                <label class="flex py-3 cursor-pointer">
-                    <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="ACCRUE" class="peer/bonusAction hidden">
+                    <input v-model="addNewPurchase.typeOperationPoint" type="radio" name="bonusAction" value="PLUS" class="peer/bonusAction hidden">
                     <div class="w-6 h-6 rounded-full box-border border-[#305346] border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-[#305346]"></div>
                     <h3 class="text-lg text-[#305346]">Начислить</h3>
                </label>
                <label class="flex py-3 cursor-pointer">
-                    <input v-model="addNewPurchase.typeBonus" type="radio" name="bonusAction" value="WRITE-OFF" class="peer/bonusAction hidden">
+                    <input v-model="addNewPurchase.typeOperationPoint" type="radio" name="bonusAction" value="SUB" class="peer/bonusAction hidden">
                     <div class="w-6 h-6 rounded-full box-border border-[#305346] border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-[#305346]"></div>
                     <h3 class="text-lg text-[#305346]">Списать</h3>
                </label>
           </div>
-          <form class="py-4" v-if="addNewPurchase.typeBonus == 'WRITE-OFF'">
+          <form class="py-4" v-if="addNewPurchase.typeOperationPoint == 'SUB'">
                <div 
                     class="w-1/3 bg-white rounded-full flex py-3 px-4
                     max-lg:m-auto max-lg:w-2/3
@@ -33,7 +33,7 @@
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
                          max-sm:text-sm"
                          maxlength="14" type="tel"
-                         placeholder="Сколько бонусов списать?" v-model="addNewPurchase.numberBonus">
+                         placeholder="Сколько бонусов списать?" v-model="addNewPurchase.subBonus">
                </div>
           </form>
           <form class="py-4">
@@ -45,7 +45,7 @@
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
                          max-sm:text-sm"
                          maxlength="14" type="tel"
-                         placeholder="Что купил клиент? (необязательно)" v-model="addNewPurchase.shopList">
+                         placeholder="Что купил клиент? (необязательно)" v-model="addNewPurchase.listPurchase">
                </div>
           </form>
           <form class="py-4">
@@ -71,34 +71,60 @@
 </template>
 
 <script>
+
 export default {
      name: 'NewPurchase',
      data() {
           return {
                addNewPurchase: {
-                    sum: null,
-                    typeBonus: 'ACCRUE',
-                    numberBonus: null,
-                    shopList: "",
-                    salesman: "",
+                    sumPurchase: null,
+                    typeOperationPoint: 'PLUS', // or "PLUS"
+                    subBonus: null,
+                    listPurchase: "",
+                    salesman: ""
                }
           }
      },
      methods: {
           validForm(){
                // Проверка на обязательные поля В ЛЮБОМ СЛУЧАЕ
-               if (this.addNewPurchase.salesman == "" || +this.addNewPurchase.sum <= 0) alert("Ввведена неккоретная сумма или не выбран продавец")
+               if (this.addNewPurchase.salesman == "" || +this.addNewPurchase.sum <= 0){
+                    alert("Ввведена неккоретная сумма или не выбран продавец")
+                    return false    
+               }
                // Проверка на обязательные поля В СЛУЧАЕ СПИСАНИЯ
-               if(this.addNewPurchase.typeBonus == "WRITE-OFF" && +this.addNewPurchase.numberBonus <= 0) alert("Введите сумму для списания")
+               if(this.addNewPurchase.typeBonus == "SUB" && +this.addNewPurchase.numberBonus <= 0) {
+                    alert("Введите сумму для списания")
+                    return false
+               }
+
+               return true
           },
           addingNewPurchase(){
-               this.validForm()
-               // const newPurchase = this.addNewPurchase
+               // Проверка на срабатывания функции валидации. Если валидация не выполнена, тогда функция дополнения выполняться не будет
+               if(!this.validForm()){
+                    return
+               }
 
+               const date = new Date()
+               const formatData = `${String(date.getDate()).padStart(2, "0")}.${String(date.getMonth() + 1).padStart(2, "0")}.${date.getFullYear()}`
+               
+               const newPurchaseTemplate = {
+                              date: formatData,
+                              sumPurchase: this.addNewPurchase.sumPurchase,
+                              typeOperationPoint: this.addNewPurchase.typeOperationPoint, // or "PLUS"
+                              subBonus: this.addNewPurchase.subBonus,
+                              plusBonus: (this.addNewPurchase.sumPurchase * 0.1).toFixed(2),
+                              listPurchase: !this.addNewPurchase.listPurchase ? "-" : this.addNewPurchase.listPurchase,
+                              salesman: this.addNewPurchase.salesman
+                         }
+
+               this.$store.commit("addNewPurchaseClient", newPurchaseTemplate)
+               this.$route.push("/")
           }
      },
-     created(){
-          console.log(this.$store.state.selectedClient)
-     },
+     // created(){
+     //      console.log(this.$store.state.selectedClient)
+     // },
 }
 </script>

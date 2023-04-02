@@ -11,7 +11,7 @@
           </div>
           <hr class="w-full h-1 bg-main-green">
           <div>
-            <h1><span class="text-3xl">{{ this.$store.state.selectedClient.points }}</span> <span class="text-xl">бонусов</span></h1>
+            <h1><span class="text-3xl">{{ this.$store.state.selectedClient.points.toFixed(2) }}</span> <span class="text-xl">бонусов</span></h1>
             <h1 class="flex items-center"><span class="text-3xl">{{ this.$store.state.selectedClient.totalAmount }}</span> <span
                 class="text-xl">сумма выкупа</span><img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2"></h1>
           </div>
