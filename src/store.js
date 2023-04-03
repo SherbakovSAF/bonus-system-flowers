@@ -9,7 +9,16 @@ export default createStore({
                     name: "Антон",
                     points: 0,
                     totalAmount: 0,
-                    purchaseHistory: []
+                    purchaseHistory: [
+                         // Шаблон покупки для clientStorage
+                         // date: formatData,
+                         // sumPurchase: this.addNewPurchase.sumPurchase,
+                         // typeOperationPoint: this.addNewPurchase.typeOperationPoint, // or "PLUS"
+                         // subBonus: this.addNewPurchase.subBonus,
+                         // plusBonus: (this.addNewPurchase.sumPurchase * 0.1).toFixed(2),
+                         // listPurchase: !this.addNewPurchase.listPurchase ? "-" : this.addNewPurchase.listPurchase,
+                         // salesman: this.addNewPurchase.salesman     
+                    ]
                },
                {
                     number: "891812343554",
@@ -46,7 +55,7 @@ export default createStore({
           },
           addNewPurchaseClient(state, newPurchase){
                const indexArrToAddPurchase = state.clientStorage.findIndex(e=> e.number === state.selectedClient.number)
-               state.clientStorage[indexArrToAddPurchase].purchaseHistory.push(newPurchase)
+               state.clientStorage[indexArrToAddPurchase].purchaseHistory.unshift(newPurchase)
 
                state.clientStorage[indexArrToAddPurchase].totalAmount += +newPurchase.sumPurchase
                state.clientStorage[indexArrToAddPurchase].points += +newPurchase.plusBonus

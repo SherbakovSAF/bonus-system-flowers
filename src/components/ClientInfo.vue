@@ -1,5 +1,5 @@
 <template>
-  <main class="h-screen max-sm:bg-main-bg">
+  <main class=" max-sm:bg-main-bg">
     <div class="py-6">
       <article 
         class="bg-card-bg w-1/2 rounded-r-full flex justify-between items-center shadow-lg

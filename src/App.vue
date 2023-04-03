@@ -7,7 +7,10 @@
       <img src="./assets/media/venok.png" alt="Изображение венка" class="h-28 w-16 rotate-[33.4deg] ml-8">
     </header>
     </a>
-    <router-view />
+    <div class="pb-14">
+      <router-view  />
+    </div>
+  
   </div>
   
   
