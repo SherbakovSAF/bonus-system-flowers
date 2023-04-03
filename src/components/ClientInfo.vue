@@ -11,9 +11,16 @@
           </div>
           <hr class="w-full h-1 bg-main-green">
           <div>
-            <h1><span class="text-3xl">{{ this.$store.state.selectedClient.points.toFixed(2) }}</span> <span class="text-xl">бонусов</span></h1>
-            <h1 class="flex items-center"><span class="text-3xl">{{ this.$store.state.selectedClient.totalAmount }}</span> <span
-                class="text-xl">сумма выкупа</span><img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2"></h1>
+            <h1>
+              <span class="text-3xl align-middle">{{ this.$store.state.selectedClient.points.toFixed(2) }}</span> <span class="text-xl align-middle">бонусов</span>
+            </h1>
+            <div class="flex items-center">
+              <h1>
+                <span class="text-3xl align-middle">{{ this.$store.state.selectedClient.totalAmount }}</span> <span class="text-xl align-middle">сумма выкупа</span>
+              </h1>
+              <img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2">
+            </div>
+            
           </div>
           <router-link to="editClientInfo">
             <button class="font-semibold w-1/2 mt-2 rounded-full border-2">Ред.</button>
