@@ -12,7 +12,7 @@
                               </div>
                               <div>
                                    <h1>
-                                        <span class="text-3xl">{{ clientInfo.points.toFixed(2) }}</span>
+                                        <span class="text-3xl">{{ clientInfo.points % 1 === 0 ? clientInfo.points : clientInfo.points.toFixed(2) }}</span>
                                         <span class="text-xl ml-1"> {{ renderAmountPoint(clientInfo.points) }}</span>
                                    </h1>
                                    <h1 class="flex items-center">

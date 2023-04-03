@@ -12,7 +12,7 @@
           <hr class="w-full h-1 bg-main-green">
           <div>
             <h1>
-              <span class="text-3xl align-middle">{{ this.$store.state.selectedClient.points.toFixed(2) }}</span> <span class="text-xl align-middle">бонусов</span>
+              <span class="text-3xl align-middle">{{ this.$store.state.selectedClient.points % 1 === 0 ? this.$store.state.selectedClient.points : this.$store.state.selectedClient.points.toFixed(2)}}</span> <span class="text-xl align-middle">бонусов</span>
             </h1>
             <div class="flex items-center">
               <h1>
