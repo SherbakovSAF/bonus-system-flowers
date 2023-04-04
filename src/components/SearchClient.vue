@@ -30,7 +30,7 @@
           <div v-if="filterClientNumber.length === 0">
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-md:w-2/3 max-sm:w-full">
-                    <router-link to="regNewClient"
+                    <router-link to="clientinfo/regnewclient"
                          @click="saveEnterNumber" 
                          class="flex justify-between items-center
                          max-[430px]:relative">

@@ -22,7 +22,7 @@
             </div>
             
           </div>
-          <router-link to="editClientInfo">
+          <router-link to="clientinfo/editClientInfo">
             <button class="font-semibold w-1/2 mt-2 rounded-full border-2">Упр.</button>
           </router-link>
         </div>
