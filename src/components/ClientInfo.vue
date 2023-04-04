@@ -23,7 +23,7 @@
             
           </div>
           <router-link to="editClientInfo">
-            <button class="font-semibold w-1/2 mt-2 rounded-full border-2">Ред.</button>
+            <button class="font-semibold w-1/2 mt-2 rounded-full border-2">Упр.</button>
           </router-link>
         </div>
         <img src="../assets/media/flower.png" alt="" 

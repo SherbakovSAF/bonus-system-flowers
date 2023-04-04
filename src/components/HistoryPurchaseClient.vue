@@ -17,11 +17,11 @@
                     </div>
                     <div>
                          <h2 class="text-sm">{{ historyPurchase.typeOperationPoint == "SUB" ? 'Списано' : 'Начислено'}}</h2>
-                         <h1 class="text-lg font-medium"><span>{{ historyPurchase.typeOperationPoint == "SUB" ? historyPurchase.subBonus : historyPurchase.plusBonus}}</span> бонусов</h1>
+                         <h1 class="text-lg font-medium"><span>{{ historyPurchase.typeOperationPoint == "SUB" ? historyPurchase.subBonus ? historyPurchase.subBonus : "0": historyPurchase.plusBonus}}</span> бонусов</h1>
                     </div>
                     <div>
                          <h2 class="text-sm">Купили</h2>
-                         <h1 class="text-lg font-medium">{{ historyPurchase.listPurchase}}</h1>
+                         <h1 class="text-lg font-medium">{{ historyPurchase.listPurchase ? historyPurchase.listPurchase : "-"}}</h1>
                     </div>
                     <div>
                          <h2 class="text-sm">Продавец</h2>
@@ -30,6 +30,10 @@
                </div>
           </router-link>
      </article>
+     <h1 v-if="sliceTemplateSell.length < 1"
+          class="text-center text-lg font-medium text-main-color-text">
+          Клиент ещё ничего не купил
+     </h1>
      <button 
      @click="page++"
      v-if="sliceTemplateSell.length < this.$store.state.selectedClient.purchaseHistory.length"

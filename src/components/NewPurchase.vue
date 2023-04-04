@@ -72,7 +72,7 @@ export default {
           return {
                addNewPurchase: {
                     sumPurchase: null,
-                    typeOperationPoint: 'SUB', // or "PLUS"
+                    typeOperationPoint: 'PLUS', // or "PLUS"
                     subBonus: null,
                     listPurchase: "",
                     salesman: ""
@@ -137,7 +137,7 @@ export default {
                     typeOperationPoint: this.addNewPurchase.typeOperationPoint, // or "PLUS"
                     subBonus: this.addNewPurchase.subBonus,
                     plusBonus: (this.addNewPurchase.sumPurchase * 0.1).toFixed(2),
-                    listPurchase: !this.addNewPurchase.listPurchase ? "-" : this.addNewPurchase.listPurchase,
+                    listPurchase: this.addNewPurchase.listPurchase,
                     salesman: this.addNewPurchase.salesman
                }
 
