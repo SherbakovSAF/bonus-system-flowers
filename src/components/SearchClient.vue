@@ -1,10 +1,12 @@
 <template>
      <div>
           <div>
-               <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
-                              max-lg:w-2/3 max-sm:w-full" v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx">
-                    <router-link to="clientInfo" @click="selectClient(clientInfo)" class="flex justify-between items-center
-                                   max-[500px]:relative">
+               <article 
+                    class="bg-[#FBDCD7] w-1/2 rounded-r-full shadow-lg mt-6 flex justify-between items-center cursor-pointer
+                    max-[500px]:relative
+                    max-lg:w-2/3 max-sm:w-full" 
+                    v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx"
+                    @click="selectClient(clientInfo)">
                          <div class="text-[#686767] px-8 py-7">
                               <div class="person__main__block">
                                    <h2 class="text-xl">{{ clientInfo.name }}</h2>
@@ -24,7 +26,6 @@
                          </div>
                          <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
                                         max-[500px]:absolute left-full -translate-x-full">
-                    </router-link>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">
@@ -84,6 +85,7 @@ export default {
           },
           selectClient(clientInfo){
                this.$store.commit('selectClient', clientInfo)
+               this.$router.push("clientInfo")
           },
           saveEnterNumber(){
                let numberForStore
@@ -119,6 +121,10 @@ export default {
                     return templateSliceNumber(this.numberInput.length + 1, 0)
                }
           }
-     }
+     },
+     // beforeUnmount: function(){
+     //      console.log("Разрушен")
+     //      this.$store.commit('clearSelectedClient')
+     // }
 }
 </script>

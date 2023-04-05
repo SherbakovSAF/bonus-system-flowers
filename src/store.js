@@ -49,6 +49,9 @@ export default createStore({
           clearNewClientNumber(state){
                state.newClientNumber = ''
           },
+          clearSelectedClient(state){
+               state.selectedClient = null
+          },
           addNewClient(state, newClientInfo){
                state.clientStorage.unshift(newClientInfo)
                console.log(state.clientStorage)

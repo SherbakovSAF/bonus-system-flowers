@@ -1,22 +1,22 @@
 <template>
-  <main class=" max-sm:bg-main-bg">
+  <main class="max-sm:bg-main-bg">
     <div class="py-6">
       <article 
         class="bg-card-bg w-1/2 rounded-r-full flex justify-between items-center shadow-lg
           max-lg:w-2/3 max-sm:w-full">
         <div class="text-main-color-text px-8 py-7">
           <div class="person__main__block">
-            <h2 class="text-xl">{{ this.$store.state.selectedClient.name }}</h2>
-            <h2 class="text-2xl">{{ this.$store.state.selectedClient.number }}</h2>
+            <h2 class="text-xl">{{ selectedClient.name }}</h2>
+            <h2 class="text-2xl">{{ selectedClient.number}}</h2>
           </div>
           <hr class="w-full h-1 bg-main-green">
           <div>
             <h1>
-              <span class="text-3xl align-middle">{{ this.$store.state.selectedClient.points % 1 === 0 ? this.$store.state.selectedClient.points : this.$store.state.selectedClient.points.toFixed(2)}}</span> <span class="text-xl align-middle">бонусов</span>
+              <span class="text-3xl align-middle">{{ selectedClient.points % 1 === 0 ? selectedClient.points : selectedClient.points.toFixed(2)}}</span> <span class="text-xl align-middle">бонусов</span>
             </h1>
             <div class="flex items-center">
               <h1>
-                <span class="text-3xl align-middle">{{ this.$store.state.selectedClient.totalAmount }}</span> <span class="text-xl align-middle">сумма выкупа</span>
+                <span class="text-3xl align-middle">{{ selectedClient.totalAmount }}</span> <span class="text-xl align-middle">сумма выкупа</span>
               </h1>
               <img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2">
             </div>
@@ -68,11 +68,14 @@ export default {
   data() {
     return {
       purchaseType: "newWPurchaseSelect",
+      selectedClient: {}
     }
-  },
-  computed: {
-    
-  }
-  
+  }, 
+  created: function(){
+    this.selectedClient = this.$store.state.selectedClient
+  }, 
+  beforeUnmount: function(){
+      console.log("Клиент" + this.$store.state.selectedClient)
+    }
 }
 </script>
