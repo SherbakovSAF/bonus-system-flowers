@@ -74,8 +74,5 @@ export default {
   created: function(){
     this.selectedClient = this.$store.state.selectedClient
   }, 
-  beforeUnmount: function(){
-      console.log("Клиент" + this.$store.state.selectedClient)
-    }
 }
 </script>

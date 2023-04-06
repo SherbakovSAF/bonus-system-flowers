@@ -54,7 +54,6 @@ export default createStore({
           },
           addNewClient(state, newClientInfo){
                state.clientStorage.unshift(newClientInfo)
-               console.log(state.clientStorage)
           },
           addNewPurchaseClient(state, newPurchase){
                const indexArrToAddPurchase = state.clientStorage.findIndex(e=> e.number === state.selectedClient.number)

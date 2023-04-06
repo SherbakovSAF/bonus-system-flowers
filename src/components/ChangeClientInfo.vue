@@ -5,8 +5,8 @@
           <div class="flex justify-between items-center">
                <div class="text-main-color-text px-8 py-7">
                     <div class="person__main__block">
-                         <h2 class="text-xl">{{ clientName ? clientName : this.$store.state.selectedClient.name }}</h2>
-                         <h2 class="text-2xl">{{ clientNumber ? clientNumber : this.$store.state.selectedClient.number }}
+                         <h2 class="text-xl">{{ selectedClient.name ? selectedClient.name : "Имя нового клиента" }}</h2>
+                         <h2 class="text-2xl">{{ selectedClient.number ? selectedClient.number : "Номер нового клиента"}}
                          </h2>
                     </div>
                </div>
@@ -35,11 +35,11 @@
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
                               max-sm:text-sm" maxlength="14" type="tel" :placeholder="placeholderNumber" autofocus
-                         v-model="clientNumber">
+                         v-model="selectedClient.number">
                </div>
           </form>
      </div>
-     <button @click="addNewClient" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+     <button @click="valid" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
      max-sm:w-2/3">Отправить</button>
 </template>
 
@@ -51,22 +51,30 @@ export default {
                placeholderName: "",
                placeholderNumber: "",
                clientName: "",
-               clientNumber: ""
+               selectedClient: {}
+          }
+     },
+     methods: {
+          valid(){
+               if(!this.selectedClient.name || !this.selectedClient.number){
+                    alert("Поля имени клиента или номера - пусты")
+                    return false
+               }
           }
      },
      mounted() {
           if (this.$route.params.typeChangeClientInfo == "regnewclient") {
                this.placeholderName = "Введите новое имя клиента"
                this.placeholderNumber = "Введите новый номер клиента"
-               this.clientNumber = this.$store.state.newClientNumber
+               this.selectedClient.number = this.$store.state.newClientNumber
+               this.selectedClient.name = ""
                this.$store.commit("clearNewClientNumber")
           }
 
           if (this.$route.params.typeChangeClientInfo == "editClientInfo") {
+               this.selectedClient = this.$store.state.selectedClient
                this.placeholderName = "Введите нового имя клиента"
                this.placeholderNumber = "Введите новый номер клиента"
-
-
           }
      }
 }
