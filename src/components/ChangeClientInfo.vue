@@ -26,7 +26,7 @@
                          max-lg:m-auto max-lg:w-2/3">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
-                              max-sm:text-sm" maxlength="14" type="tel" :placeholder="placeholderName" v-model="clientName">
+                              max-sm:text-sm" maxlength="14" type="tel" :placeholder="placeholderName" v-model="selectedClient.name">
                </div>
           </form>
           <form class="py-4">
@@ -39,7 +39,7 @@
                </div>
           </form>
      </div>
-     <button @click="valid" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+     <button @click="addNewClient" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
      max-sm:w-2/3">Отправить</button>
 </template>
 
@@ -57,9 +57,24 @@ export default {
      methods: {
           valid(){
                if(!this.selectedClient.name || !this.selectedClient.number){
-                    alert("Поля имени клиента или номера - пусты")
-                    return false
+                     alert("Поля имени клиента или номера - пусты")
+                     return false
                }
+               return true
+          },
+          addNewClient(){
+               if(!this.valid()){
+                    console.log("Не прошло. Должно выйти")
+                    return
+               }
+               const newClientCard = {
+                    number: this.selectedClient.number,
+                    name: this.selectedClient.name,
+                    points: 0,
+                    totalAmount: 0,
+                    purchaseHistory: []
+               }
+               console.log(newClientCard)
           }
      },
      mounted() {
