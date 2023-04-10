@@ -55,7 +55,10 @@ export default {
           }
      },
      methods: {
-          valid(){
+          formatCLientInput(){
+
+          },
+          validForEmptyValue(){
                if(!this.selectedClient.name || !this.selectedClient.number){
                      alert("Поля имени клиента или номера - пусты")
                      return false
@@ -63,7 +66,7 @@ export default {
                return true
           },
           addNewClient(){
-               if(!this.valid()){
+               if(!this.validForEmptyValue()){
                     console.log("Не прошло. Должно выйти")
                     return
                }

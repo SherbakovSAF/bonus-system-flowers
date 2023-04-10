@@ -13,6 +13,7 @@ module.exports = {
       'main-bg': '#F8C8C0',
       'card-bg': '#FBDCD7',
       'main-color-text': '#686767',
+      'bg-black': 'rgba(0,0,0,0.5)'
     },
     fontFamily: {
       montserrat: ['Montserrat', 'serif'],

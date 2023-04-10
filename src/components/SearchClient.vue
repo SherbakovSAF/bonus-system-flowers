@@ -61,9 +61,12 @@
      </form>
 </template>
 
+
+
 <script>
 export default {
      name: "SearchClient",
+     
      data() {
           return {
                numberInput: "",
