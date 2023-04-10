@@ -14,7 +14,7 @@
         <router-view />
       </div>
     </div>
-    <modal-info class="" alert-message="Тут будет текст"/>
+    <modal-info class="" alert-message="Поля имени клиента или номера - пусты"/>
   </div>
 </template>
 
