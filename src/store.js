@@ -36,7 +36,11 @@ export default createStore({
                },
           ],
           selectedClient: {},
-          newClientNumber: ""
+          newClientNumber: "",
+          modalInfo: {
+               isActive: true,
+               text: "Текст"
+          }
        }
      },
      mutations: {
@@ -65,6 +69,9 @@ export default createStore({
                if(newPurchase.typeOperationPoint == "SUB"){
                     state.clientStorage[indexArrToAddPurchase].points -= +newPurchase.subBonus
                }
+          },
+          closeModalInfo(state){
+               state.modalInfo.isActive = false
           }
      }
 })

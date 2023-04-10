@@ -14,7 +14,7 @@
         <router-view />
       </div>
     </div>
-    <modal-info class="" alert-message="Поля имени клиента или номера - пусты"/>
+    <modal-info :class="this.$store.state.modalInfo.isActive ? 'block' : 'hidden'" :alert-message="this.$store.state.modalInfo.text"/>
   </div>
 </template>
 
