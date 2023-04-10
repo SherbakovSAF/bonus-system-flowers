@@ -60,7 +60,7 @@ export default {
           },
           validForEmptyValue(){
                if(!this.selectedClient.name || !this.selectedClient.number){
-                     alert("Поля имени клиента или номера - пусты")
+                    this.$store.commit('activeModalInfo', 'Поля имени клиента или номера - пусты')
                      return false
                }
                return true

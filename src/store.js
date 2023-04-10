@@ -38,7 +38,7 @@ export default createStore({
           selectedClient: {},
           newClientNumber: "",
           modalInfo: {
-               isActive: true,
+               isActive: false,
                text: "Текст"
           }
        }
@@ -72,6 +72,10 @@ export default createStore({
           },
           closeModalInfo(state){
                state.modalInfo.isActive = false
+          },
+          activeModalInfo(state, text){
+               state.modalInfo.isActive = true
+               state.modalInfo.text = text
           }
      }
 })
