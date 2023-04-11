@@ -34,7 +34,7 @@
                          max-lg:m-auto max-lg:w-2/3">
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
-                              max-sm:text-sm" maxlength="14" type="tel" :placeholder="placeholderNumber" autofocus
+                              max-sm:text-sm" maxlength="12" type="tel" :placeholder="placeholderNumber" autofocus
                          v-model="selectedClient.number">
                </div>
           </form>
@@ -44,6 +44,7 @@
 </template>
 
 <script>
+
 export default {
      name: "EditClientInfo",
      data() {
@@ -55,8 +56,12 @@ export default {
           }
      },
      methods: {
-          formatCLientInput(){
-
+          validNumberInput(){
+               if(this.selectedClient.number.length < 10 ){
+                    this.$store.commit('activeModalInfo', 'Количество символов в номере должно быть минимум 10')
+                    return false
+               }
+               return true
           },
           validForEmptyValue(){
                if(!this.selectedClient.name || !this.selectedClient.number){
@@ -66,10 +71,9 @@ export default {
                return true
           },
           addNewClient(){
-               if(!this.validForEmptyValue()){
-                    console.log("Не прошло. Должно выйти")
-                    return
-               }
+               if(!this.validForEmptyValue())return
+               if(this.validNumberInput()) return
+
                const newClientCard = {
                     number: this.selectedClient.number,
                     name: this.selectedClient.name,

@@ -77,5 +77,6 @@ export default createStore({
                state.modalInfo.isActive = true
                state.modalInfo.text = text
           }
-     }
+     },
+     
 })
