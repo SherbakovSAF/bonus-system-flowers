@@ -5,7 +5,7 @@ export default createStore({
        return {
           clientStorage: [
                {
-                    number: "89882321312312",
+                    number: "89881234567",
                     name: "Антон",
                     points: 0,
                     totalAmount: 0,

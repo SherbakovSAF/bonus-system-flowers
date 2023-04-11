@@ -59,21 +59,46 @@ export default {
           validNumberInput(){
                if(this.selectedClient.number.length < 10 ){
                     this.$store.commit('activeModalInfo', 'Количество символов в номере должно быть минимум 10')
-                    return false
+                    return true
                }
-               return true
+
+               if(this.formatNumber().length > 11){
+                    this.$store.commit('activeModalInfo', 'Количество символов в номере больше положенного')
+                    this.selectedClient.number = "8"
+                    return true
+               }
+
+               return false
           },
           validForEmptyValue(){
                if(!this.selectedClient.name || !this.selectedClient.number){
                     this.$store.commit('activeModalInfo', 'Поля имени клиента или номера - пусты')
-                     return false
+                    return true
                }
-               return true
+               return false
+          },
+          formatNumber() {
+               if(this.selectedClient.number[0] == "+"){
+                    return "8" + this.selectedClient.number.slice(2, this.selectedClient.number.length)
+               }
+
+               if(this.selectedClient.number[0] == "8" && this.selectedClient.number.length <= 11){
+                    return this.selectedClient.number
+               }
+
+               return "8" + this.selectedClient.number
+          },
+          checkRepeatClientInfo(){
+               if(this.$store.state.clientStorage.find(e => e.number == this.selectedClient.number) != undefined){
+                    this.$store.commit('activeModalInfo', `Номер ${this.selectedClient.number} уже есть в базе. Проверьте правильность написания`)
+                    return true
+               }
+               return false
           },
           addNewClient(){
-               if(!this.validForEmptyValue())return
-               if(this.validNumberInput()) return
-
+               if(this.validForEmptyValue())return
+               if(this.validNumberInput())return
+               
                const newClientCard = {
                     number: this.selectedClient.number,
                     name: this.selectedClient.name,
@@ -81,7 +106,9 @@ export default {
                     totalAmount: 0,
                     purchaseHistory: []
                }
-               console.log(newClientCard)
+               if(this.checkRepeatClientInfo())return
+          
+               this.$store.commit("addNewClient", newClientCard)
           }
      },
      mounted() {
@@ -98,7 +125,8 @@ export default {
                this.placeholderName = "Введите нового имя клиента"
                this.placeholderNumber = "Введите новый номер клиента"
           }
-     }
+     },
+
 }
 </script>
 
