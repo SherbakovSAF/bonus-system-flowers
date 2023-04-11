@@ -76,6 +76,9 @@ export default createStore({
           activeModalInfo(state, text){
                state.modalInfo.isActive = true
                state.modalInfo.text = text
+          },
+          deleteClientInfo(state, clientInfo){
+               state.clientStorage = state.clientStorage.filter(e => e != clientInfo)
           }
      },
      

@@ -26,6 +26,7 @@
                          </div>
                          <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
                                         max-[500px]:absolute left-full -translate-x-full">
+                         <button @click.stop="this.$store.commit('deleteClientInfo', clientInfo)">Удалить</button>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">

@@ -15,8 +15,6 @@
                class="justify-end mr-6 h-[150px]
                max-[500px]:absolute left-full -translate-x-full">
           </div>
-          <button v-if="$route.params.typeChangeClientInfo == 'editClientInfo'"
-          class="text-center w-full font-medium py-2 border">Удалить</button>
      </article>
 
 
@@ -40,7 +38,7 @@
           </form>
      </div>
      <button @click="addNewClient" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
-     max-sm:w-2/3">Отправить</button>
+     max-sm:w-2/3">{{ textMainButton }}</button>
 </template>
 
 <script>
@@ -52,10 +50,12 @@ export default {
                placeholderName: "",
                placeholderNumber: "",
                clientName: "",
-               selectedClient: {}
+               selectedClient: {},
+               textMainButton: "Отправить"
           }
      },
      methods: {
+          // Добавление нового пользователя 
           validNumberInput(){
                if(this.selectedClient.number.length < 10 ){
                     this.$store.commit('activeModalInfo', 'Количество символов в номере должно быть минимум 10')
@@ -109,7 +109,18 @@ export default {
                if(this.checkRepeatClientInfo())return
           
                this.$store.commit("addNewClient", newClientCard)
-          }
+               this.$router.push("/")
+          },
+          // Редактирование нового пользователя
+
+          // Проверить есть ли номер в базе
+          // В мутации добавить изменения
+          
+          editClientInfo(){
+               if(this.validNumberInput())return
+               if(this.validForEmptyValue())return
+               if(this.checkRepeatClientInfo())return
+          },
      },
      mounted() {
           if (this.$route.params.typeChangeClientInfo == "regnewclient") {
@@ -118,32 +129,16 @@ export default {
                this.selectedClient.number = this.$store.state.newClientNumber
                this.selectedClient.name = ""
                this.$store.commit("clearNewClientNumber")
+               this.textMainButton = "Добавить"
           }
 
           if (this.$route.params.typeChangeClientInfo == "editClientInfo") {
                this.selectedClient = this.$store.state.selectedClient
                this.placeholderName = "Введите нового имя клиента"
                this.placeholderNumber = "Введите новый номер клиента"
+               this.textMainButton = "Изменить"
           }
      },
 
 }
 </script>
-
-<!-- methods:{
-     addNewClient(){
-          const newClientInfo = {
-               number: this.numberNewClient,
-               name: this.nameNewClient,
-               points: 0,
-               totalAmount: 0,
-               purchaseHistory: [
-               ]
-          }
-          if(this.$store.state.clientStorage.find(e => e.number == this.numberNewClient) != undefined){
-               alert(`Номер ${this.numberNewClient} уже есть в базе. Проверьте правильность написания`)
-               return
-          }
-          this.$store.commit("addNewClient", newClientInfo)
-     }
-}, -->
