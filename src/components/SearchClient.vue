@@ -2,7 +2,7 @@
      <div>
           <div>
                <article 
-                    class="bg-[#FBDCD7] w-1/2 rounded-r-full shadow-lg mt-6 flex justify-between items-center cursor-pointer
+                    class="bg-[#FBDCD7] w-1/2 rounded-r-full shadow-lg mt-6 flex justify-around items-center cursor-pointer
                     max-[500px]:relative
                     max-lg:w-2/3 max-sm:w-full" 
                     v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx"
@@ -24,9 +24,9 @@
                                    </h1>
                               </div>
                          </div>
-                         <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
+                         <img src="../assets/media/flower.png" alt="Цветок" class=" h-[150px]
                                         max-[500px]:absolute left-full -translate-x-full">
-                         <button @click.stop="deleteClientInfo(clientInfo)">Удалить</button>
+                         <button @click.stop="deleteClientInfo(clientInfo)"><img src="../assets/media/clear.svg" class="w-16 h-16 bg-main-bg rounded-full p-1" alt="Удалить"></button>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">
@@ -109,6 +109,7 @@ export default {
           },
           deleteClientInfo(clientInfo){
                this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})
+               // Ожидает получение ответа от кнопки 
                console.log(clientInfo)
                // this.$store.commit('deleteClientInfo', clientInfo)
           }

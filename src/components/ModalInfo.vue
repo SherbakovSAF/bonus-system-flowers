@@ -6,7 +6,7 @@
                          {{ alertMessage }}
                     </h1>
                     <div>
-                         <button @click="this.$store.commit('closeModalInfo')" 
+                         <button @click="responseOkFunction" 
                          class="font-semibold bg-card-bg px-12 py-3 rounded-full max-lg:text-sm cursor-pointer">Ок</button>
                          <button v-if="this.$store.state.modalInfo.type == 'confirm'" @click="this.$store.commit('closeModalInfo')" 
                          class="font-semibold bg-card-bg px-12 py-3 ml-6 rounded-full max-lg:text-sm cursor-pointer">Отмена</button>
@@ -30,6 +30,14 @@ export default {
      },
      data() {
           return {
+               responseCancelFunction(){
+                    this.$store.commit('closeModalInfo')
+                    // return false
+               },
+               responseOkFunction(){
+                    this.$store.commit('closeModalInfo')
+                    // return true
+               }
           }
      },
 }
