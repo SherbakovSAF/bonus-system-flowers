@@ -8,7 +8,7 @@
                     <div>
                          <button @click="responseOkFunction" 
                          class="font-semibold bg-card-bg px-12 py-3 rounded-full max-lg:text-sm cursor-pointer">Ок</button>
-                         <button v-if="this.$store.state.modalInfo.type == 'confirm'" @click="this.$store.commit('closeModalInfo')" 
+                         <button v-if="this.$store.state.modalInfo.type == 'confirm'" @click="responseCancelFunction" 
                          class="font-semibold bg-card-bg px-12 py-3 ml-6 rounded-full max-lg:text-sm cursor-pointer">Отмена</button>
                     </div>
                </div>
@@ -30,15 +30,18 @@ export default {
      },
      data() {
           return {
-               responseCancelFunction(){
-                    this.$store.commit('closeModalInfo')
-                    // return false
-               },
-               responseOkFunction(){
-                    this.$store.commit('closeModalInfo')
-                    // return true
-               }
+               
           }
      },
+     methods:{
+          responseCancelFunction() {
+               this.$store.commit("selectedTypeModalInfo", false)
+               this.$store.commit("closeModalInfo")
+          },
+          responseOkFunction() {
+               this.$store.commit("selectedTypeModalInfo", true)
+               this.$store.commit("closeModalInfo")
+          }
+     }
 }
 </script>

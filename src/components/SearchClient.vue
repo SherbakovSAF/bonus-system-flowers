@@ -24,8 +24,8 @@
                                    </h1>
                               </div>
                          </div>
-                         <img src="../assets/media/flower.png" alt="Цветок" class=" h-[150px]
-                                        max-[500px]:absolute left-full -translate-x-full">
+                         <img src="../assets/media/flower.png" alt="Цветок" 
+                              class=" h-[150px] max-[500px]:absolute left-full -translate-x-full">
                          <button @click.stop="deleteClientInfo(clientInfo)"><img src="../assets/media/clear.svg" class="w-16 h-16 bg-main-bg rounded-full p-1" alt="Удалить"></button>
                </article>
           </div>
@@ -109,9 +109,18 @@ export default {
           },
           deleteClientInfo(clientInfo){
                this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})
-               // Ожидает получение ответа от кнопки 
-               console.log(clientInfo)
-               // this.$store.commit('deleteClientInfo', clientInfo)
+               
+               // Не уверен в этом куске кода
+               let checkAnswer = setInterval(()=>{
+                    if(this.$store.getters.getModalCallback == true){
+                         this.$store.commit('deleteClientInfo', clientInfo)
+                         clearInterval(checkAnswer)
+                    }
+                    if(this.$store.getters.getModalCallback == false){
+                         clearInterval(checkAnswer)
+                    }
+               }, 500)
+          
           }
      },
      computed: {

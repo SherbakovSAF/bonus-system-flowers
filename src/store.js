@@ -40,9 +40,13 @@ export default createStore({
           modalInfo: {
                isActive: false,
                text: "Текст",
-               type: 'alert'
+               type: 'alert',
+               callBack: null
           }
        }
+     },
+     getters: {
+          getModalCallback: state => state.modalInfo.callBack
      },
      mutations: {
           selectClient(state, selectClient) {
@@ -74,9 +78,9 @@ export default createStore({
           closeModalInfo(state){
                state.modalInfo.isActive = false
           },
-          activeModalInfo(state, props){     
+          activeModalInfo(state, props){    
+               state.modalInfo.callBack = null
                state.modalInfo.text = props.text
-               console.log(props.type)
                switch (props.type){
                     case "confirm":
                          state.modalInfo.type = 'confirm'
@@ -89,6 +93,9 @@ export default createStore({
           },
           deleteClientInfo(state, clientInfo){
                state.clientStorage = state.clientStorage.filter(e => e != clientInfo)
+          },
+          selectedTypeModalInfo(state, callBackResult){
+               state.modalInfo.callBack = callBackResult
           }
      },
      
