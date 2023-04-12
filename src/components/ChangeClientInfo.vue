@@ -58,12 +58,12 @@ export default {
           // Добавление нового пользователя 
           validNumberInput(){
                if(this.selectedClient.number.length < 10 ){
-                    this.$store.commit('activeModalInfo', 'Количество символов в номере должно быть минимум 10')
+                    this.$store.commit('activeModalInfo', {text: 'Количество символов в номере должно быть минимум 10'})
                     return true
                }
 
                if(this.formatNumber().length > 11){
-                    this.$store.commit('activeModalInfo', 'Количество символов в номере больше положенного')
+                    this.$store.commit('activeModalInfo', {text: 'Количество символов в номере больше положенного'})
                     this.selectedClient.number = "8"
                     return true
                }
@@ -72,7 +72,7 @@ export default {
           },
           validForEmptyValue(){
                if(!this.selectedClient.name || !this.selectedClient.number){
-                    this.$store.commit('activeModalInfo', 'Поля имени клиента или номера - пусты')
+                    this.$store.commit('activeModalInfo', {text: 'Поля имени клиента или номера - пусты'})
                     return true
                }
                return false
@@ -90,7 +90,7 @@ export default {
           },
           checkRepeatClientInfo(){
                if(this.$store.state.clientStorage.find(e => e.number == this.selectedClient.number) != undefined){
-                    this.$store.commit('activeModalInfo', `Номер ${this.selectedClient.number} уже есть в базе. Проверьте правильность написания`)
+                    this.$store.commit('activeModalInfo', {text: `Номер ${this.selectedClient.number} уже есть в базе. Проверьте правильность написания`})
                     return true
                }
                return false

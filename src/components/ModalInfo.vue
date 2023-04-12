@@ -5,8 +5,12 @@
                     <h1 class="font-medium text-2xl flex justify-center items-center text-main-color-text h-full max-lg:text-xl">
                          {{ alertMessage }}
                     </h1>
-                    <button @click="this.$store.commit('closeModalInfo')" 
-                         class="font-semibold bg-card-bg px-12 py-3 rounded-full max-lg:text-sm cursor-pointer">Всё понятно</button>
+                    <div>
+                         <button @click="this.$store.commit('closeModalInfo')" 
+                         class="font-semibold bg-card-bg px-12 py-3 rounded-full max-lg:text-sm cursor-pointer">Ок</button>
+                         <button v-if="this.$store.state.modalInfo.type == 'confirm'" @click="this.$store.commit('closeModalInfo')" 
+                         class="font-semibold bg-card-bg px-12 py-3 ml-6 rounded-full max-lg:text-sm cursor-pointer">Отмена</button>
+                    </div>
                </div>
           </div>
      </div>

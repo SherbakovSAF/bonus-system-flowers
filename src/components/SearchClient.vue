@@ -26,7 +26,7 @@
                          </div>
                          <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
                                         max-[500px]:absolute left-full -translate-x-full">
-                         <button @click.stop="this.$store.commit('deleteClientInfo', clientInfo)">Удалить</button>
+                         <button @click.stop="deleteClientInfo(clientInfo)">Удалить</button>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">
@@ -106,6 +106,11 @@ export default {
                          break;
                }
                this.$store.commit('saveEnterNumber', numberForStore.replace(/[a-zа-яё]/gi, ''))
+          },
+          deleteClientInfo(clientInfo){
+               this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})
+               console.log(clientInfo)
+               // this.$store.commit('deleteClientInfo', clientInfo)
           }
      },
      computed: {

@@ -106,16 +106,16 @@ export default {
           validForm() {
                // Проверка на обязательные поля В ЛЮБОМ СЛУЧАЕ
                if (this.addNewPurchase.salesman == "" || +this.addNewPurchase.sum <= 0) {
-                    this.$store.commit('activeModalInfo', 'Введена некорректная сумма или не выбран продавец')
+                    this.$store.commit('activeModalInfo', {text:'Введена некорректная сумма или не выбран продавец'})
                     return false
                }
                // Проверка на обязательные поля В СЛУЧАЕ СПИСАНИЯ
                if (this.addNewPurchase.typeBonus == "SUB" && +this.addNewPurchase.subBonus <= 0) {
-                    this.$store.commit('activeModalInfo', 'Введите сумму для списания')
+                    this.$store.commit('activeModalInfo', {text: 'Введите сумму для списания'})
                     return false
                }
                if (this.addNewPurchase.sumPurchase <= 0 || isNaN(+this.addNewPurchase.sumPurchase)) {
-                    this.$store.commit('activeModalInfo', 'Сумма покупки некорректна')
+                    this.$store.commit('activeModalInfo', {text: 'Сумма покупки некорректна'})
                     this.addNewPurchase.sumPurchase = ""
                     return false
                }
@@ -141,7 +141,7 @@ export default {
                }
 
                if (newPurchaseTemplate.typeOperationPoint == "SUB" && this.$store.state.selectedClient.points < newPurchaseTemplate.subBonus) {
-                    this.$store.commit('activeModalInfo', 'Количество списываем бонусов превышает сумму бонусов клиента')
+                    this.$store.commit('activeModalInfo', {text: 'Количество списываем бонусов превышает сумму бонусов клиента'})
                     this.addNewPurchase.subBonus = ""
                     return
                }

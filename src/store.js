@@ -39,7 +39,8 @@ export default createStore({
           newClientNumber: "",
           modalInfo: {
                isActive: false,
-               text: "Текст"
+               text: "Текст",
+               type: 'alert'
           }
        }
      },
@@ -73,9 +74,18 @@ export default createStore({
           closeModalInfo(state){
                state.modalInfo.isActive = false
           },
-          activeModalInfo(state, text){
+          activeModalInfo(state, props){     
+               state.modalInfo.text = props.text
+               console.log(props.type)
+               switch (props.type){
+                    case "confirm":
+                         state.modalInfo.type = 'confirm'
+                         break
+                    default:
+                         state.modalInfo.type = 'alert'    
+               }
+
                state.modalInfo.isActive = true
-               state.modalInfo.text = text
           },
           deleteClientInfo(state, clientInfo){
                state.clientStorage = state.clientStorage.filter(e => e != clientInfo)
