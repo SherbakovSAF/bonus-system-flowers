@@ -17,7 +17,7 @@
           </div>
      </article>
 
-
+{{ selectedClient.number }}
      <div>
           <form class="py-4">
                <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4
@@ -33,16 +33,15 @@
                     <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
                     <input class="outline-0 w-full font-medium text-[#686767] text-1xl
                               max-sm:text-sm" maxlength="12" type="tel" :placeholder="placeholderNumber" autofocus
-                         v-model="selectedClient.number">
+                         v-model.trim.number="selectedClient.number">
                </div>
           </form>
      </div>
-     <button @click="addNewClient" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+     <button @click="editClientInfo" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
      max-sm:w-2/3">{{ textMainButton }}</button>
 </template>
 
 <script>
-
 export default {
      name: "EditClientInfo",
      data() {
@@ -58,13 +57,22 @@ export default {
           // Добавление нового пользователя 
           validNumberInput(){
                if(this.selectedClient.number.length < 10 ){
-                    this.$store.commit('activeModalInfo', {text: 'Количество символов в номере должно быть минимум 10'})
+                    this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере должно быть минимум 10'})
+                    return true
+               }
+
+               if(this.selectedClient.number[0] == "+" && this.selectedClient.number.length < 12 ){
+                    this.$store.commit('activeModalInfo', {text: 'Количество цифр, при использовании кода +7 в номере, должно быть минимум 12'})
+                    return true
+               }
+
+               if(this.selectedClient.number[0] == "8" && this.selectedClient.number.length < 11 ){
+                    this.$store.commit('activeModalInfo', {text: 'Количество цифр, при использовании кода 8 в номере, должно быть минимум 11'})
                     return true
                }
 
                if(this.formatNumber().length > 11){
-                    this.$store.commit('activeModalInfo', {text: 'Количество символов в номере больше положенного'})
-                    this.selectedClient.number = "8"
+                    this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере больше положенного'})
                     return true
                }
 
@@ -120,6 +128,8 @@ export default {
                if(this.validNumberInput())return
                if(this.validForEmptyValue())return
                if(this.checkRepeatClientInfo())return
+               this.$store.commit('editClientInfo', {name: this.selectedClient.name, number: this.selectedClient.number})
+               this.$router.push("/")
           },
      },
      mounted() {
@@ -133,7 +143,7 @@ export default {
           }
 
           if (this.$route.params.typeChangeClientInfo == "editClientInfo") {
-               this.selectedClient = this.$store.state.selectedClient
+               this.selectedClient = Object.assign({}, this.$store.state.selectedClient)
                this.placeholderName = "Введите нового имя клиента"
                this.placeholderNumber = "Введите новый номер клиента"
                this.textMainButton = "Изменить"

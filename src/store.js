@@ -96,6 +96,11 @@ export default createStore({
           },
           selectedTypeModalInfo(state, callBackResult){
                state.modalInfo.callBack = callBackResult
+          },
+          editClientInfo(state, clientInfo){
+               const indexEditClient = state.clientStorage.findIndex(e => e == state.selectedClient)
+               state.clientStorage[indexEditClient].number = clientInfo.number
+               state.clientStorage[indexEditClient].name = clientInfo.name
           }
      },
      

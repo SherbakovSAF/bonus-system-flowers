@@ -67,12 +67,10 @@
 <script>
 export default {
      name: "SearchClient",
-     
      data() {
           return {
                numberInput: "",
           }
-
      },
      methods: {
           renderAmountPoint(sumPoint) {
