@@ -37,7 +37,7 @@
                </div>
           </form>
      </div>
-     <button @click="editClientInfo" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+     <button @click="selectedButtonFunc" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
      max-sm:w-2/3">{{ textMainButton }}</button>
 </template>
 
@@ -50,7 +50,8 @@ export default {
                placeholderNumber: "",
                clientName: "",
                selectedClient: {},
-               textMainButton: "Отправить"
+               textMainButton: "Отправить",
+               selectedButtonFunc: '',
           }
      },
      methods: {
@@ -108,7 +109,7 @@ export default {
                if(this.validNumberInput())return
                
                const newClientCard = {
-                    number: this.selectedClient.number,
+                    number: String(this.selectedClient.number),
                     name: this.selectedClient.name,
                     points: 0,
                     totalAmount: 0,
@@ -128,9 +129,11 @@ export default {
                if(this.validNumberInput())return
                if(this.validForEmptyValue())return
                if(this.checkRepeatClientInfo())return
-               this.$store.commit('editClientInfo', {name: this.selectedClient.name, number: this.selectedClient.number})
+               this.$store.commit('editClientInfo', {name: this.selectedClient.name, number: String(this.selectedClient.number)})
                this.$router.push("/")
           },
+     },
+     computed: {
      },
      mounted() {
           if (this.$route.params.typeChangeClientInfo == "regnewclient") {
@@ -140,6 +143,7 @@ export default {
                this.selectedClient.name = ""
                this.$store.commit("clearNewClientNumber")
                this.textMainButton = "Добавить"
+               this.selectedButtonFunc = this.addNewClient
           }
 
           if (this.$route.params.typeChangeClientInfo == "editClientInfo") {
@@ -147,6 +151,7 @@ export default {
                this.placeholderName = "Введите нового имя клиента"
                this.placeholderNumber = "Введите новый номер клиента"
                this.textMainButton = "Изменить"
+               this.selectedButtonFunc = this.editClientInfo
           }
      },
 

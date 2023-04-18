@@ -126,6 +126,7 @@ export default {
                const firstValueTransValue = this.numberInput.slice(0, 1)
                const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
                     // Выносим шаблон. 
+                    console.log(this.$store.state.clientStorage)
                     return this.$store.state.clientStorage.filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
                }
                if (firstValueTransValue == "+") {
