@@ -9,7 +9,7 @@
             <h2 class="text-xl">{{ selectedClient.name }}</h2>
             <h2 class="text-2xl">{{ selectedClient.number}}</h2>
           </div>
-          <hr class="w-full h-1 bg-main-green">
+          <hr class="w-full h-1 border-main-green bg-main-green">
           <div>
             <h1>
               <span class="text-3xl align-middle">{{ selectedClient.points % 1 === 0 ? selectedClient.points : selectedClient.points.toFixed(2)}}</span> <span class="text-xl align-middle">бонусов</span>

@@ -8,7 +8,7 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'main-green': '#305346',
+      'main-green': '#5b6dae',
       'white': colors.white,
       'main-bg': '#F8C8C0',
       'card-bg': '#FBDCD7',

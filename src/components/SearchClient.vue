@@ -26,7 +26,7 @@
                          </div>
                          <img src="../assets/media/flower.png" alt="Цветок" 
                               class=" h-[150px] max-[500px]:absolute left-full -translate-x-full">
-                         <button @click.stop="deleteClientInfo(clientInfo)"><img src="../assets/media/clear.svg" class="w-16 h-16 bg-main-bg rounded-full p-1" alt="Удалить"></button>
+                         <button @click.stop="deleteClientInfo(clientInfo)"><img src="../assets/media/clear.svg" class="w-16 h-16 bg-main-green rounded-full p-1" alt="Удалить"></button>
                </article>
           </div>
           <div v-if="filterClientNumber.length === 0">

@@ -13,15 +13,15 @@
                <input v-model="addNewPurchase.typeOperationPoint" type="radio" name="bonusAction" value="PLUS"
                     class="peer/bonusAction hidden">
                <div
-                    class="w-6 h-6 rounded-full box-border border-[#305346] border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-[#305346]">
+                    class="w-6 h-6 rounded-full box-border border-main-green border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-main-green">
                </div>
-               <h3 class="text-lg text-[#305346]">Начислить</h3>
+               <h3 class="text-lg text-main-green">Начислить</h3>
           </label>
           <label class="flex py-3 cursor-pointer">
                <input v-model="addNewPurchase.typeOperationPoint" type="radio" name="bonusAction" value="SUB"
                     class="peer/bonusAction hidden">
-               <div class="w-6 h-6 rounded-full box-border border-[#305346] border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-[#305346]"></div>
-               <h3 class="text-lg text-[#305346]">Списать</h3>
+               <div class="w-6 h-6 rounded-full box-border border-main-green border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-main-green"></div>
+               <h3 class="text-lg text-main-green">Списать</h3>
           </label>
      </div>
      <form class="py-4" v-if="addNewPurchase.typeOperationPoint == 'SUB'">
