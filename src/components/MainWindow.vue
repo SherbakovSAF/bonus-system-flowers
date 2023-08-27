@@ -1,13 +1,12 @@
 <template>
      <div>
-          <main-loader />
-          <div>
+          <main-loader v-if="isLoader"/>
+          <div v-else>
                <client-card v-for="card in filterClientNumber" :key="card.id"
-                    :cardInfo="card"/>
-          </div>
-          <div v-if="filterClientNumber.length === 0">
+               :cardInfo="card"/>
                <new-client-card :newClientNumber="numberInput"/>
           </div>
+          
      </div>
 
      <form class="flex justify-center mt-5 ">
@@ -22,14 +21,13 @@
 </template>
 
 
-
 <script>
 import ClientCard from './MainWindow-ClientCard.vue'
 import NewClientCard from './MainWindow-NewClientCard.vue'
 import MainLoader from '@/components/UI/MainLoader.vue'
 
 export default {
-     name: "SearchClient",
+     name: "MainWindow",
      components: {
           ClientCard,
           NewClientCard,
@@ -38,22 +36,18 @@ export default {
      data() {
           return {
                numberInput: "",
+               isLoader: false
+          }
+     },
+     methods: {
+          async getClient(){
+               this.isLoader = true
+               this.$store.dispatch('getClientStorageFromAPI')
+               this.isLoader = false
           }
      },
      computed: {
           filterClientNumber() {
-
-               if(!this.$store.state.clientStorage){
-               //      return [{
-               //      number: "891812343554",
-               //      name: "Сергей",
-               //      points: 12,
-               //      totalAmount: 0,
-               //      purchaseHistory: []
-               // },]
-               return []
-               }
-
                const firstValueTransValue = this.numberInput.slice(0, 1)
                const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
                     // Выносим шаблон. 
@@ -69,10 +63,21 @@ export default {
                } else {
                     return templateSliceNumber(this.numberInput.length + 1, 0)
                }
+
+               
           }
+          // filterClientNumber() {
+          //      const firstValueTransValue = this.numberInput[0];
+          //      const sliceNumberInputLength = this.numberInput.length - (firstValueTransValue === "+" ? 1 : 0);
+
+          //      return this.$store.state.clientStorage
+          //      .filter(card => {
+          //           card.number.slice(1, sliceNumberInputLength) === this.numberInput.slice(firstValueTransValue === "+" ? 2 : 1, this.numberInput.length)
+          //      });
+          // }
      },
-     mounted(){
-          this.$store.commit('getClientStorageFromAPI')
+     mounted() {
+          this.getClient()
      }
 }
 </script>

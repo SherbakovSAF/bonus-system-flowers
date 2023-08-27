@@ -1,11 +1,11 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
 import ClientInfo from "./components/ClientInfo.vue";
-import SearchClient from "./components/SearchClient.vue";
+import MainWindow from "./components/MainWindow.vue";
 import ChangeClientInfo from "./components/ChangeClientInfo.vue";
 
 const routes = [
-    { path: "/", component: SearchClient },
+    { path: "/", component: MainWindow },
     {
         path: "/clientInfo",
         component: ClientInfo,

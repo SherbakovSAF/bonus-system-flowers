@@ -3,38 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
      state () {
        return {
-          clientStorage: [
-               {
-                    number: "89881234567",
-                    name: "Антон",
-                    points: 0,
-                    totalAmount: 0,
-                    purchaseHistory: [
-                         // Шаблон покупки для clientStorage
-                         // date: formatData,
-                         // sumPurchase: this.addNewPurchase.sumPurchase,
-                         // typeOperationPoint: this.addNewPurchase.typeOperationPoint, // or "PLUS"
-                         // subBonus: this.addNewPurchase.subBonus,
-                         // plusBonus: (this.addNewPurchase.sumPurchase * 0.1).toFixed(2),
-                         // listPurchase: !this.addNewPurchase.listPurchase ? "-" : this.addNewPurchase.listPurchase,
-                         // salesman: this.addNewPurchase.salesman     
-                    ]
-               },
-               {
-                    number: "891812343554",
-                    name: "Сергей",
-                    points: 0,
-                    totalAmount: 0,
-                    purchaseHistory: []
-               },
-               {
-                    number: "8928125312",
-                    name: "Игорь",
-                    points: 0,
-                    totalAmount: 0,
-                    purchaseHistory: []
-               },
-          ],
+          clientStorage: [],
           selectedClient: {},
           newClientNumber: "",
           modalInfo: {
@@ -101,7 +70,18 @@ export default createStore({
                const indexEditClient = state.clientStorage.findIndex(e => e == state.selectedClient)
                state.clientStorage[indexEditClient].number = clientInfo.number
                state.clientStorage[indexEditClient].name = clientInfo.name
+          },
+          setClientStorage(state, data){
+               state.clientStorage = data
           }
+          
      },
+     actions: {
+          async getClientStorageFromAPI({ commit }){
+               const res = await fetch('http://localhost:3000/api/index.js')
+               const data = await res.json()
+               commit('setClientStorage', data)
+          }
+     }
      
 })
