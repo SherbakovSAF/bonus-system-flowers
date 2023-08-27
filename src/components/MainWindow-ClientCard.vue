@@ -47,6 +47,21 @@ export default {
                this.$store.commit('selectClient', clientInfo)
                this.$router.push("clientInfo")
           },
+          deleteClientInfo(clientInfo){
+               this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})
+               
+               // Не уверен в этом куске кода
+               let checkAnswer = setInterval(()=>{
+                    if(this.$store.getters.getModalCallback == true){
+                         this.$store.commit('deleteClientInfo', clientInfo)
+                         clearInterval(checkAnswer)
+                    }
+                    if(this.$store.getters.getModalCallback == false){
+                         clearInterval(checkAnswer)
+                    }
+               }, 500)
+          
+          }
      },
      computed: {
           fixedZero(){

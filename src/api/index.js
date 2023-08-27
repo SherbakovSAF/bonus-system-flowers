@@ -4,7 +4,8 @@ const path = require('path')
 
 const clientStorage = [
      {
-          number: "89881234567",
+          id: 0,
+          number: "+79881234567",
           name: "Антон",
           points: 0,
           totalAmount: 0,
@@ -20,14 +21,16 @@ const clientStorage = [
           ]
      },
      {
-          number: "891812343554",
+          id: 1,
+          number: "+791812343554",
           name: "Сергей",
           points: 0,
           totalAmount: 0,
           purchaseHistory: []
      },
      {
-          number: "8928125312",
+          id: 2,
+          number: "+7928125312",
           name: "Игорь",
           points: 0,
           totalAmount: 0,
