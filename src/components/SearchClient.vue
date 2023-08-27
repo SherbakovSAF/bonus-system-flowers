@@ -1,5 +1,6 @@
 <template>
      <div>
+          <main-loader />
           <div>
                <main-window-card v-for="card in filterClientNumber" :key="card.id"
                     :cardInfo="card"/>
@@ -41,11 +42,13 @@
 
 <script>
 import MainWindowCard from './MainWindow-Card.vue'
+import MainLoader from '@/components/UI/MainLoader.vue'
 
 export default {
      name: "SearchClient",
      components: {
-          MainWindowCard
+          MainWindowCard,
+          MainLoader
      },
      data() {
           return {
