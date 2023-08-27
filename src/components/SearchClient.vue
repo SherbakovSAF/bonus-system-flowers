@@ -1,33 +1,8 @@
 <template>
      <div>
           <div>
-               <article 
-                    class="bg-[#FBDCD7] w-1/2 rounded-r-full shadow-lg mt-6 flex justify-around items-center cursor-pointer
-                    max-[500px]:relative
-                    max-lg:w-2/3 max-sm:w-full" 
-                    v-for="(clientInfo, idx) in filterClientNumber" v-bind:key="idx"
-                    @click="selectClient(clientInfo)">
-                         <div class="text-[#686767] px-8 py-7">
-                              <div class="person__main__block">
-                                   <h2 class="text-xl">{{ clientInfo.name }}</h2>
-                                   <h2 class="text-2xl">{{ clientInfo.number }}</h2>
-                              </div>
-                              <div>
-                                   <h1>
-                                        <span class="text-3xl">{{ clientInfo.points % 1 === 0 ? clientInfo.points : clientInfo.points.toFixed(2) }}</span>
-                                        <span class="text-xl ml-1"> {{ renderAmountPoint(clientInfo.points) }}</span>
-                                   </h1>
-                                   <h1 class="flex items-center">
-                                        <span class="text-3xl">{{ clientInfo.totalAmount }}</span>
-                                        <span class="text-xl ml-1">сумма выкупа</span>
-                                        <img src="../assets/media/pig.svg" alt="СвинкаБонус" class="ml-2">
-                                   </h1>
-                              </div>
-                         </div>
-                         <img src="../assets/media/flower.png" alt="Цветок" 
-                              class=" h-[150px] max-[500px]:absolute left-full -translate-x-full">
-                         <button @click.stop="deleteClientInfo(clientInfo)"><img src="../assets/media/clear.svg" class="w-16 h-16 bg-main-green rounded-full p-1" alt="Удалить"></button>
-               </article>
+               <main-window-card v-for="card in filterClientNumber" :key="card.id"
+                    :cardInfo="card"/>
           </div>
           <div v-if="filterClientNumber.length === 0">
                <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
@@ -65,30 +40,20 @@
 
 
 <script>
+import MainWindowCard from './MainWindow-Card.vue'
+
 export default {
      name: "SearchClient",
+     components: {
+          MainWindowCard
+     },
      data() {
           return {
                numberInput: "",
           }
      },
      methods: {
-          renderAmountPoint(sumPoint) {
-               const end1 = /1$/
-               const end2to4 = /[2-4]$/
-               // const end0or5to9 = /[5-9,0]$/ 
-               if (end1.test(sumPoint)) {
-                    return "бонус"
-               } else if (end2to4.test(sumPoint)) {
-                    return "бонуса"
-               } else {
-                    return "бонусов"
-               }
-          },
-          selectClient(clientInfo){
-               this.$store.commit('selectClient', clientInfo)
-               this.$router.push("clientInfo")
-          },
+          
           saveEnterNumber(){
                let numberForStore
 
@@ -105,24 +70,20 @@ export default {
                }
                this.$store.commit('saveEnterNumber', numberForStore.replace(/[a-zа-яё]/gi, ''))
           },
-          deleteClientInfo(clientInfo){
-               this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})
-               
-               // Не уверен в этом куске кода
-               let checkAnswer = setInterval(()=>{
-                    if(this.$store.getters.getModalCallback == true){
-                         this.$store.commit('deleteClientInfo', clientInfo)
-                         clearInterval(checkAnswer)
-                    }
-                    if(this.$store.getters.getModalCallback == false){
-                         clearInterval(checkAnswer)
-                    }
-               }, 500)
           
-          }
      },
      computed: {
           filterClientNumber() {
+
+               if(!this.$store.state.clientStorage){
+                    return [{
+                    number: "891812343554",
+                    name: "Сергей",
+                    points: 12,
+                    totalAmount: 0,
+                    purchaseHistory: []
+               },]
+               }
 
                const firstValueTransValue = this.numberInput.slice(0, 1)
                const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
@@ -141,9 +102,8 @@ export default {
                }
           }
      },
-     // beforeUnmount: function(){
-     //      console.log("Разрушен")
-     //      this.$store.commit('clearSelectedClient')
-     // }
+     mounted(){
+          this.$store.commit('getClientStorageFromAPI')
+     }
 }
 </script>
