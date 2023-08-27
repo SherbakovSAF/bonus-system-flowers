@@ -2,28 +2,11 @@
      <div>
           <main-loader />
           <div>
-               <main-window-card v-for="card in filterClientNumber" :key="card.id"
+               <client-card v-for="card in filterClientNumber" :key="card.id"
                     :cardInfo="card"/>
           </div>
           <div v-if="filterClientNumber.length === 0">
-               <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
-                              max-md:w-2/3 max-sm:w-full">
-                    <router-link to="clientinfo/regnewclient"
-                         @click="saveEnterNumber" 
-                         class="flex justify-between items-center
-                         max-[430px]:relative">
-                         <div class="text-[#686767] px-8 py-7">
-                              <div class="person__main__block">
-                                   <h2 class="text-xl">Клиент не найден</h2>
-                                   <h1 class="text-2xl">Добавить карточку с номером<br>
-                                        <span class="text-3xl font-semibold">{{ numberInput }}</span>
-                                   </h1>
-                              </div>
-                         </div>
-                         <img src="../assets/media/flower.png" alt="" class="justify-end mr-6 h-[150px]
-                                        max-[430px]:absolute left-full -translate-x-full">
-                    </router-link>
-               </article>
+               <new-client-card :newClientNumber="numberInput"/>
           </div>
      </div>
 
@@ -41,13 +24,15 @@
 
 
 <script>
-import MainWindowCard from './MainWindow-Card.vue'
+import ClientCard from './MainWindow-ClientCard.vue'
+import NewClientCard from './MainWindow-NewClientCard.vue'
 import MainLoader from '@/components/UI/MainLoader.vue'
 
 export default {
      name: "SearchClient",
      components: {
-          MainWindowCard,
+          ClientCard,
+          NewClientCard,
           MainLoader
      },
      data() {
@@ -55,37 +40,18 @@ export default {
                numberInput: "",
           }
      },
-     methods: {
-          
-          saveEnterNumber(){
-               let numberForStore
-
-               switch (this.numberInput[0]) {
-                    case "8":
-                         numberForStore = this.numberInput
-                         break;
-                    case "+":
-                         numberForStore = "8" + this.numberInput.slice(2,this.numberInput.length)
-                         break;
-                    default:
-                         numberForStore = "8" + this.numberInput
-                         break;
-               }
-               this.$store.commit('saveEnterNumber', numberForStore.replace(/[a-zа-яё]/gi, ''))
-          },
-          
-     },
      computed: {
           filterClientNumber() {
 
                if(!this.$store.state.clientStorage){
-                    return [{
-                    number: "891812343554",
-                    name: "Сергей",
-                    points: 12,
-                    totalAmount: 0,
-                    purchaseHistory: []
-               },]
+               //      return [{
+               //      number: "891812343554",
+               //      name: "Сергей",
+               //      points: 12,
+               //      totalAmount: 0,
+               //      purchaseHistory: []
+               // },]
+               return []
                }
 
                const firstValueTransValue = this.numberInput.slice(0, 1)
