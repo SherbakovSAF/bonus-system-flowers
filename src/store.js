@@ -77,9 +77,10 @@ export default createStore({
           
      },
      actions: {
-          async getClientStorageFromAPI({ commit }){
-               const res = await fetch('http://localhost:3000/api/index.js')
+          async getClientStorageFromDB({ commit }, number){
+               const res = await fetch(`/api/clientState?number=${number}&lala=12312`)
                const data = await res.json()
+               console.log(data)
                commit('setClientStorage', data)
           }
      }

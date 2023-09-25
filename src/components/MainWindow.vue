@@ -1,11 +1,13 @@
 <template>
      <main-loader v-if="isLoader"/>
      <div v-else>
-          <div v-if="filterClientNumber.length">
+          <!-- v-if="filterClientNumber.length" -->
+          <!-- v-else -->
+          <div >
                <client-card v-for="card in filterClientNumber" :key="card.id"
                :cardInfo="card"/>
           </div>
-          <new-client-card v-else :newClientNumber="numberInput"/>
+          <new-client-card  :newClientNumber="numberInput"/>
      </div>
      <form class="flex justify-center mt-5 ">
           <div class="w-1/3 bg-white rounded-full flex py-3 px-4
@@ -41,35 +43,35 @@ export default {
           }
      },
      methods: {
-          async getClient(){
-               this.isLoader = true
-               await this.$store.dispatch('getClientStorageFromAPI')
-               this.isLoader = false
-          },
-          executeReq(){
+          async executeReq(){
                if(this.numberInput.length === 5){
-                    this.getClient()
+                    this.isLoader = true
+                    await this.$store.dispatch('getClientStorageFromDB', this.numberInput)
+                    this.isLoader = false
                }
           }
      },
      computed: {
           filterClientNumber() {
-               const firstValueTransValue = this.numberInput[0]
-               const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
-                    // Выносим шаблон. 
-                    return this.$store.state.clientStorage
-                    .filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
-               }
-               if (firstValueTransValue == "+") {
-                    // Обрезается +7
-                    return templateSliceNumber(this.numberInput.length - 1, 2)
-               } 
-               if (firstValueTransValue == "8") {
-                    // Обрезается 8
-                    return templateSliceNumber(this.numberInput.length, 1)
-               } 
+               console.log(this.$store.state.clientStorage)
+               return this.$store.state.clientStorage
+
+               // const firstValueTransValue = this.numberInput[0]
+               // const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
+               //      // Выносим шаблон. 
+               //      return this.$store.state.clientStorage
+               //      .filter(card => card.number.slice(1, sliceNumberInputLength) == this.numberInput.slice(internationalFormatSlice, this.numberInput.length))
+               // }
+               // if (firstValueTransValue == "+") {
+               //      // Обрезается +7
+               //      return templateSliceNumber(this.numberInput.length - 1, 2)
+               // } 
+               // if (firstValueTransValue == "8") {
+               //      // Обрезается 8
+               //      return templateSliceNumber(this.numberInput.length, 1)
+               // } 
                
-               return templateSliceNumber(this.numberInput.length + 1, 0)
+               // return templateSliceNumber(this.numberInput.length + 1, 0)
           },
      },
 }
