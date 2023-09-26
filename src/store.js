@@ -30,9 +30,9 @@ export default createStore({
           clearSelectedClient(state){
                state.selectedClient = null
           },
-          addNewClient(state, newClientInfo){
-               state.clientStorage.unshift(newClientInfo)
-          },
+          // async addNewClient(state, newClientInfo){
+               
+          // },
           addNewPurchaseClient(state, newPurchase){
                const indexArrToAddPurchase = state.clientStorage.findIndex(e=> e.number === state.selectedClient.number)
                state.clientStorage[indexArrToAddPurchase].purchaseHistory.unshift(newPurchase)
@@ -78,10 +78,22 @@ export default createStore({
      },
      actions: {
           async getClientStorageFromDB({ commit }, number){
-               const res = await fetch(`/api/clientState?number=${number}&lala=12312`)
-               const data = await res.json()
-               console.log(data)
+               const respone = await fetch(`/api/clientState?number=${number}&lala=12312`)
+               const data = await respone.json()
                commit('setClientStorage', data)
+          },
+          async addClient(context, newClientCard){
+               if(!newClientCard) return
+               console.log(newClientCard)
+               const respone = await fetch('/api/newClient', {
+                    method: 'POST',
+                    headers: {
+                         'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(newClientCard)
+               })
+               const result = await respone.json()
+               console.log(result)
           }
      }
      

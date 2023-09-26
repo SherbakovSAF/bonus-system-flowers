@@ -56,7 +56,6 @@ export default {
      methods: {
           // Добавление нового пользователя 
           validNumberInput(){
-               console.log(this.selectedClient)
                if(this.formatNumber().length < 11){
                     this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере должно быть минимум 10'})
                     return true
@@ -111,13 +110,9 @@ export default {
                const newClientCard = {
                     number: String(this.selectedClient.number),
                     name: this.selectedClient.name,
-                    points: 0,
-                    totalAmount: 0,
-                    purchaseHistory: []
                }
                if(this.checkRepeatClientInfo())return
-          
-               this.$store.commit("addNewClient", newClientCard)
+               this.$store.dispatch("addClient", newClientCard)
                this.$router.push("/")
           },
           

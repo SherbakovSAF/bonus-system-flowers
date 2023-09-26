@@ -19,34 +19,29 @@ function getClients(condition) {
   });
 }
 
+function addClient(newClientInfo){
+  
+  return new Promise((resolve, reject) => {
+    const connection = mysql.createConnection(configDB);
+    const {number, name} = newClientInfo
+    console.log(newClientInfo['number'])
+    const query = `
+    INSERT INTO clients(phone_number, name, reg_date)
+    VALUES ('${number}', '${name}', ${Date.now()})
+    `;
+    
+    connection.query(query, (error, results) => {
+      connection.end(); // Закрываем соединение
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+
 module.exports = {
-  getClients
+  getClients,
+  addClient,
 };
-
-// function getClients(){
-//   const connection = mysql.createConnection(configDB)
-//   const date = +Date.now()
-//   console.log(typeof date)
-//   connection.connect()
-//   const query = `
-//   INSERT INTO purchases(client_id, purchase_date, sum_purchase, operation_type,	sub_bonus,	list_purchase,	salesman)
-//   VALUES (4, ${date}, 2000, 'SUB', 100, 'Цветы большие, Ромашки', 'Таня')
-//   `
-//   // const query = `
-//   // INSERT INTO purchases(phone_number,name,reg_date)
-//   // VALUES ('8432', 'Соха', ${date})
-//   // `
-
-//   connection.query(query, (error, res)=> {
-//     if(error){
-//       console.log('Ошибка' + error)
-//     } else {
-//       console.log(res)
-//     }
-//   })
-//   connection.end()
-// }
-
-// connect()
-
-

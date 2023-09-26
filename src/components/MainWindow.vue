@@ -53,7 +53,6 @@ export default {
      },
      computed: {
           filterClientNumber() {
-               console.log(this.$store.state.clientStorage)
                return this.$store.state.clientStorage
 
                // const firstValueTransValue = this.numberInput[0]
