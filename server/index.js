@@ -5,6 +5,7 @@ const http = require('http')
 // -------- Подключеие модулей
 const get = require('./get')
 const post = require('./post')
+const deleteClient = require('./deleteMethods')
 
 
 http.createServer(server).listen(3000)
@@ -21,6 +22,13 @@ async function server(req, res) {
                     post(req)
                } catch (error) {
                     res.end(JSON.stringify({statusCode: 404, message: "Ваш запрос неудался запроса не верен"}))
+               }
+               break;
+          case 'DELETE':
+               try {
+                    deleteClient(req)
+               } catch (error) {
+                    res.end(JSON.stringify({statusCode: 404, message: "Клиент не был удалён"}))
                }
                break;
           default:
