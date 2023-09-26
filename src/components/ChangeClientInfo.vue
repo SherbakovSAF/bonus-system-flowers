@@ -96,13 +96,13 @@ export default {
 
                return "8" + this.selectedClient.number
           },
-          checkRepeatClientInfo(){
-               if(this.$store.state.clientStorage.find(e => e.number == this.selectedClient.number) != undefined){
-                    this.$store.commit('activeModalInfo', {text: `Номер ${this.selectedClient.number} уже есть в базе. Проверьте правильность написания`})
-                    return true
-               }
-               return false
-          },
+          // checkRepeatClientInfo(){
+          //      if(this.$store.state.clientStorage.find(e => e.number == this.selectedClient.number) != undefined){
+          //           this.$store.commit('activeModalInfo', {text: `Номер ${this.selectedClient.number} уже есть в базе. Проверьте правильность написания`})
+          //           return true
+          //      }
+          //      return false
+          // },
           addNewClient(){
                if(this.validForEmptyValue())return
                if(this.validNumberInput())return
@@ -111,9 +111,13 @@ export default {
                     number: String(this.selectedClient.number),
                     name: this.selectedClient.name,
                }
-               if(this.checkRepeatClientInfo())return
-               this.$store.dispatch("addClient", newClientCard)
-               this.$router.push("/")
+               // if(this.checkRepeatClientInfo())return
+               try {
+                    this.$store.dispatch("addClient", newClientCard)
+                    this.$router.push("/")
+               } catch (error) {
+                    alert('У Вас ошибка')
+               }
           },
           
           editClientInfo(){

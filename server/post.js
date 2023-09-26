@@ -1,32 +1,16 @@
-const {addClient} = require('./actionDB');
+const { addClient } = require('./actionDB');
 
-// const url = require('url');
-// const querystring = require('querystring');
-
-module.exports = async function post(req, res) {
+module.exports = function post(req) {
   let body = '';
-  req.on('data', chunk =>{
+  req.on('data', chunk => {
     body += chunk.toString()
   })
-  req.on('end', () =>{
-    return addClient(JSON.parse(body))
+  req.on('end', async () => {
+    try {
+      addClient(JSON.parse(body));
+    } catch (error) {
+      throw new Error(error)
+    }
   })
-
-  // const urlParse = url.parse(req.url)
-  // const query = urlParse.query; // Параметры - всё что после ?
-  // const parsedQuery = querystring.parse(query) // Массив с параметрами
-
-  // switch (urlParse.pathname) {
-  //   case '/api/addClient':
-  //     try {
-  //       const results = await addClient(``);
-  //       res.end(JSON.stringify(results));
-  //     } catch (error) {
-  //       res.end(JSON.stringify({ name: 'Не получилось' }));
-  //     }
-  //     break;
-  //   default:
-  //     res.end(JSON.stringify({ name: 'Не получилось' }));
-  // }
 }
 

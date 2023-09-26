@@ -6,10 +6,7 @@ import ChangeClientInfo from "./components/ChangeClientInfo.vue";
 
 const routes = [
     { path: "/", component: MainWindow },
-    {
-        path: "/clientInfo",
-        component: ClientInfo,
-    },
+    {path: "/clientInfo",component: ClientInfo,},
     { path: "/clientInfo/:typeChangeClientInfo", component: ChangeClientInfo },
     // { path: "/editClientInfo", component: EditClientInfo },
 ];

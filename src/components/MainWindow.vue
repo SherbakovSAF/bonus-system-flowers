@@ -1,13 +1,17 @@
 <template>
+     <!-- <h1 v-show="errorMessage.length"
+          class="text-center text-4xl font-medium text-main-color-text py-3"
+     >
+          {{ errorMessage }}
+     </h1> -->
      <main-loader v-if="isLoader"/>
      <div v-else>
-          <!-- v-if="filterClientNumber.length" -->
-          <!-- v-else -->
-          <div >
+          <div v-if="filterClientNumber.length">
                <client-card v-for="card in filterClientNumber" :key="card.id"
                :cardInfo="card"/>
           </div>
-          <new-client-card  :newClientNumber="numberInput"/>
+          <new-client-card v-else
+          :newClientNumber="numberInput"/>
      </div>
      <form class="flex justify-center mt-5 ">
           <div class="w-1/3 bg-white rounded-full flex py-3 px-4
@@ -39,15 +43,22 @@ export default {
      data() {
           return {
                numberInput: "",
-               isLoader: false
+               isLoader: false,
+               isClientsFound: false
           }
      },
      methods: {
           async executeReq(){
                if(this.numberInput.length === 5){
-                    this.isLoader = true
-                    await this.$store.dispatch('getClientStorageFromDB', this.numberInput)
-                    this.isLoader = false
+                    this.errorMessage = ''
+                    try {
+                         this.isLoader = true
+                         await this.$store.dispatch('getClientStorageFromDB', this.numberInput)
+                    } catch (error) {
+                         this.errorMessage = error.message
+                    } finally {
+                         this.isLoader = false
+                    }
                }
           }
      },

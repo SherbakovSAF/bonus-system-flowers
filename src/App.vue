@@ -14,7 +14,6 @@
         <router-view />
       </div>
     </div>
-    <button @click="adddd">Проверка</button>
     <modal-info :class="this.$store.state.modalInfo.isActive ? 'block' : 'hidden'" :alert-message="this.$store.state.modalInfo.text"/>
   </div>
 </template>
@@ -26,13 +25,6 @@ export default {
   components: {
     ModalInfo
   },
-  methods: {
-    async adddd(){
-      const a = await fetch('/api/client')
-      const b = await a.json()
-      console.log(b)
-    }
-  }
 }
 </script>
 <style>

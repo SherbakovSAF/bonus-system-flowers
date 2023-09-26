@@ -7,7 +7,7 @@
                max-[430px]:relative">
                <div class="text-[#686767] px-8 py-7">
                     <div class="person__main__block">
-                         <h2 class="text-xl">Клиент не найден</h2>
+                         <h2 class="text-xl">{{newClientNumber.length ? 'Клиент не найден' : ''}} </h2>
                          <h1 class="text-2xl">Добавить карточку с номером<br>
                               <span class="text-3xl font-semibold">
                                    {{ newClientNumber }}
@@ -31,20 +31,20 @@ export default {
      },
      methods: {
           saveEnterNumber(){
-               let numberForStore
+               // let numberForStore
 
-               switch (this.numberInput[0]) {
-                    case "8":
-                         numberForStore = this.numberInput
-                         break;
-                    case "+":
-                         numberForStore = "8" + this.numberInput.slice(2,this.numberInput.length)
-                         break;
-                    default:
-                         numberForStore = "8" + this.numberInput
-                         break;
-               }
-               this.$store.commit('saveEnterNumber', numberForStore.replace(/[a-zа-яё]/gi, ''))
+               // switch (this.numberInput[0]) {
+               //      case "8":
+               //           numberForStore = this.numberInput
+               //           break;
+               //      case "+":
+               //           numberForStore = "8" + this.numberInput.slice(2,this.numberInput.length)
+               //           break;
+               //      default:
+               //           numberForStore = "8" + this.numberInput
+               //           break;
+               // }
+               // this.$store.commit('saveEnterNumber', numberForStore.replace(/[a-zа-яё]/gi, ''))
           },
      }
 }

@@ -78,13 +78,14 @@ export default createStore({
      },
      actions: {
           async getClientStorageFromDB({ commit }, number){
-               const respone = await fetch(`/api/clientState?number=${number}&lala=12312`)
-               const data = await respone.json()
-               commit('setClientStorage', data)
+                    const respone = await fetch(`/api/clientState?number=${number}&lala=12312`);
+                    const data = await respone.json();
+                    commit('setClientStorage', data)
+                    if(!data.length) throw new Error('Данные не были найдены')
           },
           async addClient(context, newClientCard){
-               if(!newClientCard) return
-               console.log(newClientCard)
+               if(!newClientCard) throw new Error('Данные клиента не были переданы')
+
                const respone = await fetch('/api/newClient', {
                     method: 'POST',
                     headers: {
@@ -92,8 +93,9 @@ export default createStore({
                     },
                     body: JSON.stringify(newClientCard)
                })
-               const result = await respone.json()
-               console.log(result)
+
+               const result = respone.json()
+               if(result.statusCode) throw new Error(result.message)
           }
      }
      
