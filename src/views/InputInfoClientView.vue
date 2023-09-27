@@ -131,23 +131,29 @@ export default {
      computed: {
      },
      mounted() {
-          if (this.$route.params.typeChangeClientInfo == "regnewclient") {
-               this.placeholderName = "Введите новое имя клиента"
-               this.placeholderNumber = "Введите новый номер клиента"
-               this.selectedClient.number = this.$store.state.newClientNumber
-               this.selectedClient.name = ""
-               this.$store.commit("clearNewClientNumber")
-               this.textMainButton = "Добавить"
-               this.selectedButtonFunc = this.addNewClient
+          console.log(this.$route.params)
+          switch (this.$route.params.typeInputInfo) {
+               case "regNewClient":
+                    this.placeholderName = "Введите новое имя клиента"
+                    this.placeholderNumber = "Введите новый номер клиента"
+                    this.selectedClient.number = this.$store.state.newClientNumber
+                    this.selectedClient.name = ""
+                    this.$store.commit("clearNewClientNumber")
+                    this.textMainButton = "Добавить"
+                    this.selectedButtonFunc = this.addNewClient
+                    break;
+               case "editClientInfo":
+                    this.selectedClient = Object.assign({}, this.$store.state.selectedClient)
+                    this.placeholderName = "Введите нового имя клиента"
+                    this.placeholderNumber = "Введите новый номер клиента"
+                    this.textMainButton = "Изменить"
+                    this.selectedButtonFunc = this.editClientInfo
+                    break;
+               default:
+                    alert('Ошибка при переходе. Не найден подходящий шаблон для отрисовки')
+                    this.$router.push({ path: '/', query: { preventBack: true } });
           }
-
-          if (this.$route.params.typeChangeClientInfo == "editClientInfo") {
-               this.selectedClient = Object.assign({}, this.$store.state.selectedClient)
-               this.placeholderName = "Введите нового имя клиента"
-               this.placeholderNumber = "Введите новый номер клиента"
-               this.textMainButton = "Изменить"
-               this.selectedButtonFunc = this.editClientInfo
-          }
+          
      },
 
 }

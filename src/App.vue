@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
     <div class="font-montserrat max-w-6xl mx-auto over overflow-hidden ">
+      <!-- Header -->
       <router-link to="/">
         <header @click="$store.commit('clearSelectedClient')"
           class="bg-main-green font-playfaur h-28 flex items-center justify-center relative before:content-jointSettings">
@@ -10,16 +11,19 @@
           <img src="./assets/media/venok.png" alt="Изображение венка" class="h-28 w-16 rotate-[33.4deg] ml-8">
         </header>
       </router-link>
+      <!-- Конец Header -->
+      <!-- Отображение Views -->
       <div class="pb-14">
         <router-view />
       </div>
+
     </div>
     <modal-info :class="this.$store.state.modalInfo.isActive ? 'block' : 'hidden'" :alert-message="this.$store.state.modalInfo.text"/>
   </div>
 </template>
 
 <script>
-import ModalInfo from './components/ModalInfo';
+import ModalInfo from '@/components/ModalInfo.vue';
 export default {
   name: 'App',
   components: {

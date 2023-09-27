@@ -96,6 +96,20 @@ export default createStore({
 
                const result = respone.json()
                if(result.statusCode) throw new Error(result.message)
+          },
+          async deleteClient(context, clientID){
+               if(!clientID) throw new Error('ID клиента не получено')
+
+               const respone = await fetch('/api/deleteClient', {
+                    method: 'DELETE',
+                    headers: {
+                         'Content-Type': 'application/json;charset=utf-8'
+                    },
+                    body: JSON.stringify(clientID)
+               })
+
+               const result = respone.json()
+               if(result.statusCode) throw new Error(result.message)
           }
      }
      

@@ -1,7 +1,7 @@
 <template>
      <article class="bg-[#FBDCD7] w-1/2 rounded-r-full  shadow-lg mt-6
                               max-md:w-2/3 max-sm:w-full">
-          <router-link to="clientinfo/regnewclient"
+          <router-link to="inputInfo/regNewClient"
                @click="saveEnterNumber" 
                class="flex justify-between items-center
                max-[430px]:relative">
@@ -45,6 +45,7 @@ export default {
                //           break;
                // }
                // this.$store.commit('saveEnterNumber', numberForStore.replace(/[a-zа-яё]/gi, ''))
+               this.$store.commit('saveEnterNumber', this.newClientNumber)
           },
      }
 }

@@ -44,16 +44,12 @@
 
 <script>
 export default {
-     name: "HistoryPurchaseClient",
+     name: "HistoryPurchase",
      data(){
-          return{
-               page: 1
-          }
-          
+          return{page: 1}
      },
      computed:{
           sliceTemplateSell(){
-               1*3
                return this.$store.state.selectedClient.purchaseHistory.slice(0, this.page * 3)
           }
      }

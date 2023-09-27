@@ -1,55 +1,45 @@
 <template>
-     <!-- <h1 v-show="errorMessage.length"
-          class="text-center text-4xl font-medium text-main-color-text py-3"
-     >
-          {{ errorMessage }}
-     </h1> -->
-     <main-loader v-if="isLoader"/>
+     <main-loader v-if="isLoader || numberInput.length < countQueryClientCard"/>
      <div v-else>
           <div v-if="filterClientNumber.length">
-               <client-card v-for="card in filterClientNumber" :key="card.id"
-               :cardInfo="card"/>
+               <client-card v-for="card in filterClientNumber" :key="card.id" :cardInfo="card"/>
           </div>
-          <new-client-card v-else
-          :newClientNumber="numberInput"/>
+          <create-client-card v-else :newClientNumber="numberInput"/>
      </div>
      <form class="flex justify-center mt-5 ">
           <div class="w-1/3 bg-white rounded-full flex py-3 px-4
                          max-lg:w-1/2
                          max-sm:w-[90%]">
-               <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
+               <img src="@/assets/media/bouquetInput.svg" alt="ClientNumberInput" class="mr-3">
                <input class="outline-0 w-full font-medium text-[#686767] text-xl" 
                     maxlength="14" type="tel" 
                     placeholder="Введите номер гостя"
                     v-model="numberInput"
-                    @input="executeReq">
+                    @input="executeRequest">
           </div>
      </form>
 </template>
 
 
 <script>
-import ClientCard from './MainWindow-ClientCard.vue'
-import NewClientCard from './MainWindow-NewClientCard.vue'
+import ClientCard from '@/components/ClientCard.vue'
+import CreateClientCard from '@/components/CreateClientCard.vue'
 import MainLoader from '@/components/UI/MainLoader.vue'
 
 export default {
-     name: "MainWindow",
-     components: {
-          ClientCard,
-          NewClientCard,
-          MainLoader
-     },
+     name: "HomeView",
+     components: { ClientCard, CreateClientCard, MainLoader},
      data() {
           return {
                numberInput: "",
                isLoader: false,
-               isClientsFound: false
+               isClientsFound: false,
+               countQueryClientCard: 5,
           }
      },
      methods: {
-          async executeReq(){
-               if(this.numberInput.length === 5){
+          async executeRequest(){
+               if(this.displayBeforeRequest){
                     this.errorMessage = ''
                     try {
                          this.isLoader = true
@@ -63,8 +53,13 @@ export default {
           }
      },
      computed: {
+          displayBeforeRequest(){
+               return this.numberInput.length === this.countQueryClientCard
+          },
           filterClientNumber() {
-               return this.$store.state.clientStorage
+               return this.displayBeforeRequest ? this.$store.state.clientStorage : []
+               
+               // Добавить маску
 
                // const firstValueTransValue = this.numberInput[0]
                // const templateSliceNumber = (sliceNumberInputLength, internationalFormatSlice) => {
