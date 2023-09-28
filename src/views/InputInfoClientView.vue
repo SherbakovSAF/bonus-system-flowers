@@ -131,7 +131,6 @@ export default {
      computed: {
      },
      mounted() {
-          console.log(this.$route.params)
           switch (this.$route.params.typeInputInfo) {
                case "regNewClient":
                     this.placeholderName = "Введите новое имя клиента"

@@ -6,7 +6,7 @@
           <div class="text-[#686767] px-8 py-7">
                <div class="person__main__block">
                     <p class="text-xl">{{ cardInfo.name }}</p>
-                    <h2 class="text-2xl">{{ cardInfo.phone_number }}</h2>
+                    <h2 class="text-2xl">{{ usePhoneMask }}</h2>
                </div>
                <div>
                     <dl class="flex items-center">
@@ -40,6 +40,7 @@
 
 <script>
 import formating from '@/utils/formating'
+import PhoneMask from '@/utils/phoneMask'
 
 export default {
      name: "ClientCard",
@@ -77,6 +78,9 @@ export default {
           },
           formatedGetBonusWord(){
                return formating.pointsGetBonusWord(this.cardInfo.points)
+          },
+          usePhoneMask(){
+               return new PhoneMask(this.cardInfo.phone_number).forView()
           }
      }
 }

@@ -18,16 +18,16 @@
       </div>
 
     </div>
-    <modal-info :class="this.$store.state.modalInfo.isActive ? 'block' : 'hidden'" :alert-message="this.$store.state.modalInfo.text"/>
+    <modal-window :class="this.$store.state.modalInfo.isActive ? 'block' : 'hidden'" :alert-message="this.$store.state.modalInfo.text"/>
   </div>
 </template>
 
 <script>
-import ModalInfo from '@/components/ModalInfo.vue';
+import ModalWindow from '@/components/ModalWindow.vue';
 export default {
   name: 'App',
   components: {
-    ModalInfo
+    ModalWindow
   },
 }
 </script>
