@@ -1,15 +1,17 @@
 <template>
-     <main-loader-UI v-if="isLoader || useMaskPhone.length < countQueryClientCard"/>
-     <div v-else>
-          <div v-if="filterClientNumber.length">
-               <client-card v-for="card in filterClientNumber" :key="card.id" :cardInfo="card"/>
+          <div>
+               <main-loader-UI v-if="isLoader || useMaskPhone.length < countQueryClientCard"/>
+               <div v-else>
+                    <!-- if и for вместе не рекомендуется использовать -->
+                    <div v-if="filterClientNumber.length">
+                         <client-card v-for="card in filterClientNumber" :key="card.id" :cardInfo="card"/>
+                    </div>
+                    <create-client-card v-else :newClientNumber="numberInput"/>
+               </div>
+               <form class="flex justify-center mt-5 ">
+                    <main-input-UI v-model="numberInput" type="tel" maxSize="16"/>
+               </form>
           </div>
-          <create-client-card v-else :newClientNumber="numberInput"/>
-     </div>
-     <phone-input-UI v-model="numberInput"/>
-     {{ filterClientNumber }}
-     {{ numberInput }}
-
 </template>
 
 
@@ -17,27 +19,27 @@
 import ClientCard from '@/components/ClientCard.vue'
 import CreateClientCard from '@/components/CreateClientCard.vue'
 import MainLoaderUI from '@/components/UI/MainLoaderUI.vue'
-import PhoneInputUI from '@/components/UI/PhoneInputUI.vue'
+import MainInputUI from '@/components/UI/MainInputUI.vue'
 
 import PhoneMask from '@/utils/phoneMask';
 export default {
      name: "HomeView",
-     components: { ClientCard, CreateClientCard, MainLoaderUI, PhoneInputUI},
+     components: { ClientCard, CreateClientCard, MainLoaderUI, MainInputUI},
      data() {
           return {
                numberInput: '',
                isLoader: false,
                isClientsFound: false,
-               countQueryClientCard: 8,
+               countQueryClientCard: 7,
           }
      },
      methods: {
           async executeRequest(){
-
                this.errorMessage = ''
                try {
                     this.isLoader = true
                     await this.$store.dispatch('getClientStorageFromDB', this.useMaskPhone)
+                    
                } catch (error) {
                     this.errorMessage = error.message
                } finally {

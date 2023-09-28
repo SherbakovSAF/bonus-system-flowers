@@ -17,22 +17,11 @@
           </div>
      </article>
      <div>
-          <form class="py-4">
-               <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4
-                         max-lg:m-auto max-lg:w-2/3">
-                    <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl
-                              max-sm:text-sm" maxlength="14" type="tel" :placeholder="placeholderName" v-model="selectedClient.name">
-               </div>
+          <form class="py-4 flex justify-center">
+               <main-input-UI v-model="selectedClient.name" type="text" :placeholder="placeholderName"/>
           </form>
-          <form class="py-4">
-               <div class="w-1/3 max-md:w-[90%] bg-white rounded-full flex py-3 px-4
-                         max-lg:m-auto max-lg:w-2/3">
-                    <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl
-                              max-sm:text-sm" maxlength="12" type="tel" :placeholder="placeholderNumber" autofocus
-                         v-model.trim.number="selectedClient.number">
-               </div>
+          <form class="py-4 flex justify-center">
+               <main-input-UI v-model="selectedClient.number" type="tel" :placeholder="placeholderNumber" maxSize="16"/>
           </form>
      </div>
      <button @click="selectedButtonFunc" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
@@ -41,8 +30,12 @@
 </template>
 
 <script>
+import MainInputUI from '@/components/UI/MainInputUI.vue'
+import PhoneMask from '@/utils/phoneMask'
+
 export default {
      name: "EditClientInfo",
+     components: {MainInputUI},
      data() {
           return {
                placeholderName: "",
@@ -71,10 +64,10 @@ export default {
                //      return true
                // }
 
-               if(this.formatNumber().length > 12){
-                    this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере больше положенного'})
-                    return true
-               }
+               // if(this.formatNumber().length > 12){
+               //      this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере больше положенного'})
+               //      return true
+               // }
 
                return false
           },
@@ -108,7 +101,7 @@ export default {
                if(this.validNumberInput())return
                
                const newClientCard = {
-                    number: String(this.selectedClient.number),
+                    number: new PhoneMask(this.selectedClient.number).forDateBase(),
                     name: this.selectedClient.name,
                }
                // if(this.checkRepeatClientInfo())return
@@ -133,19 +126,19 @@ export default {
      mounted() {
           switch (this.$route.params.typeInputInfo) {
                case "regNewClient":
-                    this.placeholderName = "Введите новое имя клиента"
-                    this.placeholderNumber = "Введите новый номер клиента"
                     this.selectedClient.number = this.$store.state.newClientNumber
                     this.selectedClient.name = ""
+                    this.placeholderName = 'Введите имя нового клиента',
+                    this.placeholderNumber = 'Введите имя номер клиента',
                     this.$store.commit("clearNewClientNumber")
                     this.textMainButton = "Добавить"
                     this.selectedButtonFunc = this.addNewClient
                     break;
                case "editClientInfo":
                     this.selectedClient = Object.assign({}, this.$store.state.selectedClient)
-                    this.placeholderName = "Введите нового имя клиента"
-                    this.placeholderNumber = "Введите новый номер клиента"
                     this.textMainButton = "Изменить"
+                    this.placeholderName = 'Введите новое имя клиента',
+                    this.placeholderNumber = 'Введите новый номер клиента',
                     this.selectedButtonFunc = this.editClientInfo
                     break;
                default:
