@@ -28,11 +28,6 @@ export default {
                }
           }
      },
-     data() {
-          return {
-               
-          }
-     },
      methods:{
           responseCancelFunction() {
                this.$store.commit("selectedTypeModalInfo", false)
