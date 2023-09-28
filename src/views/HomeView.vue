@@ -56,7 +56,7 @@ export default {
           },
           useMaskPhone(){
                return new PhoneMask(this.numberInput).forDateBase()
-          }
+          },
      },
      watch: {
           numberInput() {

@@ -50,7 +50,7 @@ export default {
      methods: {
           selectClient(clientInfo){
                this.$store.commit('selectClient', clientInfo)
-               this.$router.push("profile")
+               this.$router.push({path: "profile"})
           },
           deleteClientInfo(clientInfo){
                // this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})

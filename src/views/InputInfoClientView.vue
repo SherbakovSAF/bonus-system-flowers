@@ -4,11 +4,8 @@
      max-lg:w-2/3 max-sm:w-full">
           <div class="flex justify-between items-center">
                <div class="text-main-color-text px-8 py-7">
-                    <div class="person__main__block">
-                         <h2 class="text-xl">{{ selectedClient.name ? selectedClient.name : "Имя нового клиента" }}</h2>
-                         <h2 class="text-2xl">{{ selectedClient.number ? selectedClient.number : "Номер нового клиента"}}
-                         </h2>
-                    </div>
+                    <h2 class="text-xl">{{ selectedClient.name ? selectedClient.name : "Имя нового клиента" }}</h2>
+                    <h2 class="text-2xl">{{ selectedClient.number ? selectedClient.number : "Номер нового клиента"}}</h2>
                </div>
                <img 
                src="../assets/media/flower.png" alt="" 
@@ -25,7 +22,9 @@
           </form>
      </div>
      <button @click="selectedButtonFunc" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
-     max-sm:w-2/3">{{ textMainButton }}</button>
+          max-sm:w-2/3">
+          {{ textMainButton }}
+     </button>
      
 </template>
 
@@ -53,22 +52,6 @@ export default {
                     this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере должно быть минимум 10'})
                     return true
                }
-
-               // if(this.selectedClient.number[0] == "+" && this.selectedClient.number.length < 12 ){
-               //      this.$store.commit('activeModalInfo', {text: 'Количество цифр, при использовании кода +7 в номере, должно быть минимум 12'})
-               //      return true
-               // }
-
-               // if(this.selectedClient.number[0] == "8" && this.selectedClient.number.length < 11 ){
-               //      this.$store.commit('activeModalInfo', {text: 'Количество цифр, при использовании кода 8 в номере, должно быть минимум 11'})
-               //      return true
-               // }
-
-               // if(this.formatNumber().length > 12){
-               //      this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере больше положенного'})
-               //      return true
-               // }
-
                return false
           },
           validForEmptyValue(){
@@ -89,13 +72,7 @@ export default {
 
                return "8" + this.selectedClient.number
           },
-          // checkRepeatClientInfo(){
-          //      if(this.$store.state.clientStorage.find(e => e.number == this.selectedClient.number) != undefined){
-          //           this.$store.commit('activeModalInfo', {text: `Номер ${this.selectedClient.number} уже есть в базе. Проверьте правильность написания`})
-          //           return true
-          //      }
-          //      return false
-          // },
+          
           addNewClient(){
                if(this.validForEmptyValue())return
                if(this.validNumberInput())return
@@ -107,7 +84,8 @@ export default {
                // if(this.checkRepeatClientInfo())return
                try {
                     this.$store.dispatch("addClient", newClientCard)
-                    this.$router.push("/")
+                    this.$router.push('/')
+                    
                } catch (error) {
                     alert('У Вас ошибка')
                }
