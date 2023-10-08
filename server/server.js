@@ -1,36 +1,55 @@
 // -------- Подключеие библиотек
 const http = require('http')
+const url = require('url');
+const querystring = require('querystring');
 
-
-// -------- Подключеие модулей
-const get = require('./controllers/get')
-const post = require('./controllers/post')
-const deleteClient = require('./controllers/deleteMethods')
-
+// Подключение модулей
+const {getClients, addClient, deleteClient} = require('./actionDB')
 
 http.createServer(server).listen(3000)
 
 async function server(req, res) {
      res.setHeader('Content-Type', 'application/json')
-     switch (req.method) {
+     const urlParse = url.parse(req.url);
+     const query = urlParse.query; // Параметры - всё что после ?
+     const parsedQuery = querystring.parse(query) // Массив с параметрами
+     
+     let body = '';
+     req.on('data', chunk => {
+          body += chunk.toString()
+     })
+     switch(req.method){
           case 'GET':
-               const client = await get(req)
-               res.end(JSON.stringify(client))
-               break;
+               switch (urlParse.pathname) {
+                    case '/api/clientState':
+                         const resultQueryDB = await getClients(`phone_number LIKE '${parsedQuery.number}%'`)
+                         res.end(JSON.stringify(resultQueryDB));
+                         break
+                    default:
+                         res.end(JSON.stringify({statusCode: 404, message: 'Путь не был найден'}))
+                  }
+               break
           case 'POST':
-               try {
-                    post(req)
-               } catch (error) {
-                    res.end(JSON.stringify({statusCode: 404, message: "Ваш запрос неудался запроса не верен"}))
-               }
+               req.on('end', async () => {
+                    try {
+                         const resultQueryDB = await addClient(JSON.parse(body))
+                         res.end(JSON.stringify(resultQueryDB));
+                    } catch (error) {
+                         res.end(JSON.stringify(error))
+                    }
+               })
                break;
           case 'DELETE':
-               try {
-                    deleteClient(req)
-               } catch (error) {
-                    res.end(JSON.stringify({statusCode: 404, message: "Клиент не был удалён"}))
-               }
-               break;
+               req.on('end', async () => {
+                    try {
+                         const resultQueryDB = await deleteClient(JSON.parse(body));
+                         res.end(JSON.stringify(resultQueryDB));
+                         
+                    } catch (error) {
+                         res.end(JSON.stringify(error))
+                    }
+               })
+               break
           default:
                res.end(JSON.stringify({statusCode: 404, message: "Ваш метод запроса не верен"}))
      }

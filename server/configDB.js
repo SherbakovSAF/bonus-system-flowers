@@ -1,6 +1,13 @@
 module.exports = {
-     host: 'mysql',
+     host: '127.0.0.1',
      user: 'root',
-     password: 'parol',
+     password: '',
      database: 'lug',
 }
+
+// module.exports = {
+//      host: 'mysql',
+//      user: 'root',
+//      password: 'parol',
+//      database: 'lug',
+// }
