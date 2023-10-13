@@ -1,15 +1,16 @@
 class PhoneMask{
-     number: string
+     number: string;
      constructor(number:string){
           this.number = number
      }
 
-     forView(){
-          let inputNumbersValue = this.number.replace(/\D/g, '');
-          let formattedInputValue = '';
+     forView():string{
+          let inputNumbersValue:string = this.number.replace(/\D/g, '');
+          let formattedInputValue:string = '';
+          const firstSymbols = '+7'
 
           if (!inputNumbersValue) {
-          return '';
+               return '';
           }
      
           if (["7", "8", "9"].indexOf(inputNumbersValue[0]) < -1) {
@@ -19,8 +20,6 @@ class PhoneMask{
           if (inputNumbersValue[0] == "9") {
                inputNumbersValue = "7" + inputNumbersValue;
           }
-
-          const firstSymbols = '+7'
 
           formattedInputValue = firstSymbols;
           if (inputNumbersValue.length > 1) {
@@ -39,7 +38,7 @@ class PhoneMask{
           return formattedInputValue;
      }
 
-     forDateBase(){
+     forDateBase():string{
           return this.number.replace(/\D/g, '');
      }
      
