@@ -15,46 +15,51 @@
 </template>
 
 
-<script>
+<script lang="ts">
+// Компоненты проекта
 import ClientCard from '@/components/ClientCard.vue'
 import CreateClientCard from '@/components/CreateClientCard.vue'
 import MainLoaderUI from '@/components/UI/MainLoaderUI.vue'
 import MainInputUI from '@/components/UI/MainInputUI.vue'
 
+// Утилиты
 import PhoneMask from '@/utils/phoneMask';
-export default {
+
+// Типизиация
+import { defineComponent } from 'vue';
+import type {clientInfo} from '@/interfaces'
+
+export default defineComponent({
      name: "HomeView",
      components: { ClientCard, CreateClientCard, MainLoaderUI, MainInputUI},
      data() {
           return {
-               numberInput: '',
-               isLoader: false,
-               isClientsFound: false,
-               countQueryClientCard: 7,
+               numberInput: '' as string,
+               isLoader: false as boolean,
+               isClientsFound: false as boolean,
+               countQueryClientCard: 7 as number,
           }
      },
      methods: {
-          async executeRequest(){
-               this.errorMessage = ''
+          async executeRequest(): Promise<void>{
                try {
                     this.isLoader = true
                     await this.$store.dispatch('getClientStorageFromDB', this.useMaskPhone)
-                    
                } catch (error) {
-                    this.errorMessage = error.message
+                    alert('Получение клиентов не удалось')
                } finally {
                     this.isLoader = false
                }
           }
      },
      computed: {
-          displayBeforeRequest(){
+          displayBeforeRequest():boolean{
                return this.useMaskPhone.length === this.countQueryClientCard
           },
-          filterClientNumber() {
-               return this.$store.state.clientStorage.filter(e=> e.phone_number.startsWith(this.useMaskPhone))
+          filterClientNumber():Array<clientInfo> {
+               return this.$store.state.clientStorage.filter((e: clientInfo)=> e.phone_number.startsWith(this.useMaskPhone))
           },
-          useMaskPhone(){
+          useMaskPhone():string{
                return new PhoneMask(this.numberInput).forDateBase()
           },
      },
@@ -64,4 +69,5 @@ export default {
           }
      }
 }
+)
 </script>
