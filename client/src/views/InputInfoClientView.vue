@@ -33,7 +33,7 @@ import MainInputUI from '@/components/UI/MainInputUI.vue'
 import PhoneMask from '@/utils/phoneMask'
 
 import { defineComponent } from 'vue'
-import { clientInfo } from '@/interfaces'
+import { ClientInfo } from '@/interfaces'
 export default defineComponent({
      name: "EditClientInfo",
      components: {MainInputUI},
@@ -42,7 +42,7 @@ export default defineComponent({
                placeholderName: "" as string,
                placeholderNumber: "" as string,
                clientName: "" as string,
-               selectedClient: {} as clientInfo,
+               selectedClient: {} as ClientInfo,
                textMainButton: "Отправить" as string,
                selectedButtonFunc: ()=>{},
           }

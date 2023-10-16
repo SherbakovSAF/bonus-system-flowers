@@ -27,7 +27,7 @@ import PhoneMask from '@/utils/phoneMask';
 
 // Типизиация
 import { defineComponent } from 'vue';
-import type {clientInfo} from '@/interfaces'
+import type {ClientInfo} from '@/interfaces'
 
 export default defineComponent({
      name: "HomeView",
@@ -56,8 +56,8 @@ export default defineComponent({
           displayBeforeRequest():boolean{
                return this.useMaskPhone.length === this.countQueryClientCard
           },
-          filterClientNumber():Array<clientInfo> {
-               return this.$store.state.clientStorage.filter((e: clientInfo)=> e.phone_number.startsWith(this.useMaskPhone))
+          filterClientNumber():Array<ClientInfo> {
+               return this.$store.state.clientStorage.filter((e: ClientInfo)=> e.phone_number.startsWith(this.useMaskPhone))
           },
           useMaskPhone():string{
                return new PhoneMask(this.numberInput).forDateBase()

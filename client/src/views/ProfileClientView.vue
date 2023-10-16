@@ -57,7 +57,7 @@ import Formating from '@/utils/formating'
 
 // Типизация
 import { defineComponent } from 'vue'
-import type { clientInfo } from '@/interfaces'
+import type { ClientInfo } from '@/interfaces'
 
 interface tabs {
   id: number,
@@ -70,7 +70,7 @@ export default defineComponent({
   components: { NEW, HISTORY },
   data() {
     return {
-      selectedClient: {} as clientInfo,
+      selectedClient: {} as ClientInfo,
       currentComponent: 'NEW' as string,
       tabs: [
         { id: 0, component: 'NEW', title: 'Новая покупка' },

@@ -66,7 +66,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { newPurchase } from '@/interfaces';
+import { NewPurchase } from '@/interfaces';
 
 export default defineComponent ({
      name: 'NewPurchase',
@@ -132,7 +132,7 @@ export default defineComponent ({
 
                const date = Date.now()
 
-               const newPurchaseTemplate: newPurchase = {
+               const newPurchaseTemplate: NewPurchase = {
                     
                     sumPurchase: this.getSumPurchase,
                     typeOperationPoint: this.typeOperationPoint, // or "PLUS"

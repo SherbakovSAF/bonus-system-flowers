@@ -42,19 +42,19 @@ import Formating from '@/utils/formating'
 import PhoneMask from '@/utils/phoneMask'
 
 import { defineComponent } from 'vue';
-import type { clientInfo } from '@/interfaces';
+import type { ClientInfo } from '@/interfaces';
 
 export default defineComponent({
      name: "ClientCard",
      props: {
-          cardInfo: {type: Object as ()=> clientInfo, required: true} 
+          cardInfo: {type: Object as ()=> ClientInfo, required: true} 
      },
      methods: {
-          selectClient(clientInfo: clientInfo): void{
+          selectClient(clientInfo: ClientInfo): void{
                this.$store.commit('selectClient', clientInfo)
                this.$router.push({path: "profile"})
           },
-          deleteClientInfo(clientInfo: clientInfo){
+          deleteClientInfo(clientInfo: ClientInfo){
                // this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})
                try {
                     this.$store.dispatch('deleteClient', clientInfo.id)

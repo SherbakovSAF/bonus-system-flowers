@@ -1,4 +1,4 @@
-export interface clientInfo{
+export interface ClientInfo{
      id: number,
      phone_number: string,
      name: string,
@@ -7,7 +7,7 @@ export interface clientInfo{
      reg_date: number
 }
 
-export interface newPurchase{
+export interface NewPurchase{
      sumPurchase: number,
      typeOperationPoint: string, // or "PLUS"
      subBonus: number,
