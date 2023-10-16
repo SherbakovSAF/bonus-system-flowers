@@ -18,15 +18,19 @@ export default createStore({
           getModalCallback: state => state.modalInfo.callBack
      },
      mutations: {
+          // Сделать через emit
           selectClient(state, selectClient) {
                state.selectedClient = selectClient
           },
+          // Сделать через emit
           saveEnterNumber(state, newClientNumberForSearchClient) {
                state.newClientNumber = newClientNumberForSearchClient
           },
+          // Если убрать saveEnter, то и это уберётся
           clearNewClientNumber(state){
                state.newClientNumber = ''
           },
+          // Тоже самое
           clearSelectedClient(state){
                state.selectedClient = {}
           },
@@ -77,6 +81,7 @@ export default createStore({
           
      },
      actions: {
+          // Запихнуть это в мутации и обновлять компонент mapState или другим функционалом
           async getClientStorageFromDB({ commit }, number){
                     const respone = await fetch(`/api/clientState?number=${number}`);
                     const data = await respone.json();
