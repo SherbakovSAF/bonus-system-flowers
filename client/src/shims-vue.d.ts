@@ -1,10 +1,19 @@
 import { Store } from '@/store';// path to store file
+import { ComponentCustomProperties } from 'vue';
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $store: Store;
   }
 }
+
+declare module '*.vue'{
+  import {DefineComponent} from 'vue';
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
+
 /* eslint-disable */
 // import { Store } from 'vuex'
 

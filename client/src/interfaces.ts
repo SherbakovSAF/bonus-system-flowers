@@ -6,3 +6,13 @@ export interface clientInfo{
      total_purchase: number,
      reg_date: number
 }
+
+export interface newPurchase{
+     sumPurchase: number,
+     typeOperationPoint: string, // or "PLUS"
+     subBonus: number,
+     plusBonus: number,
+     listPurchase: string,
+     salesman: string,
+     date: number
+}
