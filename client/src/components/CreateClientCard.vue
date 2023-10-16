@@ -20,17 +20,18 @@
 </template>
 
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent( {
      name: "MainWindow-NewClientCard",
      props: {
           newClientNumber: {type: String, required: true}
      },
      methods: {
-          saveEnterNumber(){
+          saveEnterNumber():void{
                this.$store.commit('saveEnterNumber', this.newClientNumber)
                this.$router.push({path: 'inputInfo/regNewClient'})
           },
      }
-}
+})
 </script>
