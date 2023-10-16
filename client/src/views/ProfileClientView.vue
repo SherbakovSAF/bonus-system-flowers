@@ -47,41 +47,47 @@
   </main>
 </template>
 
-<script>
+<script lang="ts">
+// Компоненты
 import NEW from '@/components/NewPurchase.vue'
 import HISTORY from '@/components/HistoryPurchase.vue'
 
-import formating from '@/utils/formating'
+// Утилиты
+import Formating from '@/utils/formating'
 
-export default {
+// Типизация
+import { defineComponent } from 'vue'
+import type { ClientInfo } from '@/interfaces'
+
+interface tabs {
+  id: number,
+  component: string,
+  title: string
+}
+
+export default defineComponent({
   name: "ProfileClientView",
-  components: {
-    NEW,
-    HISTORY,
-  },
+  components: { NEW, HISTORY },
   data() {
     return {
-      selectedClient: {},
-      currentComponent: 'NEW',
+      selectedClient: {} as ClientInfo,
+      currentComponent: 'NEW' as string,
       tabs: [
         { id: 0, component: 'NEW', title: 'Новая покупка' },
         // { id: 1, component: 'HISTORY', title: 'История покупок' }, // Массив с продажами ещё не доходит. Он просто не приходит с БД, так как там ForEach
-      ]
-    }
-  }, 
-  computed: {
-    formatPoints(){
-      return formating.fixedZero(this.selectedClient.points)
-    },
-    formatedGetBonusWord(){
-      return formating.pointsGetBonusWord(this.selectedClient.points)
-    },
-    aa(){
-      return this.$store.state.selectedClient
+      ] as Array<tabs>
     }
   },
-  created: function(){
+  computed: {
+    formatPoints() {
+      return new Formating(this.selectedClient.points).fixedZero()
+    },
+    formatedGetBonusWord() {
+      return new Formating(this.selectedClient.points).pointsGetBonusWord()
+    },
+  },
+  created: function () {
     this.selectedClient = this.$store.state.selectedClient
-  }, 
-}
+  },
+})
 </script>

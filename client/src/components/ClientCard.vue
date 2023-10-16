@@ -37,26 +37,29 @@
      </article>
 </template>
 
-<script>
-import formating from '@/utils/formating'
+<script lang="ts">
+import Formating from '@/utils/formating'
 import PhoneMask from '@/utils/phoneMask'
 
-export default {
+import { defineComponent } from 'vue';
+import type { ClientInfo } from '@/interfaces';
+
+export default defineComponent({
      name: "ClientCard",
      props: {
-          cardInfo: {type: Object, required: false}
+          cardInfo: {type: Object as ()=> ClientInfo, required: true} 
      },
      methods: {
-          selectClient(clientInfo){
+          selectClient(clientInfo: ClientInfo): void{
                this.$store.commit('selectClient', clientInfo)
                this.$router.push({path: "profile"})
           },
-          deleteClientInfo(clientInfo){
+          deleteClientInfo(clientInfo: ClientInfo){
                // this.$store.commit('activeModalInfo', {text: 'Вы уверены, что данного клиента надо удалять?', type: 'confirm'})
                try {
                     this.$store.dispatch('deleteClient', clientInfo.id)
                } catch (error) {
-                    alert(error.message)
+                    alert('Ошибка. Информация о клиенте не была удалена')
                }
                // Не уверен в этом куске кода
                // let checkAnswer = setInterval(()=>{
@@ -72,15 +75,15 @@ export default {
           }
      },
      computed: {
-          pointsFixedZero(){
-               return formating.fixedZero(this.cardInfo.points)
+          pointsFixedZero(): number{
+               return new Formating(this.cardInfo.points).fixedZero()
           },
-          formatedGetBonusWord(){
-               return formating.pointsGetBonusWord(this.cardInfo.points)
+          formatedGetBonusWord(): string{
+               return new Formating(this.cardInfo.points).pointsGetBonusWord()
           },
-          usePhoneMask(){
+          usePhoneMask(): string{
                return new PhoneMask(this.cardInfo.phone_number).forView()
           }
      }
-}
+})
 </script>

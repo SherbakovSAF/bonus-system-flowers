@@ -39,19 +39,23 @@
      v-if="sliceTemplateSell.length < this.$store.state.selectedClient.purchaseHistory.length"
      type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
      max-sm:w-2/3">Показать ещё</button>
+     
 </div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+export default defineComponent({
      name: "HistoryPurchase",
      data(){
-          return{page: 1}
+          return{
+               page: 1 as number
+          }
      },
      computed:{
           sliceTemplateSell(){
                return this.$store.state.selectedClient.purchaseHistory.slice(0, this.page * 3)
           }
      }
-}
+})
 </script>

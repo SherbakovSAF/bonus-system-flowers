@@ -1,11 +1,11 @@
 <template>
      <article 
-     class="bg-card-bg w-1/2 rounded-r-full shadow-lg
-     max-lg:w-2/3 max-sm:w-full">
+          class="bg-card-bg w-1/2 rounded-r-full shadow-lg
+          max-lg:w-2/3 max-sm:w-full">
           <div class="flex justify-between items-center">
                <div class="text-main-color-text px-8 py-7">
                     <h2 class="text-xl">{{ selectedClient.name ? selectedClient.name : "Имя нового клиента" }}</h2>
-                    <h2 class="text-2xl">{{ selectedClient.number ? selectedClient.number : "Номер нового клиента"}}</h2>
+                    <h2 class="text-2xl">{{ selectedClient.phone_number ? selectedClient.phone_number : "Номер нового клиента"}}</h2>
                </div>
                <img 
                src="../assets/media/flower.png" alt="" 
@@ -18,7 +18,7 @@
                <main-input-UI v-model="selectedClient.name" type="text" :placeholder="placeholderName"/>
           </form>
           <form class="py-4 flex justify-center">
-               <main-input-UI v-model="selectedClient.number" type="tel" :placeholder="placeholderNumber" maxSize="16"/>
+               <main-input-UI v-model="selectedClient.phone_number" type="tel" :placeholder="placeholderNumber" maxSize="16"/>
           </form>
      </div>
      <button @click="selectedButtonFunc" type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
@@ -28,25 +28,26 @@
      
 </template>
 
-<script>
+<script lang="ts">
 import MainInputUI from '@/components/UI/MainInputUI.vue'
 import PhoneMask from '@/utils/phoneMask'
 
-export default {
+import { defineComponent } from 'vue'
+import { ClientInfo } from '@/interfaces'
+export default defineComponent({
      name: "EditClientInfo",
      components: {MainInputUI},
      data() {
           return {
-               placeholderName: "",
-               placeholderNumber: "",
-               clientName: "",
-               selectedClient: {},
-               textMainButton: "Отправить",
-               selectedButtonFunc: '',
+               placeholderName: "" as string,
+               placeholderNumber: "" as string,
+               clientName: "" as string,
+               selectedClient: {} as ClientInfo,
+               textMainButton: "Отправить" as string,
+               selectedButtonFunc: ()=>{},
           }
      },
      methods: {
-          // Добавление нового пользователя 
           validNumberInput(){
                if(this.formatNumber().length < 11){
                     this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере должно быть минимум 10'})
@@ -55,22 +56,22 @@ export default {
                return false
           },
           validForEmptyValue(){
-               if(!this.selectedClient.name || !this.selectedClient.number){
+               if(!this.selectedClient.name || !this.selectedClient.phone_number){
                     this.$store.commit('activeModalInfo', {text: 'Поля имени клиента или номера - пусты'})
                     return true
                }
                return false
           },
           formatNumber() {
-               if(this.selectedClient.number[0] == "+"){
-                    return "8" + this.selectedClient.number.slice(2, this.selectedClient.number.length)
+               if(this.selectedClient.phone_number[0] == "+"){
+                    return "8" + this.selectedClient.phone_number.slice(2, this.selectedClient.phone_number.length)
                }
 
-               if(this.selectedClient.number[0] == "8" && this.selectedClient.number.length <= 11){
-                    return this.selectedClient.number
+               if(this.selectedClient.phone_number[0] == "8" && this.selectedClient.phone_number.length <= 11){
+                    return this.selectedClient.phone_number
                }
 
-               return "8" + this.selectedClient.number
+               return "8" + this.selectedClient.phone_number
           },
           
           addNewClient(){
@@ -78,7 +79,7 @@ export default {
                if(this.validNumberInput())return
                
                const newClientCard = {
-                    number: new PhoneMask(this.selectedClient.number).forDateBase(),
+                    number: new PhoneMask(this.selectedClient.phone_number).forDateBase(),
                     name: this.selectedClient.name,
                }
                // if(this.checkRepeatClientInfo())return
@@ -89,13 +90,12 @@ export default {
                } catch (error) {
                     alert('У Вас ошибка')
                }
-          },
-          
+          },     
           editClientInfo(){
                if(this.validNumberInput())return
                if(this.validForEmptyValue())return
-               if(this.checkRepeatClientInfo())return
-               this.$store.commit('editClientInfo', {name: this.selectedClient.name, number: String(this.selectedClient.number)})
+               // if(this.checkRepeatClientInfo())return
+               this.$store.commit('editClientInfo', {name: this.selectedClient.name, number: String(this.selectedClient.phone_number)})
                this.$router.push("/")
           },
      },
@@ -104,7 +104,7 @@ export default {
      mounted() {
           switch (this.$route.params.typeInputInfo) {
                case "regNewClient":
-                    this.selectedClient.number = this.$store.state.newClientNumber
+                    this.selectedClient.phone_number = this.$store.state.newClientNumber
                     this.selectedClient.name = ""
                     this.placeholderName = 'Введите имя нового клиента',
                     this.placeholderNumber = 'Введите имя номер клиента',
@@ -121,10 +121,10 @@ export default {
                     break;
                default:
                     alert('Ошибка при переходе. Не найден подходящий шаблон для отрисовки')
-                    this.$router.push({ path: '/', query: { preventBack: true } });
+                    this.$router.push({ path: '/'});
           }
           
      },
 
-}
+})
 </script>
