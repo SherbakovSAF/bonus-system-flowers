@@ -3,5 +3,6 @@ export interface clientInfo{
      phone_number: string,
      name: string,
      points: number,
-     total_purchase: string
+     total_purchase: number,
+     reg_date: number
 }
