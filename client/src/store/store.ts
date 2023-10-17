@@ -1,10 +1,14 @@
 import { createStore } from "vuex";
 
+import type { ClientInfo } from "@/interfaces";
+import {ActionContext} from 'vuex'
+import type { StateType, RootState } from "./store-interface";
+
 export default createStore({
      state () {
        return {
           clientStorage: [],
-          selectedClient: {},
+          selectedClient: null,
           newClientNumber: "",
           modalInfo: {
                isActive: false,
@@ -32,7 +36,7 @@ export default createStore({
           },
           // Тоже самое
           clearSelectedClient(state){
-               state.selectedClient = {}
+               state.selectedClient = null
           },
           // async addNewClient(state, newClientInfo){
                
@@ -64,8 +68,8 @@ export default createStore({
 
                state.modalInfo.isActive = true
           },
-          deleteClientInfo(state, clientInfo){
-               state.clientStorage = state.clientStorage.filter(e => e != clientInfo)
+          deleteClientInfo(state, idClientDeleted){
+               state.clientStorage = state.clientStorage.filter((e:ClientInfo) => e.id != idClientDeleted)
           },
           selectedTypeModalInfo(state, callBackResult){
                state.modalInfo.callBack = callBackResult
@@ -88,7 +92,7 @@ export default createStore({
                     commit('setClientStorage', data)
                     if(!data.length) throw new Error('Данные не были найдены')
           },
-          async addClient(context, newClientCard){
+          async addClient(context: ActionContext<StateType, RootState>, newClientCard: ClientInfo){
                if(!newClientCard) throw new Error('Данные клиента не были переданы')
 
                try {
@@ -104,18 +108,25 @@ export default createStore({
                }
 
           },
-          async deleteClient(context, clientID){
+          async deleteClient(context: ActionContext<StateType, RootState>, clientID: number): Promise<void>{
                if(!clientID) throw new Error('ID клиента не получено')
                try {
-                    fetch('/api/deleteClient', {
+                    const response = await fetch('/api/deleteClient', {
                          method: 'DELETE',
                          headers: {
                               'Content-Type': 'application/json;charset=utf-8'
                          },
                          body: JSON.stringify(clientID)
                     })
+                    const result = await response.json()
+                    if(result.statusCode !== 200) {
+                         throw new Error('Пользователь не удалён') 
+                    } else {
+                         context.commit('deleteClientInfo', clientID);
+                    }
                } catch (error) {
-                     throw new Error('Пользователь не удалён')
+                    console.error('Ошибка запроса к серверу:', error);
+                    throw new Error('Пользователь не удалён. Ошибка запроса к серверу'); 
                }
           }
      }
