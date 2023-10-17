@@ -42,11 +42,10 @@ async function server(req, res) {
           case 'DELETE':
                req.on('end', async () => {
                     try {
-                         const resultQueryDB = await deleteClient(JSON.parse(body));
-                         res.end(JSON.stringify(resultQueryDB));
-                         
+                         const response = await deleteClient(JSON.parse(body));
+                         res.end(JSON.stringify({statusCode: 200,message: 'Пользователь удалён'}));
                     } catch (error) {
-                         res.end(JSON.stringify(error))
+                         res.end(JSON.stringify({statusCode: 500,message: 'Пользователь не удалён'}));
                     }
                })
                break

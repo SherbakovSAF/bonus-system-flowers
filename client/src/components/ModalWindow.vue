@@ -6,10 +6,10 @@
                          {{ alertMessage }}
                     </h1>
                     <div>
-                         <button @click="responseOkFunction" 
-                         class="font-semibold bg-card-bg px-12 py-3 rounded-full max-lg:text-sm cursor-pointer">Ок</button>
-                         <button v-if="this.$store.state.modalInfo.type == 'confirm'" @click="responseCancelFunction" 
-                         class="font-semibold bg-card-bg px-12 py-3 ml-6 rounded-full max-lg:text-sm cursor-pointer">Отмена</button>
+                         <button @click.stop="responseBtn(true)" 
+                              class="font-semibold bg-card-bg px-12 py-3 rounded-full max-lg:text-sm cursor-pointer">Ок</button>
+                         <button v-show="typeModal == 'confirm'" @click.stop="responseBtn(false)" 
+                              class="font-semibold bg-card-bg px-12 py-3 ml-6 rounded-full max-lg:text-sm cursor-pointer">Отмена</button>
                     </div>
                </div>
           </div>
@@ -20,23 +20,14 @@
 export default {
      name: "ModalInfo",
      props: {
-          alertMessage: {
-               type: String,
-               required: true,
-               default: function(){
-                    return "Ошибка приложения. Обратитесь к разработчику"
-               }
-          }
+          alertMessage: { type: String, required: true, default: 'Ошибка, обратитесь к разработчику'},
+          typeModal: {type: String, required: true, default: 'alert'}
      },
+     emits: ['responseModalWindow'],
      methods:{
-          responseCancelFunction() {
-               this.$store.commit("selectedTypeModalInfo", false)
-               this.$store.commit("closeModalInfo")
+          responseBtn(response) {
+               this.$emit('responseModalWindow', response)
           },
-          responseOkFunction() {
-               this.$store.commit("selectedTypeModalInfo", true)
-               this.$store.commit("closeModalInfo")
-          }
      }
 }
 </script>

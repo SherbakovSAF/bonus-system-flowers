@@ -32,13 +32,17 @@ function addClient(newClientInfo) {
 
 function deleteClient(clientID) {
   return new Promise((resolve, reject) => {
-    const connection = mysql.createConnection(configDB);
-    clientID
-    const query = `DELETE FROM clients WHERE id=${clientID}`;
-    connection.query(query, (error, result) => {
-      connection.end(); // Закрываем соединение
-      error ? reject(error) : resolve(result)
-    });
+    try {
+      const connection = mysql.createConnection(configDB);
+      const query = `DELETE FROM clients WHERE id= ?`
+      const params = [clientID]
+      connection.query(query, params, (error, result) => {
+        connection.end(); // Закрываем соединение
+        error ? reject(error) : resolve(result)
+      });
+    } catch (error) {
+      reject(error)
+    }
   });
 }
 
