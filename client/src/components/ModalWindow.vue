@@ -21,7 +21,7 @@ export default {
      name: "ModalInfo",
      props: {
           alertMessage: { type: String, required: true, default: 'Ошибка, обратитесь к разработчику'},
-          typeModal: {type: String, required: false, default: 'alert'}
+          typeModal: {type: String, required: true, default: 'alert'}
      },
      emits: ['responseModalWindow'],
      methods:{
