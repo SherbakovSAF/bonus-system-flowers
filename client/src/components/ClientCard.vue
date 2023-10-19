@@ -70,8 +70,7 @@ export default defineComponent({
                this.isModalActive = false
           },
           selectClient(): void{
-               this.$store.commit('selectClient', this.cardInfo.id)
-               console.log('Я сработал')
+               this.$store.commit('selectClient', this.cardInfo)
                this.$router.push({path: "profile"})
           },
           deleteClientInfo(){

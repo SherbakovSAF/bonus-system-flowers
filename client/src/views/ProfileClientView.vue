@@ -7,14 +7,14 @@
         <div class="text-main-color-text px-8 py-7">
           <div class="person__main__block">
             <p class="text-xl">{{ selectedClient.name }}</p>
-            <h2 class="text-2xl">{{ selectedClient.phone_number}}</h2>
+            <h2 class="text-2xl">{{ formatedNumber }}</h2>
           </div>
           <hr class="w-full h-1 border-main-green bg-main-green rounded-full">
           <div>
             <dl class="text-3xl align-middle flex items-center">
               <dt>{{ selectedClient.points }}</dt>
               &nbsp;
-              <dd class="text-xl align-middle">{{ formatedGetBonusWord }}</dd>
+              <dd class="text-xl align-middle">{{ formatedBonusWord }}</dd>
             </dl>
             <dl class="flex items-center text-3xl">
                 <dt>{{ selectedClient.total_purchase }}</dt>
@@ -25,8 +25,9 @@
                 </dd>  
             </dl>
           </div>
-          <router-link to="inputInfo/editClientInfo">
-            <button class="font-semibold w-1/2 mt-2 rounded-full border-2">Упр.</button>
+          <router-link :to="{path: 'InputInfo/editClientInfo?'}" 
+            class="font-semibold w-1/2 px-2 mt-2 rounded-full border-2">
+            Упр.
           </router-link>
         </div>
         <img src="../assets/media/flower.png" alt="Flowers" 
@@ -54,6 +55,7 @@ import HISTORY from '@/components/HistoryPurchase.vue'
 
 // Утилиты
 import Formating from '@/utils/formating'
+import PhoneMask from '@/utils/phoneMask'
 
 // Типизация
 import { defineComponent } from 'vue'
@@ -79,12 +81,16 @@ export default defineComponent({
     }
   },
   computed: {
-    formatPoints() {
+    formatedPoints() {
       return new Formating(this.selectedClient.points).fixedZero()
     },
-    formatedGetBonusWord() {
+    formatedBonusWord() {
       return new Formating(this.selectedClient.points).pointsGetBonusWord()
     },
+    formatedNumber(){
+      return new PhoneMask(this.selectedClient.phone_number).forView()
+    }
+
   },
   created: function () {
     this.selectedClient = this.$store.state.selectedClient
