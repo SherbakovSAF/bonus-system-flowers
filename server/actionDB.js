@@ -46,8 +46,30 @@ function deleteClient(clientID) {
   });
 }
 
+function updateClientInfo(clientInfo) {
+  return new Promise((resolve, reject) => {
+    try {
+      const connection = mysql.createConnection(configDB);
+      const query = `
+      UPDATE clients
+      SET phone_number= ?, name= ? 
+      WHERE id= ?;`
+      const {id, name, phone_number} = clientInfo
+      const params = [phone_number, name, id ]
+      connection.query(query, params, (error, result) => {
+        connection.end(); // Закрываем соединение
+        console.log(query, params)
+        error ? reject(error) : resolve(result)
+      });
+    } catch (error) {
+      reject(error)
+    }
+  });
+}
+
 module.exports = {
   getClients,
   addClient,
-  deleteClient
+  deleteClient,
+  updateClientInfo
 };

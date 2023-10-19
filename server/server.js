@@ -4,7 +4,7 @@ const url = require('url');
 const querystring = require('querystring');
 
 // Подключение модулей
-const {getClients, addClient, deleteClient} = require('./actionDB')
+const {getClients, addClient, deleteClient, updateClientInfo} = require('./actionDB')
 
 http.createServer(server).listen(3000)
 
@@ -46,6 +46,16 @@ async function server(req, res) {
                          res.end(JSON.stringify({statusCode: 200,message: 'Пользователь удалён'}));
                     } catch (error) {
                          res.end(JSON.stringify({statusCode: 500,message: 'Пользователь не удалён'}));
+                    }
+               })
+               break
+          case 'PUT':
+               req.on('end', async () => {
+                    try {
+                         const response = await updateClientInfo(JSON.parse(body));
+                         res.end(JSON.stringify({statusCode: 200,message: 'Пользователь обновлён'}));
+                    } catch (error) {
+                         res.end(JSON.stringify({statusCode: 500,message: 'Пользователь не обвнолён'}));
                     }
                })
                break

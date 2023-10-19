@@ -66,7 +66,17 @@ export default defineComponent({
                }
           },     
           editClientInfo(){
-               this.$store.commit('editClientInfo', {name: this.clientName, number: String(this.clientPhone)})
+               
+               try {
+                    const localClient = Object.assign(this.$store.state.selectedClient)
+                    localClient.name = this.clientName
+                    localClient.phone_number = new PhoneMask(this.clientPhone).forDateBase()
+                    this.$store.dispatch("updateClientInfo", localClient)
+                    this.$router.push('/')
+                    
+               } catch (error) {
+                    alert('У Вас ошибка')
+               }
                this.$router.push({ path: '/'});
           },
           setTemplateView(placeholderName:string, placeholderNumber:string, textBtn:string, typeFunction: ()=>void){
