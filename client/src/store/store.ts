@@ -31,11 +31,6 @@ export default createStore({
           deleteClientInfo(state, idClientDeleted){
                state.clientStorage = state.clientStorage.filter((e:ClientInfo) => e.id != idClientDeleted)
           },
-          // editClientInfo(state, clientInfo){
-          //      const indexEditClient = state.clientStorage.findIndex(e => e == state.selectedClient)
-          //      state.clientStorage[indexEditClient].number = clientInfo.number
-          //      state.clientStorage[indexEditClient].name = clientInfo.name
-          // },
           setClientStorage(state, data){
                state.clientStorage = data
           }
@@ -82,8 +77,26 @@ export default createStore({
                          context.commit('deleteClientInfo', clientID);
                     }
                } catch (error) {
-                    console.error('Ошибка запроса к серверу:', error);
                     throw new Error('Пользователь не удалён. Ошибка запроса к серверу'); 
+               }
+          },
+          async updateClientInfo(context: ActionContext<StateType, RootState>, updatedInfo): Promise<void>{
+               if(!updatedInfo) throw new Error('Информация о клиенте неверная')
+               try {
+                    const response = await fetch('/api/updateClient', {
+                         method: 'PUT',
+                         headers: {
+                              'Content-Type': 'application/json;charset=utf-8'
+                         },
+                         body: JSON.stringify(updatedInfo)
+                    })
+                    const result = await response.json()
+                    console.log(result)
+                    if(result.statusCode !== 200) {
+                         throw new Error('Информация не обновлена') 
+                    }
+               } catch (error) {
+                    throw new Error('Пользователь не обновлён. Ошибка запроса к серверу'); 
                }
           }
      }
