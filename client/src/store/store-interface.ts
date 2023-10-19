@@ -2,14 +2,7 @@ import type { ClientInfo } from "@/interfaces";
 
 export interface StateType {
   clientStorage: ClientInfo[];
-  selectedClient: ClientInfo | null;
-  newClientNumber: string;
-  modalInfo: {
-    isActive: boolean;
-    text: string;
-    type: string;
-    callBack: (() => void) | null;
-  };
+  selectedClient: ClientInfo | {};
 }
 
 export interface RootState extends StateType {

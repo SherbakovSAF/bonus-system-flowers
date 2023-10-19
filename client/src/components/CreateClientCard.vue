@@ -19,7 +19,6 @@
      </article>
 </template>
 
-
 <script lang="ts">
 import { defineComponent } from 'vue';
 export default defineComponent( {
@@ -29,9 +28,9 @@ export default defineComponent( {
      },
      methods: {
           saveEnterNumber():void{
-               this.$store.commit('saveEnterNumber', this.newClientNumber)
+               this.$store.commit('selectClient', this.newClientNumber)
                this.$router.push({path: 'inputInfo/regNewClient'})
           },
      }
 })
-</script>
+</script>К
