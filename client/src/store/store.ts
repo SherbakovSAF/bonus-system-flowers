@@ -37,12 +37,15 @@ export default createStore({
           
      },
      actions: {
-          // Запихнуть это в мутации и обновлять компонент mapState или другим функционалом
           async getClientStorageFromDB({ commit }, number){
-                    const respone = await fetch(`/api/clientState?number=${number}`);
-                    const data = await respone.json();
-                    commit('setClientStorage', data)
-                    if(!data.length) throw new Error('Данные не были найдены')
+                    try {
+                         const respone = await fetch(`/api/clientState?number=${number}`);
+                         const data = await respone.json();
+                         commit('setClientStorage', data)
+                    } catch (error) {
+                         throw new Error('Данные не были найдены')
+                    }
+                    
           },
           async addClient(context: ActionContext<StateType, RootState>, newClientCard: ClientInfo){
                if(!newClientCard) throw new Error('Данные клиента не были переданы')
