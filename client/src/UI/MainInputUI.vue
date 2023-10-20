@@ -3,7 +3,7 @@
                max-lg:w-1/2
                max-sm:w-[90%]">
           <img src="@/assets/media/bouquetInput.svg" alt="ClientNumberInput" class="mr-3">
-          <input class="outline-0 w-full font-medium text-[#686767] text-xl" 
+          <input class="outline-0 w-full font-medium text-[#686767]" 
                :maxlength="maxSize" :type="type" 
                :placeholder="placeholder"
                :value="modelValue"

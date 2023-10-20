@@ -35,17 +35,16 @@
               max-[500px]:absolute left-full -translate-x-full">
       </article>
     </div>
-
-    <div class="flex justify-around py-6">
-      <button v-for="btn in tabs" :key="btn.id" :class="{'bg-main-green': currentComponent === btn.component}" @click="currentComponent = btn.component"
-        class="py-2 px-20 flex relative cursor-pointer text-white text-xl font-semibold rounded-full border-4 border-main-green
-        max-md:px-15
-        max-sm:px-10">
-        {{ btn.title }}
-      </button>
-    </div>
-    <component :is="currentComponent" />
-    
+  
+      <div class="flex justify-around py-6">
+        <button v-for="btn in tabs" :key="btn.id" :class="{ 'bg-main-green': currentComponent === btn.component }" @click="currentComponent = btn.component"
+          class="py-2 px-20 flex relative cursor-pointer text-white text-xl font-semibold rounded-full border-4 border-main-green
+          max-md:px-15
+          max-sm:px-10">
+          {{ btn.title }}
+        </button>
+      </div>
+      <component :is="currentComponent" />
   </main>
   <modal-window v-if="isModal" 
   alertMessage="Выбранный клиент не найден. Обратитесь к разработчику" 

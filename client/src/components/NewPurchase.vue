@@ -1,82 +1,62 @@
 <template>
-     <form class="py-3">
-          <div class="w-1/3 bg-white rounded-full flex py-3 px-4
-                                             max-lg:m-auto max-lg:w-2/3
-                                             ">
-               <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-               <input class="outline-0 w-full font-medium text-[#686767] text-1xl max-sm:text-sm" maxlength="14" type="tel"
-                    placeholder="Введите сумму покупки" v-model="sumPurchase">
-          </div>
-     </form>
-     <div class="flex justify-around">
-          <label class="flex py-3 cursor-pointer">
-               <input v-model="typeOperationPoint" type="radio" name="bonusAction" value="PLUS"
-                    class="peer/bonusAction hidden">
-               <div
-                    class="w-6 h-6 rounded-full box-border border-main-green border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-main-green">
+     <form class="flex flex-col gap-y-7">
+          <MainInputUI v-model="sumPurchase" placeholder="Введите сумму покупки" type="tel" maxSize="10"/>
+               <div class="flex justify-around">     
+                    <label v-for="option in options" :key="option.id" class="flex cursor-pointer" >
+                         <input v-model="typeOperationPoint" type="radio" name="bonusAction" :value="option.value"
+                              class="peer/bonusAction hidden">
+                         <div class="w-6 h-6 rounded-full box-border border-main-green border-[6px] bg-transparent mr-1"
+                         :class="{ 'peer-checked/bonusAction:bg-main-green': typeOperationPoint === option.value }"></div>
+                         <h3 class="text-lg text-main-green">{{ option.label }}</h3>
+                    </label>
                </div>
-               <h3 class="text-lg text-main-green">Начислить</h3>
-          </label>
-          <label class="flex py-3 cursor-pointer">
-               <input v-model="typeOperationPoint" type="radio" name="bonusAction" value="SUB"
-                    class="peer/bonusAction hidden">
-               <div class="w-6 h-6 rounded-full box-border border-main-green border-[6px] bg-transparent mr-1 peer-checked/bonusAction:bg-main-green"></div>
-               <h3 class="text-lg text-main-green">Списать</h3>
-          </label>
-     </div>
-     <form class="py-4" v-if="typeOperationPoint == 'SUB'">
-          <div>
-               <div class="bg-white rounded-full flex py-3 px-4 w-1/3 
-                    max-lg:m-auto max-lg:w-2/3 ">
-                    <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-                    <input class="outline-0 w-full font-medium text-[#686767] text-1xl
-                                             max-sm:text-sm" maxlength="14" type="tel"
-                         placeholder="Сколько бонусов списать?" v-model="subBonus">
+               <div v-if="typeOperationPoint == 'SUB'">
+                    <MainInputUI v-model="subBonus" placeholder="Сколько бонусов списать?" type="tel" maxSize="10"/>
+                    <h2 class="font-medium text-main-color-text w-1/3 text-end max-lg:m-auto max-lg:w-2/3 max-lg:text-sm max-sm:text-center">
+                         {{ formatingHintForSeller }}
+                    </h2>
                </div>
-               <h2 class="font-medium text-main-color-text w-1/3 text-end max-lg:m-auto max-lg:w-2/3 max-lg:text-sm max-sm:text-center">
-                    {{ formatingHintForSeller }}
-               </h2>
-          </div>
-
-     </form>
-     <form class="py-4">
+          <MainInputUI v-model="listPurchase" placeholder="Что купил клиент? (необязательно)" type="text" maxSize="50"/>
           <div class="w-1/3 bg-white rounded-full flex py-3 px-4
-                    max-lg:m-auto max-lg:w-2/3">
-               <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
-               <input class="outline-0 w-full font-medium text-[#686767] text-1xl
-                                             max-sm:text-sm" maxlength="14" type="tel"
-                    placeholder="Что купил клиент? (необязательно)" v-model="listPurchase">
-          </div>
-     </form>
-     <form class="py-4">
-          <div class="w-1/3 bg-white rounded-full flex py-3 px-4
-                                        max-lg:m-auto max-lg:w-2/3
-                                        ">
-               <img src="../assets/media/bouquetInput.svg" alt="" class="mr-3">
+          max-lg:m-auto max-lg:w-2/3">
+               <img src="@/assets/media/bouquetInput.svg" alt="logo" class="mr-3">
                <select class="outline-0 w-full font-medium text-[#686767] text-1xl" v-model="salesman">
-                    <option class="text-[#686767] text-lg opacity-10" disabled value="">Кто продал</option>
+                    <!-- value="" в первом option надо чтобы он был как selected, иначе поле будет пустое -->
+                    <option class="text-[#686767] text-lg" value="" disabled>Кто продал</option>
                     <option class="text-[#686767] text-lg">Надя</option>
                     <option class="text-[#686767] text-lg">Вика</option>
                </select>
           </div>
+          <button :disabled="typeOperationPoint == 'SUB' && getSubBonus < 0" @click="addingNewPurchase" type="submit"
+          class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
+          max-sm:w-2/3">
+               Отправить
+          </button>
      </form>
-     <button :disabled="typeOperationPoint == 'SUB' && getSubBonus < 0" @click="addingNewPurchase"
-          type="submit" class="bg-main-green text-white text-base font-semibold mt-6 rounded-full py-4 w-1/3 block m-auto
-                                   max-sm:w-2/3">Отправить</button>
 </template>
+
 <script lang="ts">
+// Компоненты
+import MainInputUI from '@/UI/MainInputUI.vue';
+
+// Типизация
 import { defineComponent } from 'vue';
 import { NewPurchase } from '@/interfaces';
 
 export default defineComponent ({
      name: 'NewPurchase',
+     components: {MainInputUI},
      data() {
           return {
                sumPurchase: null,
-               typeOperationPoint: 'PLUS', // or "PLUS"
                subBonus: null,
                listPurchase: "",
                salesman: "",
+               typeOperationPoint: 'SUB', // or "SUB"
+               options: [
+                    { id: 0, label: 'Начислить', value: 'PLUS' },
+                    { id: 1, label: 'Списать', value: 'SUB' }
+               ]
           }
      },
      computed: {
@@ -85,9 +65,7 @@ export default defineComponent ({
 
                if (this.getSubBonus < 0) return "Количество бонусов должно быть больше 0"
 
-
                if (this.$store.state.selectedClient.points < this.getSubBonus) return "У клиента нет столько бонусов"
-
 
                if (this.getSumPurchase > 0 && !isNaN(this.getSumPurchase - this.getSubBonus)) {
                     return `Клиент должен заплатить Вам ${this.getSumPurchase - this.getSubBonus}₽`
@@ -106,34 +84,9 @@ export default defineComponent ({
           }
      },
      methods: {
-          // validForm() {
-          //      // Проверка на обязательные поля В ЛЮБОМ СЛУЧАЕ
-          //      if (this.addNewPurchase.salesman == "" || +this.addNewPurchase.sum <= 0) {
-          //           this.$store.commit('activeModalInfo', {text:'Введена некорректная сумма или не выбран продавец'})
-          //           return false
-          //      }
-          //      // Проверка на обязательные поля В СЛУЧАЕ СПИСАНИЯ
-          //      if (this.addNewPurchase.typeBonus == "SUB" && +this.addNewPurchase.subBonus <= 0) {
-          //           this.$store.commit('activeModalInfo', {text: 'Введите сумму для списания'})
-          //           return false
-          //      }
-          //      if (this.addNewPurchase.sumPurchase <= 0 || isNaN(+this.addNewPurchase.sumPurchase)) {
-          //           this.$store.commit('activeModalInfo', {text: 'Сумма покупки некорректна'})
-          //           this.addNewPurchase.sumPurchase = ""
-          //           return false
-          //      }
-          //      return true
-          // },
           addingNewPurchase() {
-               // Проверка на срабатывания функции валидации. Если валидация не выполнена, тогда функция дополнения выполняться не будет
-               // if (!this.validForm()) {
-               //      return
-               // }
-
                const date = Date.now()
-
                const newPurchaseTemplate: NewPurchase = {
-                    
                     sumPurchase: this.getSumPurchase,
                     typeOperationPoint: this.typeOperationPoint, // or "PLUS"
                     subBonus: this.getSubBonus,
@@ -153,8 +106,5 @@ export default defineComponent ({
                this.$router.push({ path: "/" })
           }
      },
-     // created(){
-     //      console.log(this.$store.state.selectedClient)
-     // },
 })
 </script>
