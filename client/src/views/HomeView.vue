@@ -8,8 +8,9 @@
                     </div>
                     <create-client-card v-else :newClientNumber="numberInput"/>
                </div>
-               <form class="flex justify-center mt-5 ">
+               <form class="flex flex-col items-center justify-center mt-5">
                     <main-input-UI v-model="numberInput" type="tel" maxSize="16"/>
+                    <p class="font-medium text-main-color-text">{{ hint }}</p>
                </form>
           </div>
 </template>
@@ -28,6 +29,7 @@ import PhoneMask from '@/utils/phoneMask';
 // Типизиация
 import { defineComponent } from 'vue';
 import type { ClientInfo } from '@/interfaces'
+import { mapState } from 'vuex';
 
 export default defineComponent({
      name: "HomeView",
@@ -38,20 +40,22 @@ export default defineComponent({
                isLoader: true as boolean,
                isClientsFound: false as boolean,
                timer: null as ReturnType<typeof setTimeout> | null,
+               hint: '' as string,
           }
      },
      methods: {
           delayedStart() {
-               if(this.numberInput.length < 8) return
                if (this.timer) clearTimeout(this.timer);
                this.timer = setTimeout(this.executeRequest, 1000);
           },
-          async executeRequest(): Promise<void> {
+          async executeRequest() {
                try {
                     this.isLoader = true
+                    this.hint = 'Происходит запрос'
                     await this.$store.dispatch('getClientStorageFromDB', this.useMaskPhone)
+                    this.hint = `Запрос выполнен`
                } catch (error) {
-                    alert('Получение клиентов не удалось')
+                    this.hint = 'Ошибка запроса'
                } finally {
                     this.isLoader = false
                }
@@ -59,15 +63,17 @@ export default defineComponent({
      },
      computed: {
           filterClientNumber(): Array<ClientInfo> {
-               return this.$store.state.clientStorage.filter((e: ClientInfo) => e.phone_number.startsWith(this.useMaskPhone))
+               return this.clientStorage.filter((e: ClientInfo) => e.phone_number.startsWith(this.useMaskPhone))
           },
           useMaskPhone(): string {
                return new PhoneMask(this.numberInput).forDateBase()
           },
+          ...mapState(['clientStorage'])
      },
      watch: {
           numberInput() {
-               this.delayedStart()
+               // Поменять < на >. Чтобы запрос делался с 8 символов. Было изменено для разработки
+               if(this.numberInput.length < 8) this.delayedStart()
           }
      }
 }
