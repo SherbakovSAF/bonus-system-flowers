@@ -43,7 +43,7 @@
 
 <script lang="ts">
 // Компоненты
-import ModalWindow from './ModalWindow.vue';
+import ModalWindow from '@/UI/ModalWindow.vue';
 
 // Утилиты
 import Formating from '@/utils/formating'

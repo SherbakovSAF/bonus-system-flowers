@@ -19,8 +19,8 @@
 // Компоненты проекта
 import ClientCard from '@/components/ClientCard.vue'
 import CreateClientCard from '@/components/CreateClientCard.vue'
-import MainLoaderUI from '@/components/UI/MainLoaderUI.vue'
-import MainInputUI from '@/components/UI/MainInputUI.vue'
+import MainLoaderUI from '@/UI/MainLoaderUI.vue'
+import MainInputUI from '@/UI/MainInputUI.vue'
 
 // Утилиты
 import PhoneMask from '@/utils/phoneMask';

@@ -30,7 +30,7 @@
 
 <script lang="ts">
 // Компоненты
-import MainInputUI from '@/components/UI/MainInputUI.vue'
+import MainInputUI from '@/UI/MainInputUI.vue'
 
 // Утилиты
 import PhoneMask from '@/utils/phoneMask'
