@@ -15,7 +15,6 @@ export default createStore({
           // Сделать через emit
           selectClient(state, selectClient) {
                state.selectedClient = selectClient
-               console.log(state.selectedClient)
           },
           // addNewPurchaseClient(state, newPurchase){
           //      const indexArrToAddPurchase = state.clientStorage.findIndex(e=> e.number === state.selectedClient.number)
@@ -94,7 +93,6 @@ export default createStore({
                          body: JSON.stringify(updatedInfo)
                     })
                     const result = await response.json()
-                    console.log(result)
                     if(result.statusCode !== 200) {
                          throw new Error('Информация не обновлена') 
                     }

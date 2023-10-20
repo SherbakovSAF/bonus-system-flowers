@@ -45,13 +45,19 @@
       </button>
     </div>
     <component :is="currentComponent" />
+    
   </main>
+  <modal-window v-if="isModal" 
+  alertMessage="Выбранный клиент не найден. Обратитесь к разработчику" 
+  typeModal="alert"
+  @responseModalWindow="closeModal"/>
 </template>
 
 <script lang="ts">
 // Компоненты
 import NEW from '@/components/NewPurchase.vue'
 import HISTORY from '@/components/HistoryPurchase.vue'
+import ModalWindow from '@/UI/ModalWindow.vue'
 
 // Утилиты
 import Formating from '@/utils/formating'
@@ -69,7 +75,7 @@ interface tabs {
 
 export default defineComponent({
   name: "ProfileClientView",
-  components: { NEW, HISTORY },
+  components: { NEW, HISTORY, ModalWindow },
   data() {
     return {
       selectedClient: {} as ClientInfo,
@@ -77,7 +83,8 @@ export default defineComponent({
       tabs: [
         { id: 0, component: 'NEW', title: 'Новая покупка' },
         // { id: 1, component: 'HISTORY', title: 'История покупок' }, // Массив с продажами ещё не доходит. Он просто не приходит с БД, так как там ForEach
-      ] as Array<tabs>
+      ] as Array<tabs>,
+      isModal: false as boolean,
     }
   },
   computed: {
@@ -90,10 +97,16 @@ export default defineComponent({
     formatedNumber(){
       return new PhoneMask(this.selectedClient.phone_number).forView()
     }
-
+  },
+  methods: {
+    closeModal(){
+      this.isModal = false
+      this.$router.push({path: '/'})
+    }
   },
   created: function () {
-    this.selectedClient = this.$store.state.selectedClient
+    const selectedClientStore = this.$store.state.selectedClient
+    selectedClientStore  ? this.selectedClient = selectedClientStore : this.isModal = true    
   },
 })
 </script>
