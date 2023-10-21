@@ -44,7 +44,7 @@
           {{ btn.title }}
         </button>
       </div>
-      <component :is="currentComponent" />
+      <component :is="currentComponent" :clientPoints="selectedClient.points"/>
   </main>
   <modal-window v-if="isModal" 
   alertMessage="Выбранный клиент не найден. Обратитесь к разработчику" 

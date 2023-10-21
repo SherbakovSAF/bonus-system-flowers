@@ -1,22 +1,15 @@
-// checkRepeatClientInfo(){
-          //      if(this.$store.state.clientStorage.find(e => e.number == this.selectedClient.number) != undefined){
-          //           this.$store.commit('activeModalInfo', {text: `Номер ${this.selectedClient.number} уже есть в базе. Проверьте правильность написания`})
-          //           return true
-          //      }
-          //      return false
-          // },
+export default class Validate {
+     value:string
+     constructor(value: string){
+          this.value = value
+     }
 
-          // if(this.selectedClient.number[0] == "+" && this.selectedClient.number.length < 12 ){
-               //      this.$store.commit('activeModalInfo', {text: 'Количество цифр, при использовании кода +7 в номере, должно быть минимум 12'})
-               //      return true
-               // }
+     isEmpty():boolean{
+          return this.value.length <= 0
+     }
 
-               // if(this.selectedClient.number[0] == "8" && this.selectedClient.number.length < 11 ){
-               //      this.$store.commit('activeModalInfo', {text: 'Количество цифр, при использовании кода 8 в номере, должно быть минимум 11'})
-               //      return true
-               // }
+     isNegativeValues():boolean{
+          return Number(this.value) < 0
+     }
 
-               // if(this.formatNumber().length > 12){
-               //      this.$store.commit('activeModalInfo', {text: 'Количество цифр в номере больше положенного'})
-               //      return true
-               // }
+}
